@@ -486,7 +486,7 @@ def _render_post_html(
 <link rel='canonical' href='{canonical}'>
 {preload_hero}
 {fonts}
-<link rel='stylesheet' href='/assets/style.css'>
+<link rel='stylesheet' href='assets/style.css'>
 <meta property='og:locale' content='en_US'>
 <meta property='og:type' content='article'>
 <meta property='og:site_name' content='{escape(site_title)}'>
