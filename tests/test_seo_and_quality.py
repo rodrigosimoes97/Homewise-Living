@@ -42,7 +42,7 @@ class TestSEOAndQuality(unittest.TestCase):
                 f"Sitemap NUNCA deve conter URLs terminadas em .html: {url_str}",
             )
             self.assertTrue(
-                url_str.startswith("https://health-ptg.pages.dev"),
+                url_str.startswith("https://homewise-living.pages.dev"),
                 f"URL fora do domínio canônico: {url_str}",
             )
 
@@ -54,7 +54,7 @@ class TestSEOAndQuality(unittest.TestCase):
 
         for loc in locs:
             url_str = str(loc.text).strip()
-            rel = url_str.replace("https://health-ptg.pages.dev", "").strip("/")
+            rel = url_str.replace("https://homewise-living.pages.dev", "").strip("/")
 
             if rel == "":
                 target_file = self.docs_dir / "index.html"
@@ -97,7 +97,7 @@ class TestSEOAndQuality(unittest.TestCase):
 
         self.assertIn("User-agent: *", content)
         self.assertIn("Allow: /", content)
-        self.assertIn("Sitemap: https://health-ptg.pages.dev/sitemap.xml", content)
+        self.assertIn("Sitemap: https://homewise-living.pages.dev/sitemap.xml", content)
         self.assertNotIn("Disallow: /", [line.strip() for line in content.splitlines()])
 
     def test_7_metadata_uniqueness_no_duplicates(self) -> None:

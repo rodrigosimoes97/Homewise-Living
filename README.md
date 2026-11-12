@@ -1,294 +1,186 @@
-# Health PTG — Production Health Content & SEO Engine
+# Homewise Living — Editorial Home & Lifestyle Platform
 
-Sistema automatizado de ponta a ponta para pesquisa, geração com IA, curadoria editorial científica, publicação estática (Cloudflare Pages) e automação de tráfego no Pinterest voltado para o público dos Estados Unidos.
+Plataforma editorial e guia de compras de afiliados voltada para o mercado dos Estados Unidos, focada em organização da casa, decoração de interiores, itens essenciais de cozinha, jardinagem, home office, casa inteligente e convivência com pets.
+
+O projeto combina a estética de uma revista de lifestyle americana de alto padrão (*Modern Organic Living*) com um sistema automatizado de ponta a ponta para geração de conteúdo, publicação estática ultra-rápida no **Cloudflare Pages** (`https://homewise-living.pages.dev`) e automação de tráfego no Pinterest.
 
 ---
 
 ## 📌 Sumário
-- [Visão Geral](#-visão-geral)
-- [O Que Foi Desenvolvido e Melhorias Recentes](#-o-que-foi-desenvolvido-e-melhorias-recentes)
-- [Arquitetura e Fluxo do Pipeline (Início ao Fim)](#-arquitetura-e-fluxo-do-pipeline-início-ao-fim)
-- [Configurações e Variáveis de Ambiente](#-configurações-e-variáveis-de-ambiente)
+- [Visão Geral e Posicionamento](#-visão-geral-e-posicionamento)
+- [Identidade Visual e Design System](#-identidade-visual-e-design-system)
+- [Arquitetura do Pipeline](#-arquitetura-do-pipeline)
+- [Categorias e Editorias](#-categorias-e-editorias)
+- [Sistema de Afiliados e Monetização](#-sistema-de-afiliados-e-monetização)
+- [Automação de Tráfego no Pinterest](#-automação-de-tráfego-no-pinterest)
+- [Configuração e Variáveis de Ambiente](#-configuração-e-variáveis-de-ambiente)
 - [Estrutura do Repositório](#-estrutura-do-repositório)
-- [Como Executar Localmente](#-como-executar-localmente)
-- [Testes Automatizados e Validação](#-testes-automatizados-e-validação)
-- [Deploy e Hospedagem (Cloudflare Pages)](#-deploy-e-hospedagem-cloudflare-pages)
+- [Execução Local e Testes](#-execução-local-e-testes)
+- [Deploy e Hospedagem](#-deploy-e-hospedagem)
 
 ---
 
-## 🔬 Visão Geral
+## 🏡 Visão Geral e Posicionamento
 
-O **Health PTG** (*Practical US Health Notes*) é uma plataforma de conteúdo de saúde baseada em evidências científicas que roda 100% de forma automatizada via **GitHub Actions**, servindo páginas estáticas ultra-rápidas no **Cloudflare Pages** (`https://health-ptg.pages.dev`).
+O **Homewise Living** (*"Smart Ideas for a Better Home."*) é um destino prático, inspirador e confiável para pessoas que desejam transformar e otimizar suas casas através de soluções inteligentes, produtos úteis e ideias acessíveis de organização e design.
 
-### Principais Pilares:
-1. **Inteligência Artificial & Curadoria**: Geração via Google Gemini (`gemini-2.0-flash` / `gemini-3.6-flash`) com failover automático entre múltiplas chaves de API.
-2. **Qualidade Científica & E-E-A-T**: Foco estrito em diretrizes de saúde do Google (YMYL), priorizando fontes institucionais e acadêmicas (NIH, CDC, FDA, periódicos revisados por pares).
-3. **SEO Técnico Avançado**: URLs canônicas limpas (sem `.html`), Sitemap XML automatizado, Schema.org estruturado (`Article`, `BreadcrumbList`, `FAQPage`, `Recipe`, `WebSite`), meta tags Open Graph e Twitter Cards.
-4. **Pinterest Traffic Automation**: Criação de imagens verticais de alta conversão (1000x1500) com overlay tipográfico, pacotes de rascunhos em CSV/JSON prontos para *Pinterest Bulk Upload* com links rastreados via UTMs e agendamento nos horários nobres dos EUA (ET).
-5. **Indexação Orgânica & IndexNow**: Atualização contínua do sitemap XML canônico e notificação instantânea via protocolo IndexNow e ping nos motores de busca (em conformidade com as diretrizes do Google para blogs).
-
----
-
-## 🚀 O Que Foi Desenvolvido e Melhorias Recentes
-
-### 1. Infraestrutura SEO e Canonicidade
-- **Eliminação de Conflito Crítico em `_headers`**: Removida a diretiva global `Link: <.../:splat.html>; rel="canonical"` que criava loops e conflitos de indexação no Google. Implementados headers de segurança (`X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`).
-- **Padronização de URLs Públicas sem `.html`**:
-  - Home: `https://health-ptg.pages.dev/`
-  - Artigos: `https://health-ptg.pages.dev/{slug}`
-  - Categorias/Hubs: `https://health-ptg.pages.dev/tag/{tag}`
-  - Sobre: `https://health-ptg.pages.dev/about`
-  - Mantidos todos os arquivos físicos (`docs/{slug}.html`) intactos, com o Cloudflare Pages respondendo HTTP 200 direto através de *Clean URLs*.
-- **Sitemap XML Reestruturado**: Nenhuma URL no `sitemap.xml` possui extensão `.html`. Todas as URLs listadas possuem arquivo físico correspondente e status 200.
-- **Página 404 Otimizada**: Adicionada tag `<meta name="robots" content="noindex, follow">`, layout harmonizado com a marca e link limpo para a raiz `/`.
-
-### 2. Qualidade Editorial, Rigor Científico e Conteúdo Útil (E-E-A-T)
-- **Remoção de Personas Fictícias**: Eliminadas do prompt instruções que fabricavam relatos em 1ª pessoa ("*when I was diagnosed*", "*my personal struggle*").
-- **Fontes Científicas Confiáveis e Links Diretos para Visualização**: Todo artigo cita fontes de alta autoridade e inclui links diretos e clicáveis (`<a href="..." target="_blank">`) apontando para as páginas dos estudos ou relatórios em bases consolidadas:
-  - **PubMed (National Library of Medicine)**: Ensaios clínicos e literatura biomédica indexada.
-  - **Europe PMC**: Artigos de acesso aberto e pesquisas biomédicas europeias/globais.
-  - **Cochrane Library**: Revisões sistemáticas e ensaios clínicos controlados de padrão ouro.
-  - Instituições públicas e periódicos de referência: NIH, CDC, WHO, FDA, The Lancet, NEJM, JAMA, BMJ.
-- **Conteúdo Genuinamente Útil e Acionável**: Foco em protocolos diários práticos (dosagens seguras de alimentos, horários de ingestão, rotinas de sono e hábitos) para que o leitor consiga aplicar a ciência na vida cotidiana sem platitudes vagas.
-- **Enriquecimento Científico Automático (`ensure_scientific_links`)**: Caso a IA gere citações em formato de texto sem hiperlink, o motor automaticamente analisa as referências e injeta links canônicos de visualização no PubMed, Europe PMC e Cochrane Library.
-- **Proibição de Falsas Promessas**: Bloqueio de qualquer promessa de cura milagrosa, diagnósticos caseiros ou recomendações terapêuticas sem embasamento.
-- **Motor de Validação Editorial (`validate_article_quality`)**: Analisador estático que valida contagem de palavras (mínimo de 480 palavras), variedade lexical (TTR >= 0.35 para evitar repetições de IA), presença comprovada de termos científicos, presença obrigatória de orientações práticas/acionáveis e links diretos para os estudos científicos antes de autorizar a publicação.
-- **Transparência Institucional**: Bloco visual e semântico `editorial-notice` em cada artigo e atualização da página `about.html`.
-
-### 3. Automação Pinterest & Geração de 3 Pins por Post
-- **Garantia de Publicação Diária**: Sistema resiliente com até 6 tentativas por execução para assegurar que pelo menos 1 post completo seja publicado no dia (`POSTS_PER_DAY=1`), mesmo perante eventuais rejeições de similaridade semântica.
-- **Estratégia de 3 Pins Diferenciados por Artigo**: De cada post publicado, são gerados automaticamente 3 Pins distintos para maximizar alcance e engajamento no Pinterest:
-  1. **Pin Educacional (`educational`)**: Focado no mecanismo biológico, no funcionamento do corpo e guia passo a passo da evidência científica (agendado para o slot das 10:00 AM ET).
-  2. **Pin Problema / Solução (`problem_solution`)**: Focado em frustrações, erros comuns a evitar, mitos e soluções práticas (agendado para o slot das 15:30 PM ET).
-  3. **Pin de Pesquisas e Palavras-chave (`seo_search`)**: Focado nas buscas de alto volume do Pinterest US, listas e checklists com alta intenção de salvamento (agendado para o horário nobre das 20:30 PM ET).
-- **Imagens e Rastreamento Individuais**:
-  - Três imagens verticais PNG (1000×1500) com overlays de texto dedicados a cada ângulo (`_educational.png`, `_problem_solution.png`, `_seo_search.png`).
-  - URLs com parâmetros UTM exclusivos:
-    `?utm_source=pinterest&utm_medium=organic_social&utm_campaign={slug}&utm_content={pin_educational|pin_problem_solution|pin_seo_search}`.
-  - Registro estruturado no `generated/pinterest/YYYY-MM-DD_pins.csv` no padrão exato do Pinterest Bulk Upload.
-- **Pastas Nichadas (US Boards)**: Mapeamento determinístico de tags para pastas focadas no Pinterest (ex: `Better Sleep & Rest`, `Gut Health & Digestion`, `Healthy Recipes & Meal Prep`).
+### Pilares da Plataforma:
+1. **Identidade Visual Premium (Modern Organic Living)**: Tipografia editorial clássica aliada a uma paleta natural e acolhedora centrada no verde *Forest Green*, *Warm Ivory*, *Soft Beige* e toques de *Terracotta*.
+2. **Arquitetura Estática de Alta Performance**: Hospedado no Cloudflare Pages através de *Clean URLs* sem dependência de banco de dados ou CMS pesado, garantindo notas máximas no Google Core Web Vitals.
+3. **SEO Técnico Avançado**: URLs limpas sem extensão `.html`, Sitemap XML automatizado, Schema.org completo (`Article`, `BreadcrumbList`, `FAQPage`, `WebSite`, `Organization`), Open Graph e Twitter Cards.
+4. **Sistema de Monetização e Afiliados Ético**: Componentes estilizados para recomendação de produtos, tabelas comparativas e caixas de prós/contras, com suporte a links patrocinados (`rel="sponsored nofollow"`) e avisos transparentes de afiliação.
+5. **Automação de Tráfego no Pinterest**: Criação de múltiplos Pins verticais em alta resolução (1000×1500) com overlay tipográfico e pacotes de rascunhos em CSV/JSON para o Pinterest Bulk Upload com parâmetros UTM.
 
 ---
 
-## 🔄 Arquitetura e Fluxo do Pipeline (Início ao Fim)
+## 🎨 Identidade Visual e Design System
 
-O fluxo principal é executado via `python -m src.app.run_daily` (localmente ou agendado no GitHub Actions):
+O design do site foi construído sob o conceito de **Modern Organic Living**, equilibrando calor, sofisticação e praticidade.
+
+### 1. Paleta de Cores e Tokens CSS
+- **Primary Background (Warm Ivory):** `#F7F5F0` — Superfície principal acolhedora e agradável aos olhos.
+- **Secondary Background (Soft Beige):** `#E9E2D6` — Superfícies secundárias, divisores e bordas refinadas.
+- **Primary Brand (Forest Green):** `#34483B` — Assinatura visual da marca: cabeçalho, botões principais, links de destaque e rodapé.
+- **Secondary Brand (Sage Green):** `#DCE3D5` — Acentos suaves, pills de categorias e fundos de destaque.
+- **Accent (Warm Terracotta):** `#C49A72` — Detalhes decorativos e contrastes.
+- **Primary Text (Charcoal):** `#292D29` — Leitura nítida de alto contraste.
+- **Secondary Text (Muted Gray):** `#77776F` — Metadados, datas e descrições secundárias.
+- **Pure White:** `#FFFFFF` — Superfícies de cartões e blocos de conteúdo.
+
+### 2. Tipografia Editorial
+- **Títulos e Headings:** `Playfair Display` (serif editorial) — Elegância e presença de publicação impressa.
+- **Corpo e Interface:** `DM Sans` (sans-serif moderno) — Legibilidade e clareza para navegação, botões e leitura contínua.
+- **Escala Responsiva com `clamp()`:** Tipografia proporcional adaptada a smartphones, tablets e desktops.
+
+### 3. Logotipo e Marca
+Wordmark sofisticado acompanhado do símbolo de casa minimalista com linha contínua, presente no header desktop, mobile e rodapé escuro.
+
+---
+
+## 🏗️ Arquitetura do Pipeline
+
+O pipeline automatizado do site pode ser executado manualmente ou agendado via GitHub Actions (`daily.yml`):
 
 ```mermaid
 flowchart TD
-    A["1. Inicialização & Settings"] --> B["2. Pesquisa de Trends & Tópicos"]
-    B --> C["3. Geração de Conteúdo Gemini"]
-    C --> D{"4. Validação Editorial & Anti-Duplicidade"}
-    D -- "Reprovado" --> E["Log de Descarte & Nova Tentativa"]
-    E --> B
-    D -- "Aprovado" --> F["5. Obtenção de Imagem Pexels & Pin Overlay"]
-    F --> G["6. Publicação Estática (HTML + Sitemap + Robots)"]
-    G --> H["7. Geração Pinterest Pack (3 Pins + UTMs)"]
-    H --> I["8. Ping no Sitemap & IndexNow"]
-    I --> J["9. Validação de Links Internos & Commit"]
+    A["1. Pesquisa de Tendências e Tópicos"] --> B["2. Geração Editorial via Gemini AI"]
+    B --> C["3. Download e Otimização de Imagens (Pexels)"]
+    C --> D["4. Renderização do Artigo HTML e Canonical"]
+    D --> E["5. Atualização de Hubs, Index e Sitemap XML"]
+    E --> F["6. Geração de Pins Pinterest (CSV / JSON / Imagens 2:3)"]
+    F --> G["7. Deploy Estático no Cloudflare Pages"]
 ```
 
-### Detalhamento das Etapas:
+---
 
-1. **Inicialização (`src/app/config.py` e `src/app/state.py`)**:
-   - Carrega chaves de API, variáveis de ambiente e o estado anterior (`generated/state.json`), que armazena os últimos tópicos, slugs recentes e histórico de rotação.
-   - Verifica se a execução do dia deve ocorrer com base em `POSTS_PER_WEEK`.
+## 📂 Categorias e Editorias
 
-2. **Descoberta de Tópicos (`src/app/trend_research.py` e `src/app/topics.py`)**:
-   - Tenta identificar tendências em alta nos EUA via Google Trends / Reddit.
-   - Se indisponível, aciona o algoritmo de rotação local inteligente de tags (`sleep`, `gut`, `stress`, `recipes`, `longevity`, `weight`, etc.), garantindo que nenhum tópico ou ângulo se repita em janelas curtas.
+A arquitetura de conteúdo do **Homewise Living** organiza-se em 6 editorias principais para o público americano:
 
-3. **Geração Estruturada (`src/app/gemini_client.py` e `src/app/content.py`)**:
-   - O Gemini gera um JSON estrito contendo: título, slug, meta_description, HTML completo, termos de busca Pexels, pin_title, pin_description, pin_keywords, alt_text, tag e FAQ.
-   - Se for da categoria `recipes`, inclui dados estruturados de receita (tempo, calorias, ingredientes, instruções).
-
-4. **Validação Editorial, Rigor Científico & Anti-Plágio (`src/app/duplicate_checker.py` e `src/app/content.py`)**:
-   - O artigo passa por `ensure_scientific_links` para garantir que as referências contenham links diretos clicáveis para PubMed, Europe PMC ou Cochrane Library.
-   - O artigo passa por `validate_article_quality`: verifica extensão mínima (480 palavras), termos científicos, presença de links científicos clicáveis, presença de conteúdo prático/acionável para o leitor, variedade vocabular (TTR >= 0.35) e ausência de anedotas inventadas ou promessas de cura.
-   - O `DuplicateChecker` analisa similaridade semântica contra a base de artigos já publicados. Se houver sobreposição excessiva, o post é descartado e o pipeline tenta outro tópico até atingir a meta diária (até 6 tentativas).
-
-5. **Aquisição de Mídia Visual & Overlays para os 3 Pins (`src/app/images.py`)**:
-   - Busca uma imagem hero horizontal em alta definição no Pexels e a salva em `docs/assets/YYYY-MM-DD_slug.jpeg`.
-   - Gera 3 imagens verticais 1000x1500 em PNG (`_educational.png`, `_problem_solution.png`, `_seo_search.png`) com composições tipográficas dedicadas a cada um dos 3 ângulos estratégicos.
-
-6. **Compilação e Atualização do Site (`src/app/site.py`)**:
-   - Injeta IDs nos títulos H2 e gera Table of Contents (TOC).
-   - Injeta links internos de artigos relacionados (`#recent-1` a `#recent-5`).
-   - Compila o arquivo físico `docs/{slug}.html`.
-   - Regenera a página inicial (`docs/index.html`), todas as páginas de categorias (`docs/tag/{tag}.html`), a página institucional (`docs/about.html`), o arquivo `docs/robots.txt` e o `docs/sitemap.xml` com URLs canônicas limpas.
-
-7. **Pinterest Triple Pins Pack & Rastreamento (`src/app/pinterest_drafts.py` e `src/app/pinterest_seo.py`)**:
-   - A função `generate_triple_pins` gera os 3 conjuntos de metadados: Educacional (10:00 AM), Problema/Solução (15:30 PM) e Buscas/Keywords (20:30 PM).
-   - Formata as URLs de destino com parâmetros UTM específicos (`utm_content=pin_educational`, `pin_problem_solution`, `pin_seo_search`).
-   - Gera o arquivo `generated/pinterest/YYYY-MM-DD_pins.csv` contendo as 3 entradas prontas para o *Pinterest Bulk Upload*.
-   - Registra cada pin no histórico do `PinterestPerformanceTracker`.
-   - Se `PINTEREST_ENABLE_PUBLISH=1`, realiza publicação direta via Pinterest API v5.
-
-8. **Notificação de Motores de Busca (Sitemap Ping & IndexNow)**:
-   - Notifica os motores de busca através do sitemap XML atualizado.
-   - Envia sinal para o protocolo IndexNow (Bing, Yandex, etc.) para rastreamento prioritário.
-
-9. **Validação Final e Salvamento do Estado**:
-   - Executa `validate_links.py` para garantir que nenhuma página tenha links quebrados.
-   - Salva o novo estado em `generated/state.json`.
+| Categoria | Slug / Hub | Descrição |
+|-----------|------------|-----------|
+| **Home Organization** | `/tag/home-organization` | Métodos de descarte, organização de closets, despensas e sistemas funcionais. |
+| **Kitchen & Cooking** | `/tag/kitchen` | Utensílios indispensáveis, meal prep e eletrodomésticos para cozinhar melhor. |
+| **Home Decor** | `/tag/decor` | Ideias de ambientação, design de interiores aconchegante e reformas econômicas. |
+| **Garden & Outdoor** | `/tag/garden` | Paisagismo residencial, plantas para interiores, hortas urbanas e varandas. |
+| **Home Office** | `/tag/home-office` | Espaços de produtividade, ergonomia e dispositivos para casa inteligente. |
+| **Pet-Friendly Home** | `/tag/pets` | Móveis resistentes, plantas seguras para pets e organização de suprimentos animais. |
 
 ---
 
-## ⚙️ Configurações e Variáveis de Ambiente
+## 💎 Sistema de Afiliados e Monetização
 
-As variáveis podem ser configuradas no arquivo `.env` local ou nos Secrets / Variables do repositório no GitHub:
-
-| Variável | Tipo | Obrigatória | Descrição |
-| :--- | :---: | :---: | :--- |
-| `GEMINI_API_KEY_1` | Secret | **Sim** | Chave principal da API Google Gemini. |
-| `GEMINI_API_KEY_2..4` | Secret | Não | Chaves sobressalentes para rotação automática em caso de rate limit (429). |
-| `GEMINI_MODEL` | Variable | Não | Modelo utilizado (padrão: `gemini-3.6-flash` ou `gemini-2.0-flash`). |
-| `PEXELS_API_KEY` | Secret | **Sim** | Chave da API Pexels para download das imagens hero. |
-| `BASE_URL` | Variable/Secret | Não | URL pública do site (padrão: `https://health-ptg.pages.dev`). |
-| `SITE_TITLE` | Variable | Não | Título institucional do site (padrão: `Practical US Health Notes`). |
-| `POSTS_PER_DAY` | Variable | Não | Quantidade de posts publicados por execução (padrão: `1`). |
-| `POSTS_PER_WEEK` | Variable | Não | Dias da semana ativos para publicação (padrão: `7`). |
-| `PINTEREST_ENABLE_PUBLISH` | Variable | Não | Ativa publicação direta via API (`1` para ativar, padrão: `0`). |
-| `PINTEREST_ACCESS_TOKEN` | Secret | Não | Token OAuth com permissões `boards:read`, `pins:write`. |
-| `PINTEREST_BOARD_ID` | Secret | Não | ID do board fallback caso publicação via API esteja ligada. |
-| `INDEXNOW_KEY` | Secret | Não | Chave para notificação instantânea de motores de busca compatíveis com IndexNow. |
+O site incorpora um ecossistema nativo de componentes para monetização ética:
+- **Product Recommendation Cards (`.product-card`)**: Cartão com foto de produto, badge temático, especificação do vendedor, preço verificado e botão de ação (*"Check Price"*, *"View on Amazon"*).
+- **Tabelas Comparativas (`.comp-table`)**: Tabelas responsivas com destaque visual para o produto recomendado (*"Editor's Pick"*).
+- **Prós e Contras (`.pros-cons-grid`)**: Caixas visuais comparativas com ícones orgânicos verdes e terracota.
+- **Aviso de Afiliados (`.affiliate-disclosure`)**: Banner transparente em conformidade com as diretrizes do FTC (Federal Trade Commission) dos EUA.
 
 ---
 
-## 📂 Estrutura do Repositório
+## 📌 Automação de Tráfego no Pinterest
+
+O Pinterest é o principal canal de tráfego orgânico do projeto. O gerador cria automaticamente:
+- **Formato Vertical Otimizado (2:3 / 1000×1500)**: Padrão recomendado pela plataforma para máximo destaque no feed.
+- **Múltiplos Ângulos por Post**:
+  1. *Educational*: Focado no método e passo a passo.
+  2. *Problem/Solution*: Focado em erros comuns e soluções práticas para casa.
+  3. *SEO Search*: Focado em termos de alto volume de busca no Pinterest americano.
+- **Pinterest Bulk Upload**: Exportação automática em `generated/pinterest/YYYY-MM-DD_pins.csv` com títulos de alta conversão, descrições detalhadas e links rastreados via parâmetros UTM.
+
+---
+
+## ⚙️ Configuração e Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz do projeto ou configure as secrets no GitHub Actions:
+
+| Variável | Obrigatória | Descrição |
+|----------|-------------|-----------|
+| `GEMINI_API_KEY_1` | Sim | Chave de API primária do Google Gemini. |
+| `GEMINI_API_KEY_2..4` | Não | Chaves secundárias para failover automático em caso de limite de cota. |
+| `GEMINI_MODEL` | Não | Modelo Gemini (padrão: `gemini-3.6-flash`). |
+| `PEXELS_API_KEY` | Sim | Chave de API do Pexels para imagens em alta resolução livres de direitos autorais. |
+| `BASE_URL` | Não | Domínio canônico público (padrão: `https://homewise-living.pages.dev`). |
+| `SITE_TITLE` | Não | Nome da marca (padrão: `Homewise Living`). |
+| `PINTEREST_ACCESS_TOKEN` | Não | Token de acesso para publicação direta via API do Pinterest. |
+| `PINTEREST_BOARD_ID` | Não | ID da pasta do Pinterest onde os pins serão salvos. |
+| `PINTEREST_ENABLE_PUBLISH` | Não | Ativar publicação direta via API (`1` ou `0`). |
+
+---
+
+## 📁 Estrutura do Repositório
 
 ```text
-Pin/
-├── .github/
-│   └── workflows/
-│       ├── daily.yml                 # Workflow diário cron (10:10 UTC)
-│       ├── preview.yml               # Validação de PRs e previews
-│       └── delete_post.yml           # Workflow para remoção controlada de posts
-├── docs/                             # Diretório de publicação servido pelo Cloudflare Pages
-│   ├── _headers                      # Cabeçalhos HTTP de segurança e MIME do sitemap
-│   ├── 404.html                      # Página de erro 404 (noindex, follow)
-│   ├── about.html                    # Página Sobre e Padrões Editoriais
-│   ├── index.html                    # Homepage gerada com hero split, hubs e busca
-│   ├── posts.json                    # Registro central de artigos publicados
-│   ├── robots.txt                    # Configuração para crawlers apontando para o sitemap
-│   ├── sitemap.xml                   # Sitemap XML com URLs canônicas sem .html
-│   ├── assets/                       # Estilos CSS, logos e imagens hero dos artigos
-│   ├── tag/                          # Hubs de tópicos (sleep.html, gut.html, etc.)
-│   └── *.html                        # Arquivos físicos dos artigos gerados
-├── generated/                        # Artefatos gerados pelo sistema
-│   ├── state.json                    # Histórico de execução, rotação e memória de tópicos
-│   ├── content_index.json            # Base de embeddings/termos para detecção de duplicatas
-│   ├── pinterest_performance.json    # Histórico de performance e aprendizado do Pinterest
-│   ├── logs/                         # Logs de execução, erros e indexação
-│   └── pinterest/                    # Pins verticais PNG, CSVs e JSONs de agendamento
+Homewise Living/
+├── docs/                      # Arquivos estáticos servidos pelo Cloudflare Pages
+│   ├── assets/                # Imagens dos artigos e folha de estilo (style.css)
+│   ├── tag/                   # Hubs de categoria física (home-organization.html, etc.)
+│   ├── index.html             # Homepage editorial do Homewise Living
+│   ├── about.html             # Página institucional, missão e política de afiliação
+│   ├── 404.html               # Página de erro customizada
+│   ├── sitemap.xml            # Sitemap XML canônico atualizado automaticamente
+│   └── robots.txt             # Diretivas para motores de busca
 ├── src/
 │   └── app/
-│       ├── config.py                 # Carregamento e validação de configurações
-│       ├── content.py                # Prompt Gemini, normalização e validação editorial
-│       ├── duplicate_checker.py      # Verificador de similaridade de conteúdo
-│       ├── gemini_client.py          # Cliente HTTP resiliente para a API do Gemini
-│       ├── images.py                 # Download do Pexels e renderização PIL do Pin vertical
-│       ├── indexing.py               # Módulo de stub (Google Indexing API descontinuada para blogs)
-│       ├── internal_links.py         # Algoritmo de interlinkagem contextual entre posts
-│       ├── pinterest_api.py          # Publicação direta na API v5 do Pinterest
-│       ├── pinterest_drafts.py       # Gerador do CSV Bulk Upload e JSON do Pinterest
-│       ├── pinterest_performance.py  # Rastreador e motor de aprendizado do Pinterest
-│       ├── pinterest_seo.py          # Extração de intents, keywords long-tail e boards
-│       ├── repair_site.py            # Script utilitário para reparo e normalização do site
-│       ├── run_daily.py              # Orquestrador mestre da esteira diária
-│       ├── site.py                   # Gerador de páginas HTML, sitemap e schemas
-│       ├── titles.py                 # Geração e refinamento de títulos de alta conversão
-│       ├── topics.py                 # Rotação determinística e balanceamento de tópicos
-│       ├── trend_research.py         # Pesquisa de tendências (Google Trends/Reddit)
-│       ├── validate_links.py         # Validador de integridade de links internos
-│       └── verify_seo.py             # Verificador de integridade de metadados SEO
+│       ├── config.py          # Configurações do ambiente e parâmetros de execução
+│       ├── site.py            # Motor gerador HTML, templates e design system CSS
+│       ├── topics.py          # Lista de tópicos e rotação das editorias de casa/lifestyle
+│       ├── content.py         # Motor de geração de artigos via Gemini AI e validações
+│       ├── repair_site.py     # Script de reconciliação de links, sitemap e canonicidade
+│       ├── run_daily.py       # Fluxo mestre diário de geração, imagens e Pinterest
+│       └── pinterest_seo.py   # Motor de geração de metadados, títulos e pins
 ├── tests/
-│   └── test_seo_and_quality.py       # Suíte completa de testes automatizados
-├── requirements.txt                  # Dependências Python do projeto
-├── wrangler.jsonc                    # Configuração do Cloudflare Pages
-└── README.md                         # Esta documentação
+│   └── test_seo_and_quality.py # Suíte de testes automatizados de SEO, links e integridade
+├── melhorias.md               # Especificação visual detalhada e log de implementação
+└── requirements.txt           # Dependências Python
 ```
 
 ---
 
-## 💻 Como Executar Localmente
+## 🧪 Execução Local e Testes
 
-### 1. Pré-requisitos
-- Python 3.11 ou superior
-- Git
-
-### 2. Configuração do Ambiente Virtual
+### 1. Instalação de Dependências
 ```bash
-# Clone o repositório
-git clone https://github.com/rodrigosimoes97/Pin.git
-cd Pin
-
-# Crie e ative o ambiente virtual
-python -m venv .venv
-
-# Windows (PowerShell):
-.venv\Scripts\Activate.ps1
-
-# Linux / macOS:
-source .venv/bin/activate
-
-# Instale as dependências
+python -m venv venv
+venv\Scripts\activate       # No Windows (PowerShell)
 pip install -r requirements.txt
 ```
 
-### 3. Executando o Pipeline Completo
-Defina as variáveis de ambiente necessárias e execute o orquestrador:
-```bash
-# Exemplo no PowerShell:
-$env:GEMINI_API_KEY_1="sua-chave-gemini"
-$env:PEXELS_API_KEY="sua-chave-pexels"
-$env:BASE_URL="https://health-ptg.pages.dev"
-$env:POSTS_PER_DAY="1"
-
-python -m src.app.run_daily
-```
-
-### 4. Executando o Reparo e Regeneração Estática
-Caso queira recalcular índices, normalizar canonicals e reconstruir a home e o sitemap a partir de `posts.json`:
+### 2. Reconstruir e Reparar o Site Estático
+Para regenerar o arquivo `docs/assets/style.css`, sitemap, canonicals e páginas de hub:
 ```bash
 python -m src.app.repair_site
 ```
 
----
-
-## 🧪 Testes Automatizados e Validação
-
-O projeto possui cobertura completa de testes automatizados que garantem a consistência antes de qualquer alteração ir para produção.
-
-### Rodar a Suíte Completa de SEO e Qualidade Editorial:
+### 3. Executar os Testes Automatizados
 ```bash
-python -m unittest tests/test_seo_and_quality.py
-```
-*Valida: ausência de `.html` no sitemap, canônicos apontando para arquivos físicos existentes, integridade dos cabeçalhos HTTP, robôs, integridade de links internos e regras editoriais contra curas milagrosas e relatos fictícios.*
-
-### Rodar o Verificador de SEO:
-```bash
-python -m src.app.verify_seo
-```
-
-### Rodar o Validador de Links Internos:
-```bash
-python -m src.app.validate_links
-```
-
-### Rodar os Testes de Pinterest & Features:
-```bash
+python -m unittest discover tests
 python test_pinterest_features.py
 ```
+*Todos os testes devem passar com `OK` (10/10 na suíte de qualidade de SEO e 5/5 nos testes de Pinterest).*
 
 ---
 
-## ☁️ Deploy e Hospedagem (Cloudflare Pages)
+## 🚀 Deploy e Hospedagem (Cloudflare Pages)
 
-O site é hospedado através do **Cloudflare Pages**, com o build configurado para servir diretamente a pasta `docs/`.
-
-### Configuração recomendada no painel da Cloudflare:
-- **Build Output Directory**: `docs`
-- **Root Directory**: `/`
-- **Pretty URLs (Clean URLs)**: **Ativado** (*Automaticamente serve `/slug.html` em `/slug` com status 200*).
-- O arquivo `docs/_headers` é aplicado automaticamente pela Cloudflare a cada build/deploy.
+O deploy ocorre automaticamente via GitHub Actions quando commits são enviados para a branch `main`. A pasta raiz de publicação no Cloudflare Pages é configurada como `/docs`.

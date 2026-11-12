@@ -9,10 +9,10 @@ from pathlib import Path
 LOG = logging.getLogger(__name__)
 
 # URL base pública do site
-PUBLIC_BASE_URL = "https://health-ptg.pages.dev"
+PUBLIC_BASE_URL = "https://homewise-living.pages.dev"
 
 # Nome do board conforme o teste.csv
-PINTEREST_BOARD = "Health & Wellness"
+PINTEREST_BOARD = "Homewise Living | Smart Home & Organization"
 
 # Melhores horários para postar no Pinterest (Horário dos EUA - Eastern Time / ET):
 # Slot 1: 10:00 AM (Início da manhã / pausas de trabalho)

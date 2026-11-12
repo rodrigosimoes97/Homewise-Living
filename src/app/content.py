@@ -9,6 +9,13 @@ from .gemini_client import GeminiClient
 from .topics import Topic
 
 ALLOWED_TAGS = {
+    "home-organization",
+    "kitchen",
+    "decor",
+    "garden",
+    "home-office",
+    "pets",
+    # Legacy tags for backward compatibility with existing articles & tests
     "sleep",
     "stress",
     "recipes",

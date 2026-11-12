@@ -189,24 +189,24 @@ def test_performance_tracker():
         tracker = PinterestPerformanceTracker(tmp_path)
 
         # Registra pins
-        tracker.record_pin("2026-10-05", "https://health-ptg.pages.dev/post1.html",
+        tracker.record_pin("2026-10-05", "https://homewise-living.pages.dev/post1.html",
                            "Food Additives", "healthy-habits", "mistakes",
                            "food additives heart health", "8 Food Additives Harming Your Heart")
-        tracker.record_pin("2026-10-05", "https://health-ptg.pages.dev/post2.html",
+        tracker.record_pin("2026-10-05", "https://homewise-living.pages.dev/post2.html",
                            "Sleep Tips", "sleep", "routine",
                            "bedtime sleep routine", "Simple Bedtime Routine for Adults")
-        tracker.record_pin("2026-10-05", "https://health-ptg.pages.dev/post3.html",
+        tracker.record_pin("2026-10-05", "https://homewise-living.pages.dev/post3.html",
                            "Anti-Inflammatory", "anti-inflammatory", "list",
                            "anti inflammatory foods", "Best Anti-Inflammatory Foods List")
 
         check(tmp_path.exists(), "Arquivo de performance criado")
 
         # Atualiza métricas
-        ok1 = tracker.update_metrics("https://health-ptg.pages.dev/post1.html",
+        ok1 = tracker.update_metrics("https://homewise-living.pages.dev/post1.html",
                                      impressions=5000, engagements=250, saves=120, outbound_clicks=80)
-        ok2 = tracker.update_metrics("https://health-ptg.pages.dev/post2.html",
+        ok2 = tracker.update_metrics("https://homewise-living.pages.dev/post2.html",
                                      impressions=800, engagements=10, saves=5, outbound_clicks=2)
-        ok3 = tracker.update_metrics("https://health-ptg.pages.dev/post3.html",
+        ok3 = tracker.update_metrics("https://homewise-living.pages.dev/post3.html",
                                      impressions=2000, engagements=70, saves=45, outbound_clicks=30)
 
         check(ok1 and ok2 and ok3, "Métricas atualizadas com sucesso")
@@ -241,7 +241,7 @@ def test_performance_tracker():
             writer = csv.DictWriter(f, fieldnames=["Link", "Title", "Impressions", "Engagements", "Saves", "Outbound clicks"])
             writer.writeheader()
             writer.writerow({
-                "Link": "https://health-ptg.pages.dev/post1.html",
+                "Link": "https://homewise-living.pages.dev/post1.html",
                 "Title": "8 Food Additives Harming Your Heart",
                 "Impressions": "9999",
                 "Engagements": "500",
@@ -276,7 +276,7 @@ def test_draft_pack():
             run_date=date(2026, 10, 5),
             pin_title=seo["pin_title"],
             pin_description=seo["pin_description"],
-            link="https://health-ptg.pages.dev/test.html",
+            link="https://homewise-living.pages.dev/test.html",
             image_path="assets/2026-10-05_test.jpeg",
             tag="healthy-habits",
             slot_index=0,
@@ -291,7 +291,7 @@ def test_draft_pack():
         csv_content = csv_file.read_text(encoding="utf-8")
         check("Title,Media URL,Pinterest board,Thumbnail,Description,Link,Publish date,Keywords" in csv_content,
               "CSV tem cabeçalho correto (sem aspas no header)")
-        check("health-ptg.pages.dev" in csv_content, "CSV tem URL pública correta")
+        check("homewise-living.pages.dev" in csv_content, "CSV tem URL pública correta")
         check("T10:00:00" in csv_content, "CSV tem horário de publicação")
 
         # Verifica keywords no CSV
@@ -309,7 +309,7 @@ def test_draft_pack():
             run_date=date(2026, 10, 5),
             pin_title="Updated Title For Existing Pin",
             pin_description="Updated description that should overwrite the previous entry in the draft.",
-            link="https://health-ptg.pages.dev/test.html",
+            link="https://homewise-living.pages.dev/test.html",
             image_path="assets/2026-10-05_test.jpeg",
             tag="healthy-habits",
             slot_index=0,

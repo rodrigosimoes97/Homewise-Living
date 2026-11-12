@@ -17,7 +17,7 @@ def _assert(condition: bool, message: str) -> None:
 def run_checks() -> None:
     with tempfile.TemporaryDirectory() as td:
         docs = Path(td)
-        base_url = "https://health-ptg.pages.dev"
+        base_url = "https://homewise-living.pages.dev"
 
         for i in range(10):
             post = {
@@ -40,7 +40,7 @@ def run_checks() -> None:
             publish_post(
                 docs_dir=docs,
                 base_url=base_url,
-                site_title="Practical US Health Notes",
+                site_title="Homewise Living",
                 post=post,
                 hero_path_rel=f"assets/sleep-{i}.jpg",
                 run_date=date(2026, 1, 1) + timedelta(days=i),
@@ -58,11 +58,11 @@ def run_checks() -> None:
         for loc in locs:
             url_text = str(loc.text).strip()
             _assert(not url_text.endswith(".html"), f"sitemap must NOT contain .html URLs: {url_text}")
-            _assert(url_text.startswith("https://health-ptg.pages.dev"), f"unexpected base URL in sitemap: {url_text}")
+            _assert(url_text.startswith("https://homewise-living.pages.dev"), f"unexpected base URL in sitemap: {url_text}")
 
         # 2. Post HTML SEO checks
         post_html = (docs / "sleep-post-9.html").read_text(encoding="utf-8")
-        expected_canonical = "https://health-ptg.pages.dev/sleep-post-9"
+        expected_canonical = "https://homewise-living.pages.dev/sleep-post-9"
         _assert(f"<link rel='canonical' href='{expected_canonical}'>" in post_html, "canonical link mismatch or has .html")
         _assert(f"<meta property='og:url' content='{expected_canonical}'>" in post_html, "og:url mismatch")
 
@@ -89,14 +89,14 @@ def run_checks() -> None:
         # 3. Tag page checks
         tag_html = (docs / "tag" / "sleep.html").read_text(encoding="utf-8")
         _assert("Explore practical sleep guides" in tag_html, "tag intro missing")
-        _assert("<link rel='canonical' href='https://health-ptg.pages.dev/tag/sleep'>" in tag_html, "tag canonical mismatch")
+        _assert("<link rel='canonical' href='https://homewise-living.pages.dev/tag/sleep'>" in tag_html, "tag canonical mismatch")
         links = re.findall(r'href=[\'"]/sleep-post-\d+[\'\"]', tag_html)
         _assert(len(links) >= 8, f"tag page should contain at least 8 clean post links, found {len(links)}")
 
         # 4. Robots.txt checks
         robots_txt = (docs / "robots.txt").read_text(encoding="utf-8")
         _assert("Allow: /" in robots_txt, "robots.txt must allow root")
-        _assert("Sitemap: https://health-ptg.pages.dev/sitemap.xml" in robots_txt, "robots.txt must point to sitemap")
+        _assert("Sitemap: https://homewise-living.pages.dev/sitemap.xml" in robots_txt, "robots.txt must point to sitemap")
 
     print("SEO verification passed successfully (clean URLs, canonicals & sitemap)")
 

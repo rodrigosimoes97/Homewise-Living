@@ -12,35 +12,39 @@ class Topic:
 
 
 TOPICS: list[Topic] = [
-    Topic("healthy-recipes", "Healthy Recipes", "quick nutrient-dense meals for busy US professionals", "recipes"),
-    Topic("budget-meal-prep", "Budget Meal Prep", "low-cost healthy eating for US families", "recipes"),
-    Topic("high-protein-breakfast", "High Protein Breakfast", "satiating morning meals for active lifestyles", "recipes"),
-    Topic("home-workouts", "Home Workouts", "no-equipment strength training for small spaces", "home-workouts"),
-    Topic("walking-for-fitness", "Walking for Health", "low-impact movement routines for weight management", "home-workouts"),
-    Topic("yoga-for-flexibility", "Yoga and Mobility", "daily stretching routines for sedentary workers", "home-workouts"),
-    Topic("healthy-habits", "Healthy Habits", "micro-habits for long-term behavior change", "healthy-habits"),
-    Topic("morning-routines", "Morning Routines", "energy-boosting habits to start the day", "healthy-habits"),
-    Topic("evening-routines", "Evening Routines", "digital detox and wind-down rituals", "healthy-habits"),
-    Topic("stress-reset", "Stress Support", "practical nervous system regulation techniques", "stress"),
-    Topic("burnout-prevention", "Burnout Prevention", "managing workplace stress and mental fatigue", "stress"),
-    Topic("mindfulness-basics", "Mindfulness Basics", "simple meditation and breathing for beginners", "stress"),
-    Topic("gut-health", "Gut Health", "optimizing microbiome with diverse fiber and ferments", "gut"),
-    Topic("bloating-relief", "Bloating Relief", "identifying triggers and improving digestion naturally", "gut"),
-    Topic("probiotic-foods", "Probiotic Foods", "incorporating traditional fermented foods into US diets", "gut"),
-    Topic("sleep-improvement", "Sleep Improvement", "optimizing the bedroom environment for deep rest", "sleep"),
-    Topic("circadian-rhythm", "Circadian Rhythm", "aligning light exposure and timing for better sleep", "sleep"),
-    Topic("insomnia-tips", "Natural Sleep Aids", "non-supplement ways to fall asleep faster", "sleep"),
-    Topic("weight-loss-lifestyle", "Weight Loss Lifestyle", "sustainable calorie awareness without restriction", "weight"),
-    Topic("metabolic-health", "Metabolic Health", "understanding blood sugar and energy balance", "weight"),
-    Topic("anti-inflammatory-foods", "Anti-Inflammatory Foods", "healing the body with antioxidants and healthy fats", "anti-inflammatory"),
-    Topic("joint-health", "Joint Health", "nutrition and movement for mobility and comfort", "anti-inflammatory"),
-    Topic("mental-wellness-basics", "Mental Wellness Basics", "building emotional resilience and self-care systems", "mental-wellness"),
-    Topic("focus-and-productivity", "Focus and Clarity", "nutrition and habits for better cognitive function", "mental-wellness"),
-    Topic("longevity-daily-routines", "Daily Routines for Longevity", "science-backed habits for a longer, healthier life", "longevity"),
-    Topic("functional-aging", "Functional Aging", "maintaining strength and independence as you age", "longevity"),
+    # Home Organization
+    Topic("declutter-guide", "Declutter Guide", "room-by-room decluttering strategies for US homes", "home-organization"),
+    Topic("closet-organization", "Closet Organization", "maximizing closet space with smart storage solutions", "home-organization"),
+    Topic("garage-organization", "Garage Organization", "turning cluttered garages into functional spaces", "home-organization"),
+    Topic("pantry-organization", "Pantry Organization", "practical pantry systems for busy families", "home-organization"),
+    # Kitchen & Cooking
+    Topic("kitchen-essentials", "Kitchen Essentials", "must-have tools for everyday cooking", "kitchen"),
+    Topic("meal-prep-tools", "Meal Prep Tools", "best kitchen gadgets for efficient meal preparation", "kitchen"),
+    Topic("kitchen-storage", "Kitchen Storage", "smart storage ideas for small and large kitchens", "kitchen"),
+    Topic("kitchen-upgrades", "Kitchen Upgrades", "affordable kitchen improvements that make a difference", "kitchen"),
+    # Home Decor & Improvement
+    Topic("living-room-decor", "Living Room Decor", "modern and cozy living room styling ideas", "decor"),
+    Topic("bedroom-makeover", "Bedroom Makeover", "creating a relaxing bedroom retreat on any budget", "decor"),
+    Topic("bathroom-refresh", "Bathroom Refresh", "simple bathroom upgrades for a spa-like feel", "decor"),
+    Topic("wall-decor-ideas", "Wall Decor Ideas", "creative wall art and gallery wall inspiration", "decor"),
+    # Garden & Outdoor Living
+    Topic("beginner-gardening", "Beginner Gardening", "easy-to-grow plants and gardening basics for US climates", "garden"),
+    Topic("patio-design", "Patio Design", "outdoor living spaces that extend your home", "garden"),
+    Topic("container-gardening", "Container Gardening", "growing herbs, vegetables, and flowers in small spaces", "garden"),
+    Topic("outdoor-entertaining", "Outdoor Entertaining", "backyard entertaining setups and essentials", "garden"),
+    # Home Office & Smart Living
+    Topic("home-office-setup", "Home Office Setup", "productive home office design and ergonomic tips", "home-office"),
+    Topic("smart-home-basics", "Smart Home Basics", "getting started with smart home devices and automation", "home-office"),
+    Topic("productivity-space", "Productivity Space", "designing spaces that boost focus and creativity", "home-office"),
+    Topic("tech-for-home", "Tech for Home", "useful technology products for modern homes", "home-office"),
+    # Pet-Friendly Home
+    Topic("pet-friendly-furniture", "Pet-Friendly Furniture", "stylish furniture that stands up to pets", "pets"),
+    Topic("pet-organization", "Pet Organization", "organizing pet supplies and creating pet zones", "pets"),
+    Topic("pet-safe-plants", "Pet-Safe Plants", "indoor and outdoor plants that are safe for cats and dogs", "pets"),
+    Topic("pet-home-tips", "Pet Home Tips", "making your home comfortable for pets and people", "pets"),
 ]
 
-PRIORITY_TAGS = ["sleep", "gut", "stress", "healthy-habits", "longevity", "recipes"]
+PRIORITY_TAGS = ["home-organization", "kitchen", "decor", "garden", "home-office", "pets"]
 
 
 def pick_topic(

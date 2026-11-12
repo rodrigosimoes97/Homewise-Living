@@ -407,7 +407,7 @@ def main() -> None:
                 )
 
                 # URL com UTM dedicado para rastrear cada um dos 3 pins individualmente
-                pinterest_link = f"https://health-ptg.pages.dev/{post_slug}?utm_source=pinterest&utm_medium=organic_social&utm_campaign={post_slug}&utm_content={pin_info['utm_content']}"
+                pinterest_link = f"{settings.base_url}/{post_slug}?utm_source=pinterest&utm_medium=organic_social&utm_campaign={post_slug}&utm_content={pin_info['utm_content']}"
 
                 write_draft_pack(
                     out_dir=settings.repo_root / "generated" / "pinterest",
@@ -432,7 +432,7 @@ def main() -> None:
                         title=pin_title,
                         description=pin_desc,
                         link=pinterest_link,
-                        image_url=f"https://health-ptg.pages.dev/{hero_rel}",
+                        image_url=f"{settings.base_url}/{hero_rel}",
                         alt_text=post.get("alt_text", post["title"]),
                         log_path=settings.repo_root / "generated" / "logs" / "pinterest.log",
                     )

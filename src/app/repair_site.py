@@ -78,33 +78,36 @@ def _normalize_post_canonicals(file_path: Path) -> bool:
     content = file_path.read_text(encoding="utf-8", errors="ignore")
     original = content
 
-    # 1. Canonical: <link rel='canonical' href='https://health-ptg.pages.dev/slug.html'> -> .../slug
+    # Substitui dominio antigo health-ptg por homewise-living
+    content = content.replace("https://health-ptg.pages.dev", "https://homewise-living.pages.dev")
+
+    # 1. Canonical: <link rel='canonical' href='https://homewise-living.pages.dev/slug.html'> -> .../slug
     content = re.sub(
-        r"(<link\s+rel=['\"]canonical['\"]\s+href=['\"]https://health-ptg\.pages\.dev/[^'\"]+?)\.html(['\"])",
+        r"(<link\s+rel=['\"]canonical['\"]\s+href=['\"]https://homewise-living\.pages\.dev/[^'\"]+?)\.html(['\"])",
         r"\1\2",
         content,
     )
-    # 2. og:url: <meta property='og:url' content='https://health-ptg.pages.dev/slug.html'> -> .../slug
+    # 2. og:url: <meta property='og:url' content='https://homewise-living.pages.dev/slug.html'> -> .../slug
     content = re.sub(
-        r"(<meta\s+property=['\"]og:url['\"]\s+content=['\"]https://health-ptg\.pages\.dev/[^'\"]+?)\.html(['\"])",
+        r"(<meta\s+property=['\"]og:url['\"]\s+content=['\"]https://homewise-living\.pages\.dev/[^'\"]+?)\.html(['\"])",
         r"\1\2",
         content,
     )
     # 3. mainEntityOfPage no JSON-LD schema
     content = re.sub(
-        r"(\"mainEntityOfPage\":\s*\"https://health-ptg\.pages\.dev/[^\"]+?)\.html(\")",
+        r"(\"mainEntityOfPage\":\s*\"https://homewise-living\.pages\.dev/[^\"]+?)\.html(\")",
         r"\1\2",
         content,
     )
     # 4. BreadcrumbList schema item
     content = re.sub(
-        r"(\"item\":\s*\"https://health-ptg\.pages\.dev/[^\"]+?)\.html(\")",
+        r"(\"item\":\s*\"https://homewise-living\.pages\.dev/[^\"]+?)\.html(\")",
         r"\1\2",
         content,
     )
     # 5. Author url no JSON-LD
     content = re.sub(
-        r"(\"url\":\s*\"https://health-ptg\.pages\.dev/about)\.html(\")",
+        r"(\"url\":\s*\"https://homewise-living\.pages\.dev/about)\.html(\")",
         r"\1\2",
         content,
     )
@@ -158,9 +161,9 @@ def main() -> None:
     base_url = (Path(".") / ".base_url.tmp").read_text().strip() if (Path(".") / ".base_url.tmp").exists() else ""
     # Prefer env if running in Actions, fallback to canonical Cloudflare Pages URL
     import os
-    base_url = (os.getenv("BASE_URL") or base_url or "https://health-ptg.pages.dev").strip().rstrip("/")
+    base_url = (os.getenv("BASE_URL") or base_url or "https://homewise-living.pages.dev").strip().rstrip("/")
 
-    site_title = (os.getenv("SITE_TITLE") or "Practical US Health Notes").strip()
+    site_title = (os.getenv("SITE_TITLE") or "Homewise Living").strip()
 
     # write_site_state regenerates index/tag/sitemap/robots
     site_mod.write_site_state(docs_dir, base_url, site_title, filtered)

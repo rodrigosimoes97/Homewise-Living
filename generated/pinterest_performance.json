@@ -2,7 +2,7 @@
   "pins": [
     {
       "date": "2026-10-06",
-      "url": "https://health-ptg.pages.dev/high-protein-breakfast-guide-busy-mornings.html",
+      "url": "https://homewise-living.pages.dev/high-protein-breakfast-guide-busy-mornings.html",
       "topic": "High Protein Breakfast",
       "tag": "healthy-habits",
       "intent": "guide",
@@ -17,7 +17,7 @@
     },
     {
       "date": "2026-10-06",
-      "url": "https://health-ptg.pages.dev/vitamin-c-linked-to-fewer-deaths-in-blood-disorder-trial.html",
+      "url": "https://homewise-living.pages.dev/vitamin-c-linked-to-fewer-deaths-in-blood-disorder-trial.html",
       "topic": "Vitamin C Linked To Fewer Deaths In Blood Disorder Trial",
       "tag": "health",
       "intent": "mistakes",
@@ -32,7 +32,7 @@
     },
     {
       "date": "2026-10-08",
-      "url": "https://health-ptg.pages.dev/not-all-trans-fats-are-bad-major-review-finds-daily-energy.html",
+      "url": "https://homewise-living.pages.dev/not-all-trans-fats-are-bad-major-review-finds-daily-energy.html",
       "topic": "Not All Trans Fats Are Bad, Major Review Finds",
       "tag": "health",
       "intent": "guide",
@@ -47,7 +47,7 @@
     },
     {
       "date": "2026-10-08",
-      "url": "https://health-ptg.pages.dev/realistic-feeding-our-gut-microbiome-for-better-health-plan.html",
+      "url": "https://homewise-living.pages.dev/realistic-feeding-our-gut-microbiome-for-better-health-plan.html",
       "topic": "Feeding Our Gut Microbiome For Better Health",
       "tag": "gut",
       "intent": "tips",
@@ -62,7 +62,7 @@
     },
     {
       "date": "2026-10-09",
-      "url": "https://health-ptg.pages.dev/only-one-workout-helped-older-adults-lose-fat-and-keep-muscle.html",
+      "url": "https://homewise-living.pages.dev/only-one-workout-helped-older-adults-lose-fat-and-keep-muscle.html",
       "topic": "Only One Workout Helped Older Adults Lose Fat And Keep Muscle",
       "tag": "home-workouts",
       "intent": "routine",
@@ -77,7 +77,7 @@
     },
     {
       "date": "2026-10-09",
-      "url": "https://health-ptg.pages.dev/taking-antibiotics-sugar-may-be-making-the-damage-worse.html",
+      "url": "https://homewise-living.pages.dev/taking-antibiotics-sugar-may-be-making-the-damage-worse.html",
       "topic": "Taking Antibiotics? Sugar May Be Making The Damage Worse",
       "tag": "gut",
       "intent": "mistakes",
@@ -92,7 +92,7 @@
     },
     {
       "date": "2026-10-09",
-      "url": "https://health-ptg.pages.dev/just-7-days-of-strength-training-started-shrinking-fat-cells-in-mice.html",
+      "url": "https://homewise-living.pages.dev/just-7-days-of-strength-training-started-shrinking-fat-cells-in-mice.html",
       "topic": "Just 7 Days Of Strength Training Started Shrinking Fat Cells In Mice",
       "tag": "weight",
       "intent": "list",
@@ -107,7 +107,7 @@
     },
     {
       "date": "2026-10-12",
-      "url": "https://health-ptg.pages.dev/popular-weight-loss-drugs-linked-to-a-surprising-fingernail-problem.html",
+      "url": "https://homewise-living.pages.dev/popular-weight-loss-drugs-linked-to-a-surprising-fingernail-problem.html",
       "topic": "Popular Weight Loss Drugs Linked To A Surprising Fingernail Problem",
       "tag": "health",
       "intent": "mistakes",
@@ -122,7 +122,7 @@
     },
     {
       "date": "2026-10-12",
-      "url": "https://health-ptg.pages.dev/eating-olive-oil-before-carbs-has-a-surprising-effect-on-blood-sugar.html",
+      "url": "https://homewise-living.pages.dev/eating-olive-oil-before-carbs-has-a-surprising-effect-on-blood-sugar.html",
       "topic": "Eating Olive Oil Before Carbs Has A Surprising Effect On Blood Sugar",
       "tag": "healthy-habits",
       "intent": "checklist",
@@ -137,7 +137,7 @@
     },
     {
       "date": "2026-10-12",
-      "url": "https://health-ptg.pages.dev/stop-overcomplicating-why-dont-health-insurers-promote-a-healthier-diet.html",
+      "url": "https://homewise-living.pages.dev/stop-overcomplicating-why-dont-health-insurers-promote-a-healthier-diet.html",
       "topic": "Why Don’T Health Insurers Promote A Healthier Diet?",
       "tag": "health",
       "intent": "guide",
@@ -152,7 +152,7 @@
     },
     {
       "date": "2026-10-15",
-      "url": "https://health-ptg.pages.dev/scientists-reveal-why-some-workout-recovery-tricks-can-backfire.html",
+      "url": "https://homewise-living.pages.dev/scientists-reveal-why-some-workout-recovery-tricks-can-backfire.html",
       "topic": "Scientists Reveal Why Some Workout Recovery Tricks Can Backfire",
       "tag": "healthy-habits",
       "intent": "tips",
@@ -167,7 +167,7 @@
     },
     {
       "date": "2026-10-16",
-      "url": "https://health-ptg.pages.dev/gut-bacteria-calories-absorbed-guide.html",
+      "url": "https://homewise-living.pages.dev/gut-bacteria-calories-absorbed-guide.html",
       "topic": "Your Gut Bacteria Could Be Changing How Many Calories You Absorb",
       "tag": "gut",
       "intent": "tips",
@@ -182,7 +182,7 @@
     },
     {
       "date": "2026-10-20",
-      "url": "https://health-ptg.pages.dev/scientists-discover-how-deep-sleep-builds-muscle-burns-fat-and-boosts-the-brain.html",
+      "url": "https://homewise-living.pages.dev/scientists-discover-how-deep-sleep-builds-muscle-burns-fat-and-boosts-the-brain.html",
       "topic": "Scientists Discover How Deep Sleep Builds Muscle, Burns Fat, And Boosts The Brain",
       "tag": "sleep",
       "intent": "routine",
@@ -197,7 +197,7 @@
     },
     {
       "date": "2026-10-21",
-      "url": "https://health-ptg.pages.dev/massive-study-of-460000-people-challenges-ultra-processed-food-cancer-fears.html",
+      "url": "https://homewise-living.pages.dev/massive-study-of-460000-people-challenges-ultra-processed-food-cancer-fears.html",
       "topic": "Massive Study Of 460,000 People Challenges Ultra-Processed Food Cancer Fears",
       "tag": "gut",
       "intent": "mistakes",
@@ -212,7 +212,7 @@
     },
     {
       "date": "2026-10-21",
-      "url": "https://health-ptg.pages.dev/scientists-find-10-different-diets-linked-to-slower-aging.html",
+      "url": "https://homewise-living.pages.dev/scientists-find-10-different-diets-linked-to-slower-aging.html",
       "topic": "Scientists Find 10 Different Diets Linked To Slower Aging",
       "tag": "longevity",
       "intent": "mistakes",
@@ -227,7 +227,7 @@
     },
     {
       "date": "2026-10-21",
-      "url": "https://health-ptg.pages.dev/scientists-discover-a-natural-compound-that-could-protect-the-brain-from-too-muc.html",
+      "url": "https://homewise-living.pages.dev/scientists-discover-a-natural-compound-that-could-protect-the-brain-from-too-muc.html",
       "topic": "Scientists Discover A Natural Compound That Could Protect The Brain From Too Much Salt",
       "tag": "gut",
       "intent": "tips",
@@ -242,7 +242,7 @@
     },
     {
       "date": "2026-10-22",
-      "url": "https://health-ptg.pages.dev/people-are-taking-an-unapproved-weight-loss-drug-ai-found-something-surprising.html",
+      "url": "https://homewise-living.pages.dev/people-are-taking-an-unapproved-weight-loss-drug-ai-found-something-surprising.html",
       "topic": "People Are Taking An Unapproved Weight-Loss Drug. Ai Found Something Surprising",
       "tag": "weight",
       "intent": "guide",
@@ -257,7 +257,7 @@
     },
     {
       "date": "2026-10-22",
-      "url": "https://health-ptg.pages.dev/scientists-discover-a-surprising-link-between-vitamin-c-and-cancer-survival.html",
+      "url": "https://homewise-living.pages.dev/scientists-discover-a-surprising-link-between-vitamin-c-and-cancer-survival.html",
       "topic": "Scientists Discover A Surprising Link Between Vitamin C And Cancer Survival",
       "tag": "longevity",
       "intent": "mistakes",
@@ -272,7 +272,7 @@
     },
     {
       "date": "2026-10-23",
-      "url": "https://health-ptg.pages.dev/millions-take-fish-oil-for-brain-health-a-two-year-study-found-no-benefit.html",
+      "url": "https://homewise-living.pages.dev/millions-take-fish-oil-for-brain-health-a-two-year-study-found-no-benefit.html",
       "topic": "Millions Take Fish Oil For Brain Health. A Two-Year Study Found No Benefit",
       "tag": "healthy-habits",
       "intent": "guide",
@@ -287,7 +287,7 @@
     },
     {
       "date": "2026-10-23",
-      "url": "https://health-ptg.pages.dev/yoga-put-to-the-test-what-the-science-really-shows.html",
+      "url": "https://homewise-living.pages.dev/yoga-put-to-the-test-what-the-science-really-shows.html",
       "topic": "Yoga Put To The Test: What The Science Really Shows",
       "tag": "healthy-habits",
       "intent": "guide",
@@ -302,7 +302,7 @@
     },
     {
       "date": "2026-10-26",
-      "url": "https://health-ptg.pages.dev/4-action-steps-desperate-for-heart-surgery-for-their-baby-a-family-feels-hospita.html",
+      "url": "https://homewise-living.pages.dev/4-action-steps-desperate-for-heart-surgery-for-their-baby-a-family-feels-hospita.html",
       "topic": "Desperate For Heart Surgery For Their Baby, A Family Feels The Effects Of Pediatric Hospital Shortages",
       "tag": "health",
       "intent": "list",
@@ -317,7 +317,7 @@
     },
     {
       "date": "2026-10-26",
-      "url": "https://health-ptg.pages.dev/mediterranean-diet-may-boost-tiny-proteins-that-protect-the-heart-and-brain.html",
+      "url": "https://homewise-living.pages.dev/mediterranean-diet-may-boost-tiny-proteins-that-protect-the-heart-and-brain.html",
       "topic": "Mediterranean Diet May Boost Tiny Proteins That Protect The Heart And Brain",
       "tag": "longevity",
       "intent": "guide",
@@ -332,7 +332,7 @@
     },
     {
       "date": "2026-10-26",
-      "url": "https://health-ptg.pages.dev/coffee-calories-have-jumped-nearly-40-percent-sugar-isnt-the-biggest-culprit.html",
+      "url": "https://homewise-living.pages.dev/coffee-calories-have-jumped-nearly-40-percent-sugar-isnt-the-biggest-culprit.html",
       "topic": "Coffee Calories Have Jumped Nearly 40%. Sugar Isnt The Biggest Culprit",
       "tag": "healthy-habits",
       "intent": "list",
@@ -347,7 +347,7 @@
     },
     {
       "date": "2026-10-26",
-      "url": "https://health-ptg.pages.dev/best-foods-to-fight-h-pylori-habits.html",
+      "url": "https://homewise-living.pages.dev/best-foods-to-fight-h-pylori-habits.html",
       "topic": "The Best Foods To Fight H. Pylori",
       "tag": "gut",
       "intent": "list",
@@ -362,7 +362,7 @@
     },
     {
       "date": "2026-10-27",
-      "url": "https://health-ptg.pages.dev/low-testosterone-may-make-sugar-far-more-harmful-to-your-liver.html",
+      "url": "https://homewise-living.pages.dev/low-testosterone-may-make-sugar-far-more-harmful-to-your-liver.html",
       "topic": "Low Testosterone May Make Sugar Far More Harmful To Your Liver",
       "tag": "gut",
       "intent": "list",
@@ -377,7 +377,7 @@
     },
     {
       "date": "2026-10-27",
-      "url": "https://health-ptg.pages.dev/6-science-backed-habits-are-supplements-the-new-snake-oil.html",
+      "url": "https://homewise-living.pages.dev/6-science-backed-habits-are-supplements-the-new-snake-oil.html",
       "topic": "Are Supplements The New Snake Oil?",
       "tag": "healthy-habits",
       "intent": "list",
@@ -392,7 +392,7 @@
     },
     {
       "date": "2026-10-28",
-      "url": "https://health-ptg.pages.dev/popular-cannabis-sleep-gummies-may-have-a-hidden-dark-side.html",
+      "url": "https://homewise-living.pages.dev/popular-cannabis-sleep-gummies-may-have-a-hidden-dark-side.html",
       "topic": "Popular Cannabis Sleep Gummies May Have A Hidden Dark Side",
       "tag": "sleep",
       "intent": "routine",
@@ -407,7 +407,7 @@
     },
     {
       "date": "2026-10-29",
-      "url": "https://health-ptg.pages.dev/simple-daily-fiber-supplement-reduced-arthritis-pain-and-improved-strength.html",
+      "url": "https://homewise-living.pages.dev/simple-daily-fiber-supplement-reduced-arthritis-pain-and-improved-strength.html",
       "topic": "A Simple Daily Fiber Supplement Reduced Arthritis Pain And Improved Strength",
       "tag": "anti-inflammatory",
       "intent": "list",
@@ -422,7 +422,7 @@
     },
     {
       "date": "2026-10-29",
-      "url": "https://health-ptg.pages.dev/can-coffee-help-parkinsons-symptoms.html",
+      "url": "https://homewise-living.pages.dev/can-coffee-help-parkinsons-symptoms.html",
       "topic": "Can Coffee Help Parkinson’S Symptoms?",
       "tag": "healthy-habits",
       "intent": "guide",
@@ -437,7 +437,7 @@
     },
     {
       "date": "2026-10-30",
-      "url": "https://health-ptg.pages.dev/six-popular-sugar-substitutes-linked-to-faster-brain-aging.html",
+      "url": "https://homewise-living.pages.dev/six-popular-sugar-substitutes-linked-to-faster-brain-aging.html",
       "topic": "Six Popular Sugar Substitutes Linked To Faster Brain Aging",
       "tag": "longevity",
       "intent": "mistakes",
@@ -452,7 +452,7 @@
     },
     {
       "date": "2026-10-31",
-      "url": "https://health-ptg.pages.dev/what-nobody-tells-you-about-the-best-foods-to-protect-against-atrial-fibrillatio.html",
+      "url": "https://homewise-living.pages.dev/what-nobody-tells-you-about-the-best-foods-to-protect-against-atrial-fibrillatio.html",
       "topic": "The Best Foods To Protect Against Atrial Fibrillation",
       "tag": "healthy-habits",
       "intent": "list",
@@ -467,7 +467,7 @@
     },
     {
       "date": "2026-11-01",
-      "url": "https://health-ptg.pages.dev/drinking-tea-may-help-protect-your-heart-but-theres-a-surprising-catch.html",
+      "url": "https://homewise-living.pages.dev/drinking-tea-may-help-protect-your-heart-but-theres-a-surprising-catch.html",
       "topic": "Drinking Tea May Help Protect Your Heart, But There’S A Surprising Catch",
       "tag": "healthy-habits",
       "intent": "checklist",
@@ -482,7 +482,7 @@
     },
     {
       "date": "2026-11-01",
-      "url": "https://health-ptg.pages.dev/scientists-discover-a-surprising-brain-benefit-of-eating-peanuts-every-day.html",
+      "url": "https://homewise-living.pages.dev/scientists-discover-a-surprising-brain-benefit-of-eating-peanuts-every-day.html",
       "topic": "Scientists Discover A Surprising Brain Benefit Of Eating Peanuts Every Day",
       "tag": "longevity",
       "intent": "guide",
@@ -497,7 +497,7 @@
     },
     {
       "date": "2026-11-02",
-      "url": "https://health-ptg.pages.dev/how-a-surprising-vitamin-a-discovery-is-changing-what-scientists-know-about-visi.html",
+      "url": "https://homewise-living.pages.dev/how-a-surprising-vitamin-a-discovery-is-changing-what-scientists-know-about-visi.html",
       "topic": "A Surprising Vitamin A Discovery Is Changing What Scientists Know About Vision",
       "tag": "health",
       "intent": "guide",
@@ -512,7 +512,7 @@
     },
     {
       "date": "2026-11-02",
-      "url": "https://health-ptg.pages.dev/struggling-with-healthy-recipes-try-this-simple-reset.html",
+      "url": "https://homewise-living.pages.dev/struggling-with-healthy-recipes-try-this-simple-reset.html",
       "topic": "Healthy Recipes",
       "tag": "recipes",
       "intent": "list",
@@ -527,7 +527,7 @@
     },
     {
       "date": "2026-11-03",
-      "url": "https://health-ptg.pages.dev/even-moderate-drinking-linked-to-cancer-and-early-death-major-study-finds-5-fixe.html",
+      "url": "https://homewise-living.pages.dev/even-moderate-drinking-linked-to-cancer-and-early-death-major-study-finds-5-fixe.html",
       "topic": "Even Moderate Drinking Linked To Cancer And Early Death, Major Study Finds",
       "tag": "longevity",
       "intent": "mistakes",
@@ -542,7 +542,7 @@
     },
     {
       "date": "2026-11-10",
-      "url": "https://health-ptg.pages.dev/common-supplement-could-help-fight-psoriasis-scientists-discover?utm_source=pinterest&utm_medium=organic_social&utm_campaign=common-supplement-could-help-fight-psoriasis-scientists-discover",
+      "url": "https://homewise-living.pages.dev/common-supplement-could-help-fight-psoriasis-scientists-discover?utm_source=pinterest&utm_medium=organic_social&utm_campaign=common-supplement-could-help-fight-psoriasis-scientists-discover",
       "topic": "Common Supplement Could Help Fight Psoriasis, Scientists Discover",
       "tag": "anti-inflammatory",
       "intent": "list",
@@ -557,7 +557,7 @@
     },
     {
       "date": "2026-11-11",
-      "url": "https://health-ptg.pages.dev/energy-drinks-linked-to-11-times-more-reports-of-cardiac-arrest?utm_source=pinterest&utm_medium=organic_social&utm_campaign=energy-drinks-linked-to-11-times-more-reports-of-cardiac-arrest",
+      "url": "https://homewise-living.pages.dev/energy-drinks-linked-to-11-times-more-reports-of-cardiac-arrest?utm_source=pinterest&utm_medium=organic_social&utm_campaign=energy-drinks-linked-to-11-times-more-reports-of-cardiac-arrest",
       "topic": "Energy Drinks Linked To 11 Times More Reports Of Cardiac Arrest",
       "tag": "healthy-habits",
       "intent": "mistakes",
