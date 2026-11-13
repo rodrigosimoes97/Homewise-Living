@@ -1,7 +1,11 @@
 {
-  "runs": 0,
+  "runs": 1,
   "offer_runs": 0,
   "recent_topics": [],
   "recent_slugs": [],
-  "last_run": null
+  "last_run": "2026-11-13",
+  "recent_tags": [],
+  "recent_titles": [],
+  "tag_counts": {},
+  "topic_rotation": {}
 }
