@@ -78,8 +78,6 @@ def _normalize_post_canonicals(file_path: Path) -> bool:
     content = file_path.read_text(encoding="utf-8", errors="ignore")
     original = content
 
-    # Substitui dominio antigo health-ptg por homewise-living
-    content = content.replace("https://health-ptg.pages.dev", "https://homewise-living.pages.dev")
 
     # 1. Canonical: <link rel='canonical' href='https://homewise-living.pages.dev/slug.html'> -> .../slug
     content = re.sub(

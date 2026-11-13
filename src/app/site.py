@@ -46,7 +46,7 @@ def publish_post(
     docs_dir.mkdir(parents=True, exist_ok=True)
     posts = _load_posts(docs_dir / "posts.json")
 
-    tag = post.get("tag", "health")
+    tag = post.get("tag", "home-organization")
     related = _pick_related(posts, tag, post.get("slug", ""))
     same_tag_more = _pick_more_in_tag(posts, tag, post.get("slug", ""), 2)
     next_post = _pick_next_post(posts, tag, post.get("slug", ""))
@@ -309,7 +309,7 @@ def _render_post_html(
     public_base = _effective_base_url(base_url)
     post_slug = str(post["slug"]).strip()
     canonical = f"{public_base}/{post_slug}"
-    tag = post.get("tag", "health")
+    tag = post.get("tag", "home-organization")
     tag_url = f"{public_base}/tag/{tag}"
     hero_clean = hero_path_rel.lstrip("/")
     og_image = f"{public_base}/{hero_clean}"
@@ -599,11 +599,11 @@ def _render_post_html(
 def _render_post_card(post: dict[str, str], docs_dir: Path, link_prefix: str = "/") -> str:
     hero = (post.get("hero") or "").strip().lstrip("/")
     title = escape(post["title"])
-    tag = escape(post.get("tag", "health"))
+    tag = escape(post.get("tag", "home-organization"))
     date_str = escape(post.get("date", ""))
     slug = (post.get("slug") or post.get("url", "").replace(".html", "")).strip().lstrip("/")
     link = f"/{slug}" if not link_prefix or link_prefix in ("/", "") else f"{link_prefix.rstrip('/')}/{slug}"
-    grad = _tag_gradient(post.get("tag", "health"))
+    grad = _tag_gradient(post.get("tag", "home-organization"))
 
     if hero:
         media = f"<img src='/{escape(hero)}' alt='{title}' width='400' height='225' loading='lazy'>"
@@ -628,14 +628,18 @@ def _render_post_card(post: dict[str, str], docs_dir: Path, link_prefix: str = "
     )
 
 def _google_analytics() -> str:
-    return """<!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-QHJBWL5WXE"></script>
+    import os
+    ga_id = os.getenv("GA_MEASUREMENT_ID", "").strip()
+    if not ga_id:
+        return ""
+    return f"""<!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={ga_id}"></script>
         <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag(){{dataLayer.push(arguments);}}
         gtag('js', new Date());
 
-        gtag('config', 'G-QHJBWL5WXE');
+        gtag('config', '{ga_id}');
         </script>"""
 
 
@@ -644,11 +648,11 @@ def _render_post_card_wide(post: dict[str, str], link_prefix: str = "/") -> str:
     """Horizontal card for 'continue reading' section."""
     hero = (post.get("hero") or "").strip().lstrip("/")
     title = escape(post["title"])
-    tag = escape(post.get("tag", "health"))
+    tag = escape(post.get("tag", "home-organization"))
     date_str = escape(post.get("date", ""))
     slug = (post.get("slug") or post.get("url", "").replace(".html", "")).strip().lstrip("/")
     link = f"/{slug}" if not link_prefix or link_prefix in ("/", "") else f"{link_prefix.rstrip('/')}/{slug}"
-    grad = _tag_gradient(post.get("tag", "health"))
+    grad = _tag_gradient(post.get("tag", "home-organization"))
     excerpt = escape((post.get("description") or "")[:140].rstrip())
 
     if hero:
@@ -688,8 +692,8 @@ def _write_index(
     hero_sidebar = posts[1:4] if len(posts) > 1 else []
 
     if featured:
-        feat_grad = _tag_gradient(featured.get("tag", "health"))
-        feat_tag = escape(featured.get("tag", "health"))
+        feat_grad = _tag_gradient(featured.get("tag", "home-organization"))
+        feat_tag = escape(featured.get("tag", "home-organization"))
         feat_hero = (featured.get("hero") or "").strip().lstrip("/")
         feat_hero_img = (
             f"<img src='/{escape(feat_hero)}' alt='{escape(featured['title'])}' "
@@ -715,7 +719,7 @@ def _write_index(
 
     sidebar_items = ""
     for i, p in enumerate(hero_sidebar, start=2):
-        grad = _tag_gradient(p.get("tag", "health"))
+        grad = _tag_gradient(p.get("tag", "home-organization"))
         p_hero = (p.get("hero") or "").strip().lstrip("/")
         thumb = (
             f"<img src='/{escape(p_hero)}' alt='{escape(p['title'])}' width='56' height='56' loading='lazy'>"
@@ -728,7 +732,7 @@ def _write_index(
             f"<span class='hs-num'>0{i}</span>"
             f"<div class='hs-thumb'>{thumb}</div>"
             f"<div>"
-            f"<div class='hs-tag'>{escape(p.get('tag','health'))}</div>"
+            f"<div class='hs-tag'>{escape(p.get('tag','home-organization'))}</div>"
             f"<div class='hs-title'>{escape(p['title'])}</div>"
             f"<div class='hs-date'>{escape(p.get('date',''))}</div>"
             f"</div>"
@@ -736,7 +740,7 @@ def _write_index(
         )
 
     # ── Topic hub cards ───────────────────────────────────────────────────────
-    top_tags = [tag for tag, _ in Counter(p.get("tag", "health") for p in posts).most_common(8)]
+    top_tags = [tag for tag, _ in Counter(p.get("tag", "home-organization") for p in posts).most_common(8)]
     hub_cards = ""
     for tag in top_tags:
         grad = _tag_gradient(tag)
@@ -765,7 +769,7 @@ def _write_index(
     # ── Sidebar newsletter + trending ─────────────────────────────────────────
     trending_items = ""
     for p in posts[:5]:
-        grad = _tag_gradient(p.get("tag", "health"))
+        grad = _tag_gradient(p.get("tag", "home-organization"))
         p_hero = (p.get("hero") or "").strip().lstrip("/")
         thumb = (
             f"<img src='/{escape(p_hero)}' alt='{escape(p['title'])}' width='44' height='44' loading='lazy'>"
@@ -777,14 +781,14 @@ def _write_index(
             f"<a href='/{escape(p_slug)}' class='trending-item'>"
             f"<div class='trending-thumb'>{thumb}</div>"
             f"<div>"
-            f"<div class='trending-tag'>{escape(p.get('tag','health'))}</div>"
+            f"<div class='trending-tag'>{escape(p.get('tag','home-organization'))}</div>"
             f"<div class='trending-title'>{escape(p['title'])}</div>"
             f"</div>"
             f"</a>"
         )
 
     # ── Start here curated links ───────────────────────────────────────────────
-    start_here_tags = list(dict.fromkeys(p.get("tag", "health") for p in posts))[:4]
+    start_here_tags = list(dict.fromkeys(p.get("tag", "home-organization") for p in posts))[:4]
     start_here_links = ""
     for tag in start_here_tags:
         tag_post = next((p for p in posts if p.get("tag") == tag), None)
@@ -1013,7 +1017,7 @@ def _write_tag_pages(
     for stag in STANDARD_TAGS:
         grouped.setdefault(stag, [])
     for post in posts:
-        grouped[post.get("tag", "health")].append(post)
+        grouped[post.get("tag", "home-organization")].append(post)
     urls = []
     for tag, group in grouped.items():
         intro = _tag_intro(tag)
@@ -1167,13 +1171,12 @@ def _write_sitemap(
     ]
 
     # Inclui tags que possuem arquivo físico gerado
-    all_tags = sorted({str(p.get("tag", "health")).strip() for p in posts if p.get("tag")})
-    for tag in all_tags:
-        tag_file = docs_dir / "tag" / f"{tag}.html"
-        if tag_file.exists():
-            rows.append(
-                f"<url><loc>{public_base}/tag/{escape(tag)}</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>"
-            )
+    tag_files = sorted((docs_dir / "tag").glob("*.html")) if (docs_dir / "tag").exists() else []
+    for tag_file in tag_files:
+        tag = tag_file.stem
+        rows.append(
+            f"<url><loc>{public_base}/tag/{escape(tag)}</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>"
+        )
 
     seen_slugs: set[str] = set()
     for post in posts[:250]:

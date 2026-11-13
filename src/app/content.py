@@ -15,25 +15,13 @@ ALLOWED_TAGS = {
     "garden",
     "home-office",
     "pets",
-    # Legacy tags for backward compatibility with existing articles & tests
-    "sleep",
-    "stress",
-    "recipes",
-    "home-workouts",
-    "gut",
-    "weight",
-    "anti-inflammatory",
-    "longevity",
-    "mental-wellness",
-    "healthy-habits",
-    "health",
 }
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Prompt único: gera título + artigo completo em 1 chamada Gemini
 # ──────────────────────────────────────────────────────────────────────────────
 CONTENT_PROMPT = """\
-Write a high-quality, deeply researched, evidence-informed health article for a discerning US audience.
+Write a high-quality, inspiring, and deeply practical home and lifestyle article for a discerning US audience.
 Return a strict JSON object only (no markdown, no code fences) with EXACTLY these keys:
 title, slug, meta_description, html, image_query, pin_title, pin_description, pin_keywords, alt_text, tag, faq, pin_educational, pin_problem_solution, pin_seo_search
 
@@ -43,25 +31,18 @@ CRITICAL JSON RULES (read carefully before generating):
 - The entire response must be a single valid JSON object.
 - Do NOT wrap in ```json or any markdown.
 
-EDITORIAL & SCIENTIFIC INTEGRITY RULES:
-- Write in authoritative, accessible, highly useful, and engaging US health journalism English.
-- Target US readers seeking realistic, sustainable, evidence-based guidance that they can directly apply to daily life.
-- Ground all health claims in verifiable scientific evidence from trusted high-impact databases and institutions:
-  prioritize PubMed (National Library of Medicine), Europe PMC, Cochrane Library (Cochrane Database of Systematic Reviews),
-  NIH (National Institutes of Health), CDC (Centers for Disease Control and Prevention), WHO,
-  FDA, and top peer-reviewed journals (The Lancet, NEJM, JAMA, BMJ).
+EDITORIAL & LIFESTYLE INTEGRITY RULES:
+- Write in warm, authoritative, highly useful, and engaging US lifestyle and home journalism English.
+- Target US homeowners, apartment dwellers, and organizers seeking realistic, sustainable, aesthetic, and functional home solutions.
+- Emphasize the "Modern Organic Living" philosophy: clean aesthetics, functional storage, cozy textures, natural materials, and smart everyday habits.
 - ACTIONABLE & HIGHLY USEFUL CONTENT:
-  - Do NOT provide vague or generic platitudes like "eat healthy" or "get more rest".
-  - Explain the underlying biological/physiological mechanism in clear, accessible layman terms.
-  - Provide specific, daily actionable steps: practical protocols, safe dietary amounts/frequencies, timing, and meal/routine integration backed by systematic reviews.
-  - Include a clear distinction between what is proven clinical consensus vs. preliminary studies.
+  - Do NOT provide vague or generic platitudes like "keep things clean" or "organize your room".
+  - Explain the spatial, functional, and organizational logic in clear, accessible terms.
+  - Provide specific, daily or weekend actionable steps: dimensions, spatial zoning, decluttering workflows, lighting techniques, plant care tips, or material choices.
 - DO NOT invent fictitious personal anecdotes, fake first-person stories, or unverified claims.
-  Do NOT use fabricated "I," "me," "my personal struggle" personas. Write with an evidence-informed,
-  objective, and empathetic voice focusing on the reader ("you") and scientific consensus.
-- NEVER invent fake studies or nonexistent researchers.
-- Clearly differentiate between established clinical consensus, preliminary research (e.g. animal models or small cohorts), and emerging hypotheses.
-- STRICTLY PROHIBITED: Never make promises of cures, diagnostic claims, or unsubstantiated medical advice.
-- Minimum 550 words in the html body (excluding FAQ and metadata). Avoid superficial AI filler.
+  Do NOT use fabricated "I," "me," "my personal struggle" personas. Write with an inspiring,
+  objective, and empathetic voice focusing on the reader ("you").
+- Minimum 500 words in the html body (excluding FAQ and metadata). Avoid superficial AI filler.
 
 SEO & CONTENT STRUCTURE:
 - Include {topic_name} naturally in: title, first paragraph, headings, and meta_description.
@@ -79,49 +60,35 @@ Allowed tag values (pick one, lowercase-hyphenated):
 {allowed_tags}
 
 Required HTML elements inside "html" field:
-1. Myth-buster: <div class='myth-fact'><div class='myth-header'>Common Myth</div><div class='myth-body'>...</div><div class='fact-header'>Scientific Reality</div><div class='fact-body'>...</div></div>
-2. Actionable Step: <div class='quick-win'><h3>Practical Daily Action</h3><p>...</p></div>
-3. Expert Insight / Consensus Quote: <blockquote>...</blockquote>
+1. Dilemma & Solution Box: <div class='myth-fact'><div class='myth-header'>Common Dilemma</div><div class='myth-body'>...</div><div class='fact-header'>Practical Solution</div><div class='fact-body'>...</div></div>
+2. Actionable Step / Quick Win: <div class='quick-win'><h3>Practical Daily Action</h3><p>...</p></div>
+3. Expert Insight Quote: <blockquote>...</blockquote>
 4. Exactly 5 internal link placeholders:
-   href="#recent-1" (anchor: related evidence-based guide)
-   href="#recent-2" (anchor: practical wellness strategy)
-   href="#recent-3" (anchor: daily habit guide)
-   href="#recent-4" (anchor: consistent routine breakdown)
+   href="#recent-1" (anchor: related home guide)
+   href="#recent-2" (anchor: practical organizing strategy)
+   href="#recent-3" (anchor: everyday design tip)
+   href="#recent-4" (anchor: room styling breakdown)
    href="#recent-5" (anchor: explore more [tag] articles)
-5. Mandatory Scientific References Section at the end of the body:
-   <section class='scientific-sources'><h2>Scientific References & Sources</h2><ul><li><a href='https://pubmed.ncbi.nlm.nih.gov/...' target='_blank' rel='noopener noreferrer'>Study Title / Finding — PubMed (NLM)</a></li><li><a href='https://europepmc.org/...' target='_blank' rel='noopener noreferrer'>Clinical Trial / Review — Europe PMC</a></li><li><a href='https://www.cochranelibrary.com/...' target='_blank' rel='noopener noreferrer'>Systematic Review — Cochrane Library</a></li></ul></section>
-   (Include at least 2-4 real citations or institutional references: PubMed, Europe PMC, Cochrane Library, NIH, CDC, FDA, PMC, DOI, or major journals, each with a clickable <a href='...'> link to view the original study or research page).
-6. Educational disclaimer sentence: "Educational and informational only — not medical advice."
-7. If mode=offer: ethical recommendation + exact sentence "Disclosure: This page may contain affiliate links."
-8. If mode=info: do NOT include affiliate links.
+5. Mandatory Resources Section at the end of the body:
+   <section class='scientific-sources'><h2>Helpful Resources & Guides</h2><ul><li><a href='https://www.thespruce.com/...' target='_blank' rel='noopener noreferrer'>Design & Living Guide — The Spruce</a></li><li><a href='https://www.architecturaldigest.com/...' target='_blank' rel='noopener noreferrer'>Interior Inspiration — Architectural Digest</a></li><li><a href='https://www.bhg.com/...' target='_blank' rel='noopener noreferrer'>Home & Garden Advice — Better Homes & Gardens</a></li></ul></section>
+   (Include 2-4 references to reputable home, gardening, and living authorities such as The Spruce, Architectural Digest, Better Homes & Gardens, Bob Vila, HGTV, or Good Housekeeping, each with a clickable <a href='...'> link).
+6. If mode=offer: ethical recommendation + exact sentence "Disclosure: This page may contain affiliate links."
+7. If mode=info: do NOT include affiliate links.
 
-For "faq": array of 3-5 objects [{{"question":"...","answer":"..."}}]. Fact-based, concise answers.
+For "faq": array of 3-5 objects [{{"question":"...","answer":"..."}}]. Helpful, concise answers.
 For "title": clear, high-CTR, accurate SEO title (40–70 chars) based on title_hint. Avoid sensationalist clickbait.
 For "slug": URL-friendly version of the title (lowercase, hyphens, max 80 chars, no extension).
-For "meta_description": 140–160 chars, compelling, keyword-rich and evidence-focused.
-For "image_query": 3–5 word natural Pexels search query (e.g. "fresh leafy vegetables kitchen", "sleep bedroom night").
+For "meta_description": 140–160 chars, compelling, keyword-rich and actionable.
+For "image_query": 3–5 word natural Pexels search query (e.g. "modern cozy kitchen storage", "minimalist living room interior").
 For "pin_title": 40–70 chars, benefit-driven and clickable for US Pinterest audience.
-For "pin_description": 150–250 chars. Engaging, natural US English highlighting actionable science-backed benefits, weaving in 2-3 search phrases with a clear CTA (e.g. "Save this for later!", "Read the full research-backed guide!").
+For "pin_description": 150–250 chars. Engaging, natural US English highlighting aesthetic and practical benefits, weaving in 2-3 search phrases with a clear CTA (e.g. "Save this for your next home project!", "Pin this for easy home inspiration!").
 For "pin_keywords": 4–6 authentic US search phrases (2–3 words each, comma-separated).
 For "alt_text": accurate, descriptive image alt text (10–20 words).
 
 Pinterest Angle Variations (Provide 3 distinct angles for Pinterest pins):
-- "pin_educational": {{"pin_title": "40-70 chars focused on science/guide/how it works", "pin_description": "140-260 chars explaining science-backed benefits and clear action", "pin_keywords": "4-6 search phrases"}}
-- "pin_problem_solution": {{"pin_title": "40-70 chars focused on common mistake/frustration/solution", "pin_description": "140-260 chars addressing pain point and practical fix", "pin_keywords": "4-6 search phrases"}}
+- "pin_educational": {{"pin_title": "40-70 chars focused on guide/how-to/step-by-step", "pin_description": "140-260 chars explaining practical benefits and clear action", "pin_keywords": "4-6 search phrases"}}
+- "pin_problem_solution": {{"pin_title": "40-70 chars focused on clutter/layout fix/clever hack", "pin_description": "140-260 chars addressing pain point and practical fix", "pin_keywords": "4-6 search phrases"}}
 - "pin_seo_search": {{"pin_title": "40-70 chars capturing high-volume Pinterest search intent/ideas/list", "pin_description": "140-260 chars rich in search queries with strong save CTA", "pin_keywords": "4-6 search phrases"}}
-
-If tag=recipes, include an additional key "recipe" with this exact shape:
-{{
-  "prep_time_minutes": 10,
-  "cook_time_minutes": 20,
-  "total_time_minutes": 30,
-  "servings": "4 servings",
-  "calories_per_serving": "220 calories",
-  "ingredients": ["..."],
-  "instructions": ["..."],
-  "tips": ["..."],
-  "storage": "..."
-}}
 """
 
 
@@ -142,8 +109,6 @@ def generate_article(
 ) -> dict[str, Any]:
     """
     Gera artigo completo (incluindo título final) em uma única chamada Gemini.
-    `title_hint` é uma sugestão de título; o modelo pode refiná-la.
-    max_output_tokens aumentado para 4096 para evitar MAX_TOKENS em artigos com FAQ/recipe.
     """
     payload = client.generate_json(
         CONTENT_PROMPT.format(
@@ -173,11 +138,11 @@ def generate_article(
             raise ValueError(f"Campo obrigatório ausente ou inválido: {key}")
 
     cleaned_slug = _clean_slug(payload["slug"])
-    final_tag = normalize_tag(str(payload.get("tag", ""))) or normalize_tag(topic.tag) or "health"
+    final_tag = normalize_tag(str(payload.get("tag", ""))) or normalize_tag(topic.tag) or "home-organization"
     payload["slug"] = cleaned_slug
     payload["tag"] = final_tag
 
-    # pin_title e pin_description: usa os gerados pelo modelo se válidos, senão gera localmente
+    # pin_title e pin_description
     pin_title = str(payload.get("pin_title", "")).strip()
     if not (40 <= len(pin_title) <= 70):
         pin_title = _build_pin_title(payload["title"], cleaned_slug, payload.get("meta_description", ""), final_tag)
@@ -197,7 +162,6 @@ def generate_article(
     pin_kws = str(payload.get("pin_keywords", "")).strip()
     payload["pin_keywords"] = pin_kws
 
-    # Normalização dos 3 Pins (Educacional, Problema/Solução, SEO/Pesquisas)
     def _normalize_sub_pin(raw: Any, default_title: str, default_desc: str, default_kws: str) -> dict[str, str]:
         if not isinstance(raw, dict):
             return {"pin_title": default_title, "pin_description": default_desc, "pin_keywords": default_kws}
@@ -220,12 +184,10 @@ def generate_article(
         payload["html"] = payload["html"].replace("Disclosure: This page may contain affiliate links.", "")
 
     payload["faq"] = _normalize_faq(payload.get("faq"))
-    payload["recipe"] = _normalize_recipe(payload.get("recipe"), payload["tag"])
+    payload["recipe"] = None
 
-    # Garante links científicos diretos e clicáveis para os estudos
     payload["html"] = ensure_scientific_links(payload["html"], topic.name, final_tag)
 
-    # Validação editorial prévia
     is_valid, reason = validate_article_quality(payload, topic.name)
     if not is_valid:
         raise ValueError(f"Artigo gerado rejeitado no controle editorial: {reason}")
@@ -234,7 +196,7 @@ def generate_article(
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Validação Editorial e Científica
+# Validação Editorial de Qualidade
 # ──────────────────────────────────────────────────────────────────────────────
 
 FICTITIOUS_FIRST_PERSON_PATTERNS = [
@@ -259,54 +221,52 @@ FORBIDDEN_CURE_PATTERNS = [
     r"\bcure all diseases\b",
 ]
 
-SCIENTIFIC_INDICATOR_KEYWORDS = [
-    "study", "studies", "research", "researchers", "clinical", "trial",
-    "nih", "cdc", "fda", "journal", "pubmed", "evidence", "review",
-    "meta-analysis", "peer-reviewed", "investigators", "consensus",
-    "cochrane", "systematic review", "europe pmc", "controlled trial",
+HOME_INDICATOR_KEYWORDS = [
+    "home", "room", "space", "design", "decor", "organize", "storage",
+    "tips", "practical", "kitchen", "living", "setup", "ideas", "guide",
+    "simple", "clean", "furniture", "comfort", "daily", "style", "plants",
+    "garden", "office", "bedroom", "closet", "pantry", "routine", "solutions",
 ]
 
 ACTIONABLE_INDICATOR_KEYWORDS = [
-    "practical", "daily", "routine", "step", "protocol", "action",
-    "habit", "habits", "intake", "guide", "how to", "timing", "schedule",
-    "tips", "actionable", "strategy", "strategies", "dosage", "amount",
+    "practical", "daily", "routine", "step", "setup", "action",
+    "habit", "habits", "guide", "how to", "timing", "schedule",
+    "tips", "actionable", "strategy", "strategies", "organize", "ideas",
 ]
 
-SCIENTIFIC_URL_PATTERN = re.compile(
-    r'href=[\'"]https?://(?:www\.)?(?:pubmed\.ncbi\.nlm\.nih\.gov|europepmc\.org|cochranelibrary\.com|ncbi\.nlm\.nih\.gov|nih\.gov|cdc\.gov|fda\.gov|who\.int|doi\.org|thelancet\.com|nejm\.org|jamanetwork\.com|nature\.com|bmj\.com)[^\'"]*[\'"]',
+AUTHORITY_RESOURCE_PATTERN = re.compile(
+    r'href=[\'"]https?://(?:www\.)?(?:thespruce\.com|architecturaldigest\.com|bhg\.com|bobvila\.com|hgtv\.com|goodhousekeeping\.com|apartmenttherapy\.com|realsimple\.com|dwell\.com|elledecor\.com|housebeautiful\.com)[^\'"]*[\'"]',
     re.IGNORECASE,
 )
+SCIENTIFIC_URL_PATTERN = AUTHORITY_RESOURCE_PATTERN  # Alias para compatibilidade
 
 
 def ensure_scientific_links(html: str, topic_name: str, tag: str) -> str:
     """
     Garante que o artigo contenha links clicáveis diretos (<a href="...">)
-    para bases científicas de alta autoridade e confiabilidade:
-    - PubMed (National Library of Medicine)
-    - Europe PMC (European Biomedical Literature & Clinical Trials)
-    - Cochrane Library (Systematic Reviews & Evidence-Based Healthcare)
-    - NIH / CDC / WHO / DOI
+    para fontes de autoridade em Home, Design e Lifestyle:
+    - The Spruce
+    - Architectural Digest
+    - Better Homes & Gardens
+    - Bob Vila
     """
     if not html:
         return html
 
-    # Se já possui pelo menos 2 links científicos no HTML, mantém
-    existing_links = SCIENTIFIC_URL_PATTERN.findall(html)
+    existing_links = AUTHORITY_RESOURCE_PATTERN.findall(html)
     if len(existing_links) >= 2:
         return html
 
-    clean_tag = (tag or "health").replace("-", " ")
+    clean_tag = (tag or "home-organization").replace("-", " ")
     topic_clean = re.sub(r"[^\w\s]", "", topic_name).strip()
     encoded_topic = urllib.parse.quote_plus(topic_clean or clean_tag)
-    encoded_tag = urllib.parse.quote_plus(f"{topic_clean} {clean_tag}".strip())
 
     default_links = [
-        f'<a href="https://pubmed.ncbi.nlm.nih.gov/?term={encoded_topic}" target="_blank" rel="noopener noreferrer">National Library of Medicine (PubMed) — Clinical Research on {topic_name}</a>',
-        f'<a href="https://europepmc.org/search?query={encoded_topic}" target="_blank" rel="noopener noreferrer">Europe PMC — Open Access Biomedical Research & Meta-Analyses</a>',
-        f'<a href="https://www.cochranelibrary.com/search?searchText={encoded_tag}" target="_blank" rel="noopener noreferrer">Cochrane Library — Systematic Reviews & Evidence-Based Guidelines</a>',
+        f'<a href="https://www.thespruce.com/search?q={encoded_topic}" target="_blank" rel="noopener noreferrer">The Spruce — Practical Living & Home Guide for {topic_name}</a>',
+        f'<a href="https://www.architecturaldigest.com/search?q={encoded_topic}" target="_blank" rel="noopener noreferrer">Architectural Digest — Design & Spatial Inspiration</a>',
+        f'<a href="https://www.bhg.com/search?q={encoded_topic}" target="_blank" rel="noopener noreferrer">Better Homes & Gardens — Everyday Living & Organization</a>',
     ]
 
-    # Se a seção scientific-sources existe, vamos enriquecê-la
     sources_match = re.search(r"<section class=['\"]scientific-sources['\"]>(.*?)</section>", html, flags=re.DOTALL | re.IGNORECASE)
     if sources_match:
         section_content = sources_match.group(1)
@@ -314,32 +274,29 @@ def ensure_scientific_links(html: str, topic_name: str, tag: str) -> str:
         if li_matches:
             new_lis = []
             trusted_providers = [
-                ("PubMed", "https://pubmed.ncbi.nlm.nih.gov/?term="),
-                ("Europe PMC", "https://europepmc.org/search?query="),
-                ("Cochrane Library", "https://www.cochranelibrary.com/search?searchText="),
+                ("The Spruce", "https://www.thespruce.com/search?q="),
+                ("Architectural Digest", "https://www.architecturaldigest.com/search?q="),
+                ("Better Homes & Gardens", "https://www.bhg.com/search?q="),
             ]
             for idx, m in enumerate(li_matches):
                 inner = m.group(1).strip()
-                if SCIENTIFIC_URL_PATTERN.search(inner) or "<a " in inner:
+                if AUTHORITY_RESOURCE_PATTERN.search(inner) or "<a " in inner:
                     new_lis.append(f"<li>{inner}</li>")
                 else:
-                    # Envolve com link de pesquisa distribuído entre PubMed, Europe PMC e Cochrane
                     provider_name, provider_url = trusted_providers[idx % len(trusted_providers)]
                     li_plain = re.sub(r"<[^>]+>", "", inner).strip()
                     query = urllib.parse.quote_plus(re.sub(r"[^\w\s]", " ", li_plain)[:60].strip())
                     new_lis.append(
                         f'<li><a href="{provider_url}{query}" target="_blank" rel="noopener noreferrer">{li_plain} — {provider_name}</a></li>'
                     )
-            # Se ainda não atingiu 2 referências com links
             if len(new_lis) < 2:
                 for link in default_links[:2]:
                     new_lis.append(f"<li>{link}</li>")
-            new_section = f"<section class='scientific-sources'><h2>Scientific References & Sources</h2><ul>{''.join(new_lis)}</ul></section>"
+            new_section = f"<section class='scientific-sources'><h2>Helpful Resources & Guides</h2><ul>{''.join(new_lis)}</ul></section>"
             return html[:sources_match.start()] + new_section + html[sources_match.end():]
 
-    # Se a seção não existe ou não tem <li>, anexa no final
     new_section = (
-        f"<section class='scientific-sources'><h2>Scientific References & Sources</h2>"
+        f"<section class='scientific-sources'><h2>Helpful Resources & Guides</h2>"
         f"<ul>{''.join(f'<li>{link}</li>' for link in default_links)}</ul></section>"
     )
     return f"{html}\n{new_section}"
@@ -347,16 +304,15 @@ def ensure_scientific_links(html: str, topic_name: str, tag: str) -> str:
 
 def validate_article_quality(post: dict[str, Any], topic_name: str) -> tuple[bool, str]:
     """
-    Validação editorial sênior:
-    - Mínimo de 480 palavras de texto limpo
+    Validação editorial sênior para Homewise Living:
+    - Mínimo de 450 palavras de texto limpo
     - Presença do tópico no título ou corpo
-    - Ausência de anedotas pessoais fictícias em 1ª pessoa
-    - Ausência de promessas de cura milagrosas ou diagnósticos sem fundamentação
-    - Presença comprovada de referências / linguagem baseada em evidências científicas
-    - Variedade lexical contra superficialidade (TTR >= 0.35)
+    - Ausência de anedotas pessoais autobiográficas fictícias em 1ª pessoa
+    - Ausência de promessas de cura perigosas
+    - Variedade lexical (TTR >= 0.35)
     - Pelo menos 2 perguntas no FAQ
-    - Presença de links científicos diretos clicáveis para fontes confiáveis (PubMed, Europe PMC, Cochrane, etc.)
-    - Presença de conteúdo prático e acionável com utilidade real para o leitor
+    - Presença de links para fontes e guias confiáveis
+    - Presença de conteúdo prático e acionável com utilidade para o lar
     """
     if not isinstance(post, dict):
         return False, "Payload não é um dicionário válido"
@@ -373,8 +329,8 @@ def validate_article_quality(post: dict[str, Any], topic_name: str) -> tuple[boo
     words = [w.lower() for w in re.findall(r"\b[a-zA-Z]{2,}\b", clean_text)]
     word_count = len(words)
 
-    if word_count < 480:
-        return False, f"Artigo muito superficial: {word_count} palavras (mínimo exigido: 480)"
+    if word_count < 450:
+        return False, f"Artigo muito superficial: {word_count} palavras (mínimo exigido: 450)"
 
     # 2. Presença do tópico no título ou corpo
     t_tokens = [t.lower() for t in re.findall(r"\b[a-zA-Z]{3,}\b", topic_name)]
@@ -393,14 +349,14 @@ def validate_article_quality(post: dict[str, Any], topic_name: str) -> tuple[boo
     # 4. Ausência de promessas de cura proibidas
     for pattern in FORBIDDEN_CURE_PATTERNS:
         if re.search(pattern, clean_text, flags=re.IGNORECASE):
-            return False, f"Artigo contém alegação ou promessa de cura perigosa proibida: '{pattern}'"
+            return False, f"Artigo contém alegação de cura perigosa proibida: '{pattern}'"
 
-    # 5. Presença de embasamento científico
-    found_science_markers = sum(1 for kw in SCIENTIFIC_INDICATOR_KEYWORDS if kw in words)
-    if found_science_markers < 3:
-        return False, f"Artigo sem embasamento científico suficiente (apenas {found_science_markers} menções científicas encontradas)"
+    # 5. Marcadores temáticos de home & living
+    found_home_markers = sum(1 for kw in HOME_INDICATOR_KEYWORDS if kw in words)
+    if found_home_markers < 3:
+        return False, f"Artigo sem vocabulário temático suficiente sobre casa/estilo de vida (apenas {found_home_markers} termos encontrados)"
 
-    # 6. Variedade lexical (Type-Token Ratio para palavras >= 4 letras)
+    # 6. Variedade lexical
     meaningful_words = [w for w in words if len(w) >= 4]
     if meaningful_words:
         unique_ratio = len(set(meaningful_words)) / len(meaningful_words)
@@ -412,11 +368,11 @@ def validate_article_quality(post: dict[str, Any], topic_name: str) -> tuple[boo
     if not isinstance(faq, list) or len(faq) < 2:
         return False, "Artigo deve conter FAQ estruturada com pelo menos 2 perguntas"
 
-    # 8. Links diretos para fontes científicas confiáveis clicáveis
-    if not SCIENTIFIC_URL_PATTERN.search(html):
-        return False, "Artigo deve conter pelo menos um link direto e clicável para fontes científicas confiáveis (PubMed, Europe PMC, Cochrane Library, NIH, CDC)"
+    # 8. Links para fontes e guias confiáveis
+    if not AUTHORITY_RESOURCE_PATTERN.search(html):
+        return False, "Artigo deve conter pelo menos um link direto e clicável para fontes ou guias confiáveis (The Spruce, Architectural Digest, Better Homes & Gardens, Bob Vila)"
 
-    # 9. Verificação de conteúdo prático e acionável com utilidade para a vida do leitor
+    # 9. Verificação de conteúdo prático e acionável
     found_action_markers = sum(1 for kw in ACTIONABLE_INDICATOR_KEYWORDS if kw in words)
     if found_action_markers < 3 and "<div class='quick-win'>" not in html and "<div class=\"quick-win\">" not in html:
         return False, "Artigo sem conteúdo acionável ou orientações práticas suficientes para o leitor"
@@ -468,35 +424,26 @@ def _stable_template_index(seed: str, size: int) -> int:
     return (hashed + spread) % size
 
 
-def _extract_first_sentence(html: str) -> str:
-    plain = re.sub(r"<[^>]+>", " ", html or "")
-    plain = _normalize_whitespace(plain)
-    if not plain:
-        return ""
-    first = re.split(r"(?<=[.!?])\s", plain, maxsplit=1)[0]
-    return _trim_at_word_boundary(first, 100)
-
-
 def _build_pin_title(title: str, slug: str, meta_description: str, tag: str) -> str:
     normalized_title = _normalize_whitespace(title)
     if 40 <= len(normalized_title) <= 70:
         return normalized_title
 
     keyword = _trim_at_word_boundary(normalized_title, 38)
-    benefit_hint = _trim_at_word_boundary(meta_description or f"easy {tag.replace('-', ' ')} plan", 32)
+    benefit_hint = _trim_at_word_boundary(meta_description or f"smart {tag.replace('-', ' ')} ideas", 32)
     templates = [
-        "Feel Better Faster: {keyword}",
+        "Smart Home Ideas: {keyword}",
         "A Simpler Way to {keyword}",
-        "Build a Better Week With {keyword}",
-        "What to Do This Week: {keyword}",
-        "Small Changes, Real Results: {keyword}",
-        "Your Practical Plan for {keyword}",
-        "The Busy Person's Guide to {keyword}",
+        "Transform Your Home With {keyword}",
+        "Easy Home Projects: {keyword}",
+        "Small Space Solutions: {keyword}",
+        "Your Weekend Guide to {keyword}",
+        "The Complete Guide to {keyword}",
         "How to Actually Master {keyword}",
-        "Stop Struggling With {keyword}",
+        "Declutter & Organize: {keyword}",
         "Better {tag} Starts Here: {keyword}",
-        "Ready for a Change? {keyword}",
-        "Your 5-Minute Reset for {keyword}",
+        "Design Inspiration: {keyword}",
+        "Your 10-Minute Reset for {keyword}",
     ]
     idx = _stable_template_index(slug or normalized_title, len(templates))
     candidate = templates[idx].format(keyword=keyword.lower(), tag=tag.replace("-", " "))
@@ -548,23 +495,23 @@ def _build_pin_description(title: str, slug: str, tag: str, meta_description: st
     tag_phrase = tag.replace("-", " ")
     base_topic = _trim_at_word_boundary(_normalize_whitespace(meta_description).lower(), 54)
     if not base_topic:
-        base_topic = _trim_at_word_boundary(f"your {tag_phrase} routine", 54)
+        base_topic = _trim_at_word_boundary(f"your {tag_phrase} space", 54)
 
-    specificity = ["today", "this week", "a 5-minute reset", "a 3-step routine", "your next meal", "tomorrow morning", "this weekend", "starting now"]
-    ctas = ["Save this", "Try this today", "Read the full guide", "Check the checklist", "Get the plan"]
+    specificity = ["this weekend", "in 15 minutes", "on a budget", "step-by-step", "in small spaces", "for everyday living", "with smart storage", "starting today"]
+    ctas = ["Save this home idea", "Pin this for later", "Read the full guide", "Check the home checklist", "Get the full setup"]
 
     seed = slug or meta_description or tag
 
     templates = [
-        "Feeling overwhelmed lately? This {specific} plan helps you simplify {topic} with practical steps you can stick to.",
-        "Struggling to stay consistent with {tag}? Try this {specific} approach to make progress without changing everything at once.",
-        "Having trouble making {topic} work in real life? Use this {specific} framework to keep things simple and doable.",
-        "If you cannot seem to keep up with {tag}, this breakdown focuses on realistic actions for busy days {specific}.",
-        "When routines feel hard to maintain, {topic} usually needs a simpler plan. Start with this {specific} path and build momentum.",
-        "Looking for a practical reset? This {specific} strategy helps you improve {tag} habits with clear, manageable steps.",
-        "Stop overcomplicating {tag}. This {specific} guide shows you exactly how to focus on what matters most for {topic}.",
-        "Want better results with less stress? This {specific} routine for {tag} is designed for real life, not a lab.",
-        "Tired of generic advice about {tag}? This {specific} breakdown of {topic} gives you tools you can use immediately.",
+        "Looking to refresh your space? This {specific} guide helps you elevate {topic} with practical solutions.",
+        "Need inspiration for {tag}? Try this {specific} approach to create a clean, functional home you love.",
+        "Struggling to make {topic} work in real life? Use this {specific} layout to keep things organized and stylish.",
+        "If you want to upgrade your {tag}, this breakdown focuses on practical, beautiful ideas for busy households {specific}.",
+        "When home organization feels overwhelming, {topic} needs a simpler plan. Start with this {specific} method.",
+        "Looking for a practical home reset? This {specific} strategy helps you improve {tag} with minimal effort.",
+        "Stop overcomplicating {tag}. This {specific} guide shows you exactly what works best for {topic}.",
+        "Want a more inviting home with less clutter? This {specific} idea for {tag} is designed for everyday comfort.",
+        "Practical and timeless tips for {tag}: this {specific} breakdown of {topic} gives you tools you can use immediately.",
     ]
 
     idx = _stable_template_index(seed, len(templates))
@@ -576,7 +523,7 @@ def _build_pin_description(title: str, slug: str, tag: str, meta_description: st
     description = _trim_at_word_boundary(description, 260)
 
     if len(description) < 140:
-        extra = "Built for real schedules with one small step at a time."
+        extra = "Simple, beautiful ideas crafted for everyday living."
         cta_sentence = f" {cta.strip().rstrip('.!?')}."
         if description.endswith(cta_sentence):
             base = description[: -len(cta_sentence)].rstrip()
@@ -590,65 +537,3 @@ def _build_pin_description(title: str, slug: str, tag: str, meta_description: st
         description = _trim_at_word_boundary(description, 260)
 
     return description
-
-
-def _normalize_recipe(raw: Any, tag: str) -> dict[str, Any] | None:
-    if tag != "recipes":
-        return None
-    if not isinstance(raw, dict):
-        raise ValueError("Missing or invalid recipe data for recipes tag")
-
-    prep = _coerce_positive_int(raw.get("prep_time_minutes"), "prep_time_minutes")
-    cook = _coerce_positive_int(raw.get("cook_time_minutes"), "cook_time_minutes")
-    total = _coerce_positive_int(raw.get("total_time_minutes"), "total_time_minutes")
-    servings = str(raw.get("servings", "")).strip()
-    if not servings:
-        raise ValueError("Missing or invalid recipe field: servings")
-
-    calories = str(raw.get("calories_per_serving", "")).strip()
-    ingredients = _normalize_recipe_list(raw.get("ingredients"), "ingredients", 25)
-    instructions = _normalize_recipe_list(raw.get("instructions"), "instructions", 20)
-    tips = _normalize_recipe_list(raw.get("tips"), "tips", 10, required=False)
-    storage = str(raw.get("storage", "")).strip()
-
-    if total < prep + cook:
-        total = prep + cook
-
-    return {
-        "prep_time_minutes": prep,
-        "cook_time_minutes": cook,
-        "total_time_minutes": total,
-        "servings": servings,
-        "calories_per_serving": calories,
-        "ingredients": ingredients,
-        "instructions": instructions,
-        "tips": tips,
-        "storage": storage,
-    }
-
-
-def _normalize_recipe_list(raw: Any, field: str, limit: int, required: bool = True) -> list[str]:
-    if raw is None:
-        if required:
-            raise ValueError(f"Missing or invalid recipe field: {field}")
-        return []
-    if not isinstance(raw, list):
-        raise ValueError(f"Missing or invalid recipe field: {field}")
-    cleaned: list[str] = []
-    for item in raw[:limit]:
-        value = str(item).strip()
-        if value:
-            cleaned.append(value)
-    if required and not cleaned:
-        raise ValueError(f"Missing or invalid recipe field: {field}")
-    return cleaned
-
-
-def _coerce_positive_int(value: Any, field: str) -> int:
-    try:
-        parsed = int(value)
-    except (TypeError, ValueError) as exc:
-        raise ValueError(f"Missing or invalid recipe field: {field}") from exc
-    if parsed <= 0:
-        raise ValueError(f"Missing or invalid recipe field: {field}")
-    return min(parsed, 24 * 60)

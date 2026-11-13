@@ -84,19 +84,15 @@ def _local_fallback_topic(
 def _topic_from_trend_local(trend: str) -> Topic:
     """Converte uma trend em Topic mapeando keywords para tags conhecidas."""
     TAG_KEYWORDS: dict[str, list[str]] = {
-        "sleep": ["sleep", "insomnia", "rest", "nap", "circadian"],
-        "stress": ["stress", "anxiety", "burnout", "mindful", "meditat"],
-        "gut": ["gut", "digest", "probiotic", "microbiome", "bloat"],
-        "weight": ["weight", "fat", "metabol", "calorie", "bmi"],
-        "recipes": ["recipe", "meal", "cook", "food", "diet", "eat", "protein"],
-        "home-workouts": ["workout", "exercise", "fitness", "gym", "yoga", "walk", "strength"],
-        "anti-inflammatory": ["inflam", "arthrit", "joint", "omega", "antioxidant"],
-        "longevity": ["longevity", "aging", "lifespan", "centenar"],
-        "mental-wellness": ["mental", "focus", "brain", "cognitive", "mood", "depress"],
-        "healthy-habits": ["habit", "routine", "morning", "evening", "productivity"],
+        "home-organization": ["organize", "organization", "storage", "closet", "pantry", "declutter", "shelf", "containers"],
+        "kitchen": ["kitchen", "cooking", "meal prep", "cookware", "appliance", "gadget", "countertop", "knife"],
+        "decor": ["decor", "interior", "living room", "bedroom", "aesthetic", "wall art", "lighting", "styling", "rug", "curtain"],
+        "garden": ["garden", "gardening", "plant", "plants", "patio", "outdoor", "balcony", "backyard", "flower", "herb"],
+        "home-office": ["office", "desk", "workspace", "ergonomic", "productivity", "smart home", "monitor", "cable"],
+        "pets": ["pet", "pets", "dog", "cat", "pet friendly", "puppy", "kitten"],
     }
     trend_lower = trend.lower()
-    chosen_tag = "health"
+    chosen_tag = "home-organization"
     for tag, keywords in TAG_KEYWORDS.items():
         if any(kw in trend_lower for kw in keywords):
             chosen_tag = tag
@@ -106,7 +102,7 @@ def _topic_from_trend_local(trend: str) -> Topic:
     return Topic(
         slug=slug,
         name=trend.title(),
-        angle="practical, science-backed tips for US readers",
+        angle="practical, aesthetic, and functional home ideas for US readers",
         tag=chosen_tag,
     )
 
@@ -157,7 +153,7 @@ def _write_execution_summary(
             pins_info = item.get("pins", [])
             banner.append(
                 f"{idx}. Artigo: \"{item['title']}\"\n"
-                f"   • Tag: {item['tag']} | Board: {item.get('board', 'Health & Wellness')}\n"
+                f"   • Tag: {item['tag']} | Board: {item.get('board', 'Home Organization & Storage Solutions')}\n"
                 f"   • Link do Artigo: {item['url']}\n"
                 f"   • 3 Pins Estratégicos Gerados:"
             )
@@ -300,7 +296,7 @@ def main() -> None:
             post: dict[str, Any] | None = None
             try:
                 candidate = generate_article(client, topic, title_hint, mode, offer)
-                candidate["tag"] = normalize_tag(candidate.get("tag", "")) or normalize_tag(topic.tag) or "health"
+                candidate["tag"] = normalize_tag(candidate.get("tag", "")) or normalize_tag(topic.tag) or "home-organization"
 
                 is_valid, quality_msg = _validate_quality(candidate, topic.name)
                 if not is_valid:
@@ -393,7 +389,7 @@ def main() -> None:
                 pin_desc = pin_info["pin_description"]
                 pin_slot = pin_info["slot_index"]
                 pin_intent = pin_info["intent"]
-                pin_board = pin_info.get("board", "Health & Wellness")
+                pin_board = pin_info.get("board", "Home Organization & Storage Solutions")
                 pin_kws = pin_info["keywords"]
 
                 # Imagem Pinterest vertical (.png local) com overlay dedicada ao título do pin
@@ -473,7 +469,7 @@ def main() -> None:
                 "slug": post["slug"],
                 "url": canonical_url,
                 "tag": post["tag"],
-                "board": triple_pins[0].get("board", "Health & Wellness"),
+                "board": triple_pins[0].get("board", "Home Organization & Storage Solutions"),
                 "pins": created_pins_for_summary,
             })
 

@@ -1,27 +1,62 @@
 [
   {
-    "name": "Daily Synbiotic Capsule",
-    "link": "https://www.amazon.com/s?k=daily+synbiotic+capsule",
-    "tags": ["gut", "us", "habits"]
+    "name": "Clear Stackable Storage Bins (4-Pack)",
+    "link": "https://www.amazon.com/s?k=clear+stackable+storage+bins",
+    "tags": ["home-organization", "kitchen", "us"]
   },
   {
-    "name": "Magnesium Glycinate",
-    "link": "https://www.amazon.com/s?k=magnesium+glycinate",
-    "tags": ["sleep", "mental", "us"]
+    "name": "Fabric Closet Organizer with Drawers",
+    "link": "https://www.amazon.com/s?k=closet+organizer+hanging+drawers",
+    "tags": ["home-organization", "decor", "us"]
   },
   {
-    "name": "Resistance Bands Set",
-    "link": "https://www.amazon.com/s?k=resistance+bands+set",
-    "tags": ["exercise", "weight", "longevity", "us"]
+    "name": "Airtight Glass Food Storage Containers Set",
+    "link": "https://www.amazon.com/s?k=airtight+glass+food+storage+containers",
+    "tags": ["kitchen", "home-organization", "us"]
   },
   {
-    "name": "Extra Virgin Olive Oil",
-    "link": "https://www.amazon.com/s?k=extra+virgin+olive+oil",
-    "tags": ["anti-inflammatory", "recipes", "us"]
+    "name": "Stainless Steel Kitchen Knife Set with Wooden Block",
+    "link": "https://www.amazon.com/s?k=kitchen+knife+set+block",
+    "tags": ["kitchen", "us"]
   },
   {
-    "name": "White Noise Machine",
-    "link": "https://www.amazon.com/s?k=white+noise+machine",
-    "tags": ["sleep", "habits", "us"]
+    "name": "Textured Linen Throw Pillow Covers (Set of 2)",
+    "link": "https://www.amazon.com/s?k=linen+throw+pillow+covers",
+    "tags": ["decor", "us"]
+  },
+  {
+    "name": "Solid Wood Gallery Wall Frame Set",
+    "link": "https://www.amazon.com/s?k=gallery+wall+frame+set",
+    "tags": ["decor", "home-office", "us"]
+  },
+  {
+    "name": "Indoor Herb Garden Starter Kit with LED Grow Light",
+    "link": "https://www.amazon.com/s?k=indoor+herb+garden+starter+kit",
+    "tags": ["garden", "kitchen", "us"]
+  },
+  {
+    "name": "Ergonomic Bypass Pruning Shears for Gardening",
+    "link": "https://www.amazon.com/s?k=bypass+pruning+shears",
+    "tags": ["garden", "us"]
+  },
+  {
+    "name": "Under Desk Cable Management Tray & Organizer",
+    "link": "https://www.amazon.com/s?k=under+desk+cable+management+tray",
+    "tags": ["home-office", "home-organization", "us"]
+  },
+  {
+    "name": "Adjustable Aluminum Ergonomic Laptop Stand",
+    "link": "https://www.amazon.com/s?k=adjustable+aluminum+laptop+stand",
+    "tags": ["home-office", "us"]
+  },
+  {
+    "name": "Multi-Surface Pet Hair Remover Roller",
+    "link": "https://www.amazon.com/s?k=pet+hair+remover+roller",
+    "tags": ["pets", "home-organization", "us"]
+  },
+  {
+    "name": "Orthopedic Memory Foam Pet Bed with Washable Cover",
+    "link": "https://www.amazon.com/s?k=orthopedic+memory+foam+dog+bed",
+    "tags": ["pets", "decor", "us"]
   }
 ]

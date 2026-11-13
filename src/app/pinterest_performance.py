@@ -215,7 +215,7 @@ class PinterestPerformanceTracker:
         for pin in pins:
             score = self.calculate_pin_score(pin)
             intent = pin.get("intent") or "guide"
-            tag = pin.get("tag") or "health"
+            tag = pin.get("tag") or "home-organization"
             topic = pin.get("topic") or "General"
             saves = float(pin.get("saves", 0))
             clicks = float(pin.get("outbound_clicks", 0))

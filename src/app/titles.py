@@ -10,20 +10,20 @@ from .topics import Topic
 # ──────────────────────────────────────────────────────────────────────────────
 
 _TITLE_TEMPLATES = [
-    "How to {verb} {topic} Without Giving Up Everything",
-    "{count} Practical Ways to {verb} {topic} Starting Today",
+    "How to {verb} Your {topic} Without Breaking the Bank",
+    "{count} Practical Ways to {verb} Your {topic} This Weekend",
     "Struggling with {topic}? Try This {adj} Reset",
-    "Feel More Energized with This {adj} {topic} Routine",
-    "The Honest Guide to {topic} for Busy People",
+    "Create a Calmer Space with This {adj} {topic} Guide",
+    "The Honest Guide to {topic} for Busy Homes",
     "What Nobody Tells You About {topic}",
     "Stop Overcomplicating {topic} — Here's What Actually Works",
-    "A Realistic {topic} Plan That Fits Your Real Life",
-    "How I Finally Made {topic} Stick (And You Can Too)",
-    "{count} Science-Backed {topic} Habits Worth Trying",
+    "A Realistic {topic} Setup That Fits Your Daily Routine",
+    "How to Organize {topic} and Keep It Clutter-Free",
+    "{count} Inspiring {topic} Ideas Worth Trying",
 ]
 
-_VERBS = ["improve", "simplify", "build", "manage", "restart", "boost", "fix", "optimize"]
-_ADJS = ["Simple", "Daily", "5-Minute", "Practical", "Effective", "Sustainable"]
+_VERBS = ["transform", "organize", "upgrade", "refresh", "elevate", "simplify", "declutter", "style"]
+_ADJS = ["Simple", "Cozy", "15-Minute", "Practical", "Modern", "Functional"]
 _COUNTS = ["3", "5", "7", "4", "6"]
 
 
@@ -39,45 +39,42 @@ def _local_title_hint(topic: Topic) -> str:
         adj=random.choice(_ADJS),
         count=random.choice(_COUNTS),
     )
-    # Garante entre 40-80 chars para que seja um hint útil
     if len(title) > 80:
         title = title[:77].rsplit(" ", 1)[0] + "..."
     return title
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Compatibilidade retroativa: generate_titles permanece disponível
-# mas NÃO é mais chamado no pipeline principal (economiza 1 chamada Gemini/slot)
+# Compatibilidade retroativa
 # ──────────────────────────────────────────────────────────────────────────────
 
-TITLE_PROMPT = """You are an expert SEO editor for a major US health publication.
+TITLE_PROMPT = """You are an expert SEO editor for Homewise Living, a premier US home and lifestyle publication.
 Return JSON only with schema: {{"titles": ["...", "..."]}}.
 Create exactly 10 unique, high-CTR titles in US English for topic '{topic_name}' and angle '{angle}'.
 
 Rules for High-Quality Titles:
-- Use power words (e.g., Simple, Effective, Daily, Practical, Science-Backed, Realistic).
+- Use warm, inspiring power words (e.g., Simple, Practical, Modern, Cozy, Functional, Beautiful, Effortless).
 - Mix different formats:
-  - The "How-To" (e.g., How to Actually [Benefit] Without [Struggle])
-  - The "Listicle" (e.g., 5 Practical Ways to [Benefit] Today)
-  - The "Question" (e.g., Struggling with [Topic]? Try This 5-Minute Reset)
-  - The "Benefit-First" (e.g., Feel More Energized with This Simple [Topic] Routine)
-- Target US search intent: informational, looking for quick wins and sustainable habits.
-- avoid these phrases: Ultimate Guide, Best Ever, Secrets Revealed, You Won't Believe.
-- each title must be between 40 and 70 characters.
-- no numbering, no bullets, plain title text only.
+  - The "How-To" (e.g., How to Actually Organize [Space] Without Overwhelm)
+  - The "Listicle" (e.g., 5 Practical Ways to Elevate Your [Space] Today)
+  - The "Question" (e.g., Struggling with [Topic]? Try This 15-Minute Reset)
+  - The "Inspiration-First" (e.g., Transform Your [Space] with These Everyday Ideas)
+- Target US search intent: practical solutions, small-space organizing, aesthetic upgrades, and cozy living.
+- Avoid these phrases: Ultimate Guide, Best Ever, Secrets Revealed, You Won't Believe.
+- Each title must be between 40 and 70 characters.
+- No numbering, no bullets, plain title text only.
 """
 
 
 def generate_titles(
-    client: object,  # GeminiClient — tipo fraco para evitar importação circular
+    client: object,
     topic: Topic,
     excluded_titles: list[str] | None = None,
 ) -> list[str]:
     """
-    Gera títulos via Gemini. Mantida para compatibilidade mas NÃO é chamada
-    no pipeline principal — use _local_title_hint() + prompt unificado.
+    Gera títulos via Gemini. Mantida para compatibilidade retroativa.
     """
-    from .gemini_client import GeminiClient  # importação local para evitar circular
+    from .gemini_client import GeminiClient
 
     assert isinstance(client, GeminiClient)
 
@@ -98,28 +95,4 @@ def generate_titles(
         if t and "ultimate guide" not in t.lower() and "best ever" not in t.lower():
             if not excluded_titles or t not in excluded_titles:
                 clean.append(t)
-    if len(clean) < 3:
-        for title in titles:
-            if isinstance(title, str) and title.strip():
-                clean.append(title.strip())
-
-    return clean[:10]
-
-
-def pick_best_title(titles: list[str]) -> str:
-    if not titles:
-        return ""
-
-    scored = []
-    for t in titles:
-        score = 0
-        if "?" in t:
-            score += 2
-        for token in ["how", "what", "why", "tips", "foods", "routine", "guide", "checklist"]:
-            if token in t.lower():
-                score += 1
-        score += random.uniform(0, 1.5)
-        scored.append((score, t))
-
-    scored.sort(key=lambda x: x[0], reverse=True)
-    return scored[0][1]
+    return clean or [_local_title_hint(topic)]

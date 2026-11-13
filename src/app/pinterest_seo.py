@@ -20,7 +20,6 @@ SEARCH_INTENTS = [
     "routine",
 ]
 
-# Stopwords para extração de core phrase
 STOPWORDS = {
     "a", "an", "the", "and", "or", "but", "for", "with", "this",
     "that", "your", "from", "how", "to", "of", "in", "on", "at",
@@ -32,7 +31,6 @@ STOPWORDS = {
     "been", "being", "does", "did", "new", "find", "finds", "by",
 }
 
-# Prefixos/templates que indicam um pin_title gerado por fallback local (não do Gemini)
 _GENERIC_TITLE_PREFIXES = [
     "build a better week with",
     "feel better faster:",
@@ -48,7 +46,6 @@ _GENERIC_TITLE_PREFIXES = [
     "better ",
 ]
 
-# Prefixos de descrições genéricas/templates antigos para descartar em favor do texto natural
 _GENERIC_DESC_PREFIXES = [
     "most people make these",
     "your no-nonsense guide to",
@@ -64,19 +61,13 @@ _GENERIC_DESC_PREFIXES = [
     "stop overcomplicating",
 ]
 
-# Mapeamento de tags para pastas focadas no Pinterest (US audience)
 US_PINTEREST_BOARDS: dict[str, str] = {
-    "recipes": "Healthy Recipes & Meal Prep",
-    "home-workouts": "Home Workouts & Fitness",
-    "healthy-habits": "Daily Healthy Habits",
-    "stress": "Stress Relief & Mindfulness",
-    "gut": "Gut Health & Digestion",
-    "sleep": "Better Sleep & Rest",
-    "weight": "Healthy Weight Loss Tips",
-    "anti-inflammatory": "Anti-Inflammatory Living",
-    "mental-wellness": "Mental Wellness & Self Care",
-    "longevity": "Healthy Aging & Longevity",
-    "health": "Health & Wellness",
+    "home-organization": "Home Organization & Storage Solutions",
+    "kitchen": "Kitchen Essentials & Organization",
+    "decor": "Home Decor & Interior Styling",
+    "garden": "Gardening & Outdoor Living",
+    "home-office": "Home Office & Smart Living",
+    "pets": "Pet-Friendly Home Ideas",
 }
 
 
@@ -100,240 +91,148 @@ def _stable_hash_index(seed: str, size: int) -> int:
 
 
 def _is_generic_fallback_title(title: str) -> bool:
-    """Verifica se o pin_title vem de um template de fallback local genérico."""
     low = title.lower().strip()
     return any(low.startswith(p) for p in _GENERIC_TITLE_PREFIXES)
 
 
 def _is_generic_fallback_description(desc: str) -> bool:
-    """Verifica se a pin_description vem de um template antigo/genérico de fallback."""
     low = desc.lower().strip()
     return any(low.startswith(p) for p in _GENERIC_DESC_PREFIXES)
 
 
 def extract_core_topic_phrase(topic_name: str, title: str = "") -> str:
-    """
-    Extrai uma frase focal limpa de 2 a 4 palavras a partir do tópico e título.
-    Prefere termos que formam uma frase de busca natural e completa.
-    """
-    # Palavras que não devem terminar uma frase de busca (conectivos, preposições)
     _BAD_ENDINGS = {
-        "and", "or", "the", "a", "an", "of", "in", "on", "at", "for",
-        "with", "to", "by", "as", "is", "are", "was", "that", "linked",
-        "may", "can", "do", "from", "into", "after", "these", "this",
+        "and", "or", "the", "a", "an", "for", "with", "to", "in", "of", "on", "at", "by", "that", "this", "my", "your",
     }
+    raw_topic = _normalize_whitespace(topic_name).lower()
+    topic_words = [w for w in re.findall(r"\b[a-z]{3,}\b", raw_topic) if w not in STOPWORDS]
 
-    def _clean_words(text: str) -> list[str]:
-        clean = re.sub(r"[^\w\s-]", "", text or "").strip()
-        return [w for w in clean.split() if w.lower() not in STOPWORDS and len(w) >= 3]
-
-    def _build_phrase(words: list[str], max_words: int = 4) -> str:
-        phrase_words = words[:max_words]
-        # Remove palavras ruins no final
-        while phrase_words and phrase_words[-1].lower() in _BAD_ENDINGS:
-            phrase_words = phrase_words[:-1]
-        return " ".join(phrase_words).lower() if len(phrase_words) >= 2 else ""
-
-    topic_words = _clean_words(topic_name)
-    if len(topic_words) >= 2:
-        phrase = _build_phrase(topic_words, max_words=4)
-        if phrase:
+    if 2 <= len(topic_words) <= 4:
+        phrase = " ".join(topic_words)
+        if not any(phrase.endswith(f" {end}") for end in _BAD_ENDINGS):
             return phrase
 
-    title_words = _clean_words(title)
-    if len(title_words) >= 2:
-        phrase = _build_phrase(title_words, max_words=4)
-        if phrase:
-            return phrase
+    if 1 <= len(topic_words) <= 2:
+        return raw_topic
 
-    fallback = re.sub(r"[^\w\s-]", "", topic_name or "").strip()
-    return fallback.lower() if fallback else "healthy habits"
+    if title:
+        raw_title = _normalize_whitespace(title).lower()
+        title_words = [w for w in re.findall(r"\b[a-z]{3,}\b", raw_title) if w not in STOPWORDS]
+        for n in (3, 2):
+            for i in range(len(title_words) - n + 1):
+                candidate_words = title_words[i: i + n]
+                if candidate_words[-1] not in _BAD_ENDINGS:
+                    return " ".join(candidate_words)
 
+    return _trim_at_word_boundary(topic_name.lower(), 30)
 
 
 def detect_search_intent(
     title: str,
-    topic_name: str,
-    tag: str,
+    topic_name: str = "",
+    tag: str = "",
     html: str = "",
     performance_tracker: PinterestPerformanceTracker | None = None,
 ) -> str:
-    """
-    Classifica automaticamente o search intent do Pin em:
-    how_to, list, checklist, tips, mistakes, guide, routine
-
-    Ordem de prioridade (do mais específico ao mais genérico):
-    1. mistakes  – indicadores negativos/alertas
-    2. how_to    – instruções diretas
-    3. checklist – checklists / planos de ação
-    4. routine   – rotinas / agendas
-    5. tips      – dicas
-    6. list      – listas numeradas
-    7. guide     – guias completos
-    """
     text_to_check = f"{title} {topic_name}".lower()
 
-    # 1. Mistakes / alertas / problemas de saúde
     mistake_exact = [
-        "mistake", "mistakes", "avoid", "wrong", "harm", "harming",
-        "never", "threaten", "worsen", "hidden danger", "danger", "ruin",
-        "toxic", "worst", "lies", "myth", "myths", "cancer", "disease",
-        "linked to", "may hurt", "can harm", "hurting", "hurts",
-        "worsens", "damage", "damages", "kill", "kills", "threat",
-        "warning", "risky", "risks", "problematic",
+        "mistake", "mistakes", "wrong", "avoid", "ruin", "ruining",
+        "worst", "problem", "problems", "cluttered", "clutter",
+        "overwhelmed", "warning",
     ]
-    # Patterns adicionais que não usam \b (para strings compostas)
-    mistake_compound = ["linked to", "may hurt", "can harm", "hidden danger", "may worsen"]
+    mistake_compound = ["what not to do", "stop doing", "common mistakes"]
     if any(phrase in text_to_check for phrase in mistake_compound):
         return "mistakes"
     if any(re.search(rf"\b{re.escape(w)}\b", text_to_check) for w in mistake_exact):
         return "mistakes"
 
-    # 2. How-To / passo a passo
     if re.search(r"\b(how to|how i|how you|ways? to|step by step|step-by-step)\b", text_to_check):
         return "how_to"
 
-    # 3. Checklist / plano de ação
-    checklist_patterns = ["checklist", "tracker", "action plan", "step-by-step", "habit tracker"]
+    checklist_patterns = ["checklist", "tracker", "action plan", "step-by-step", "system", "declutter plan"]
     if any(phrase in text_to_check for phrase in checklist_patterns):
         return "checklist"
-    if re.search(r"\bplan\b", text_to_check) and tag in {"healthy-habits", "home-workouts", "weight"}:
-        return "checklist"
 
-    # 4. Routine / agendas / schedules
-    routine_phrases = ["routine", "schedule", "morning routine", "evening routine", "nightly routine",
-                       "daily habit", "bedtime routine", "workout plan", "weekly plan"]
+    routine_phrases = ["routine", "schedule", "daily habit", "cleaning schedule", "weekend project"]
     if any(phrase in text_to_check for phrase in routine_phrases):
         return "routine"
-    if tag in {"sleep", "home-workouts"} and re.search(r"\b(morning|evening|nightly|daily|bedtime|weekly)\b", text_to_check):
-        return "routine"
 
-    # 5. Tips / dicas
-    tip_patterns = ["tips", "tip", "hacks", "tricks", "secrets", "advice", "quick wins"]
+    tip_patterns = ["tips", "tip", "hacks", "tricks", "secrets", "ideas", "quick wins"]
     if any(re.search(rf"\b{re.escape(w)}\b", text_to_check) for w in tip_patterns):
         return "tips"
 
-    # 6. List (numerados / "foods / swaps / ideas")
-    if re.search(r"\b\d+\b", text_to_check) or re.search(r"\b(reasons|foods|items|swaps|ideas|types|ways|signs)\b", text_to_check):
+    if re.search(r"\b\d+\b", text_to_check) or re.search(r"\b(items|products|swaps|ideas|types|ways|pieces)\b", text_to_check):
         return "list"
 
-    # 7. Guide / guias completos
-    guide_patterns = ["guide", "blueprint", "ultimate", "master", "deep dive", "overview",
-                      "breakdown", "science", "research", "study", "review", "explained"]
+    guide_patterns = ["guide", "blueprint", "ultimate", "master", "deep dive", "overview", "makeover"]
     if any(re.search(rf"\b{re.escape(w)}\b", text_to_check) for w in guide_patterns):
         return "guide"
 
-    # Consulta histórico de performance para tag
     if performance_tracker:
         historical_intent = performance_tracker.get_best_intent_for_tag(tag)
         if historical_intent and historical_intent in SEARCH_INTENTS:
-            LOG.debug("[PinterestSEO] Usando intent histórico para tag '%s': %s", tag, historical_intent)
             return historical_intent
 
-    # Fallback padrão por tag
     tag_defaults: dict[str, str] = {
-        "recipes": "list",
-        "home-workouts": "routine",
-        "sleep": "routine",
-        "stress": "tips",
-        "gut": "tips",
-        "weight": "guide",
-        "anti-inflammatory": "list",
-        "longevity": "guide",
-        "mental-wellness": "tips",
-        "healthy-habits": "checklist",
+        "home-organization": "checklist",
+        "kitchen": "tips",
+        "decor": "list",
+        "garden": "guide",
+        "home-office": "how_to",
+        "pets": "tips",
     }
     return tag_defaults.get(tag, "guide")
 
 
 AUTHENTIC_US_PINTEREST_KEYWORDS: dict[str, list[str]] = {
-    "recipes": [
-        "healthy dinner ideas",
-        "easy meal prep",
-        "clean eating recipes",
-        "high protein meals",
-        "quick healthy recipes",
-        "healthy lunch ideas",
+    "home-organization": [
+        "home organization ideas",
+        "decluttering tips",
+        "closet organization",
+        "pantry organization hacks",
+        "storage solutions for small spaces",
+        "cleaning and organizing",
     ],
-    "gut": [
-        "gut health tips",
-        "gut healing foods",
-        "bloating remedies",
-        "digestive health",
-        "healthy gut diet",
-        "improve gut health",
+    "kitchen": [
+        "kitchen organization",
+        "kitchen essentials",
+        "small kitchen storage",
+        "kitchen gadgets",
+        "meal prep tools",
+        "pantry organization",
     ],
-    "anti-inflammatory": [
-        "anti inflammatory diet",
-        "foods that fight inflammation",
-        "anti inflammatory recipes",
-        "natural inflammation remedies",
-        "joint health diet",
-        "anti inflammatory meal plan",
+    "decor": [
+        "home decor ideas",
+        "interior styling tips",
+        "living room ideas",
+        "bedroom makeover",
+        "aesthetic room decor",
+        "cozy home vibes",
     ],
-    "sleep": [
-        "how to sleep better naturally",
-        "bedtime routine for adults",
-        "natural sleep remedies",
-        "deep sleep habits",
-        "nighttime routine",
-        "fall asleep fast",
+    "garden": [
+        "beginner gardening tips",
+        "indoor plants care",
+        "patio decor ideas",
+        "container gardening",
+        "herb garden indoors",
+        "backyard landscape ideas",
     ],
-    "stress": [
-        "stress relief tips",
-        "how to lower cortisol naturally",
-        "nervous system regulation",
-        "daily mindfulness habits",
-        "anxiety relief techniques",
-        "calm mind routine",
+    "home-office": [
+        "home office setup",
+        "desk organization ideas",
+        "ergonomic home office",
+        "productivity space",
+        "smart home devices",
+        "cable management ideas",
     ],
-    "home-workouts": [
-        "home workout routine",
-        "no equipment workout",
-        "daily stretching routine",
-        "beginner workout at home",
-        "quick morning workout",
-        "mobility exercises",
-    ],
-    "healthy-habits": [
-        "healthy daily routine",
-        "simple wellness habits",
-        "healthy lifestyle tips",
-        "daily healthy habits",
-        "wellness routine for women",
-        "easy habit reset",
-    ],
-    "weight": [
-        "sustainable weight loss habits",
-        "realistic healthy weight tips",
-        "healthy metabolism habits",
-        "habits for weight loss",
-        "clean eating for weight loss",
-        "healthy body reset",
-    ],
-    "longevity": [
-        "daily habits to live longer",
-        "longevity lifestyle tips",
-        "healthy aging secrets",
-        "anti aging daily habits",
-        "cellular health nutrition",
-        "vitality daily routine",
-    ],
-    "mental-wellness": [
-        "mental wellness habits",
-        "daily self care routine",
-        "improve mental clarity naturally",
-        "brain health habits",
-        "mindset habits for calm",
-        "emotional wellness tips",
-    ],
-    "health": [
-        "healthy lifestyle tips",
-        "daily wellness inspiration",
-        "natural health remedies",
-        "simple healthy habits",
-        "healthy living guide",
-        "wellness daily reset",
+    "pets": [
+        "pet friendly home ideas",
+        "dog room ideas",
+        "cat safe house plants",
+        "pet organization storage",
+        "pet friendly furniture",
+        "living with pets tips",
     ],
 }
 
@@ -346,11 +245,6 @@ def generate_search_keywords(
     primary_keyword: str = "",
     article_keywords: str = "",
 ) -> list[str]:
-    """
-    Gera de 5 a 8 termos de busca autênticos em US English para o Pinterest.
-    Prioriza termos naturais pesquisados por usuários reais nos EUA,
-    sem 'keyword stuffing' e sem frases sintéticas gramaticalmente quebradas.
-    """
     tag_clean = tag.replace("-", " ").strip().lower()
     core = (primary_keyword or "").strip().lower()
     if not core:
@@ -365,73 +259,28 @@ def generate_search_keywords(
         if 2 <= len(words) <= 5 and c not in candidates:
             candidates.append(c)
 
-    # 1. Palavras-chave vindas do Gemini (se geradas)
     if article_keywords:
         for kw in article_keywords.split(","):
             _add_candidate(kw)
 
-    # 2. Primary keyword (se for válida e natural, 2 a 4 palavras)
     if core and 2 <= len(core.split()) <= 4:
         _add_candidate(core)
 
-    # 3. Termos autênticos curados do Pinterest US para o nicho/tag
-    pool = AUTHENTIC_US_PINTEREST_KEYWORDS.get(tag, AUTHENTIC_US_PINTEREST_KEYWORDS["health"])
+    pool = AUTHENTIC_US_PINTEREST_KEYWORDS.get(tag, AUTHENTIC_US_PINTEREST_KEYWORDS["home-organization"])
     for kw in pool:
         _add_candidate(kw)
 
-    # 4. Termos baseados no intent com linguagem natural e fluida
-    intent_keywords: dict[str, list[str]] = {
-        "how_to": [
-            f"how to improve {tag_clean}",
-            f"beginner {tag_clean} guide",
-            f"easy {tag_clean} tips",
-        ],
-        "list": [
-            f"best {tag_clean} ideas",
-            f"top {tag_clean} tips",
-            f"simple {tag_clean} swaps",
-        ],
-        "checklist": [
-            f"daily {tag_clean} checklist",
-            f"{tag_clean} habit tracker",
-            f"healthy {tag_clean} plan",
-        ],
-        "tips": [
-            f"practical {tag_clean} tips",
-            f"daily {tag_clean} advice",
-            f"simple {tag_clean} habits",
-        ],
-        "mistakes": [
-            f"common {tag_clean} mistakes to avoid",
-            f"{tag_clean} habits to stop",
-            f"what to avoid for {tag_clean}",
-        ],
-        "guide": [
-            f"complete {tag_clean} guide for beginners",
-            f"practical {tag_clean} guide",
-            f"simple guide to {tag_clean}",
-        ],
-        "routine": [
-            f"simple daily {tag_clean} routine",
-            f"realistic {tag_clean} habits",
-            f"daily {tag_clean} schedule",
-        ],
+    intent_modifiers = {
+        "how_to": [f"how to organize {tag_clean}", f"diy {tag_clean} ideas"],
+        "list": [f"best {tag_clean} ideas", f"{tag_clean} essentials list"],
+        "checklist": [f"{tag_clean} checklist", f"step by step {tag_clean}"],
+        "tips": [f"{tag_clean} tips and tricks", f"smart {tag_clean} hacks"],
+        "mistakes": [f"{tag_clean} mistakes to avoid", f"{tag_clean} organizing mistakes"],
+        "guide": [f"{tag_clean} beginner guide", f"complete {tag_clean} makeover"],
+        "routine": [f"daily {tag_clean} routine", f"weekend {tag_clean} project"],
     }
-    for kw in intent_keywords.get(intent, intent_keywords["guide"]):
-        _add_candidate(kw)
-
-    # Garante mínimo de 5 e máximo de 8 termos
-    fallback_pool = [
-        f"healthy {tag_clean} routine for beginners",
-        f"daily {tag_clean} wellness tips",
-        f"simple {tag_clean} guide",
-        "wellness habits for real life",
-        "easy healthy lifestyle tips",
-    ]
-    for fb in fallback_pool:
-        if len(candidates) >= 5:
-            break
-        _add_candidate(fb)
+    for mod in intent_modifiers.get(intent, []):
+        _add_candidate(mod)
 
     return candidates[:8]
 
@@ -441,26 +290,18 @@ def build_pinterest_title(
     topic_name: str,
     tag: str,
     intent: str,
-    primary_keyword: str,
+    primary_keyword: str = "",
 ) -> str:
-    """
-    Gera um título otimizado para o Pinterest (40 a 70 caracteres).
-    Preserva o título original se já for bom e não for um template genérico de fallback.
-    Se for longo, corta na fronteira de palavras sem quebrar.
-    """
     clean_title = _normalize_whitespace(title)
 
-    # 1. Se já está entre 40 e 70 chars e não é genérico, preserva
     if 40 <= len(clean_title) <= 70 and not _is_generic_fallback_title(clean_title):
         return clean_title
 
-    # 2. Se for ligeiramente mais longo que 70 chars, corta no limite de palavras
     if len(clean_title) > 70:
         trimmed = _trim_at_word_boundary(clean_title, 70)
         if 40 <= len(trimmed) <= 70 and not _is_generic_fallback_title(trimmed):
             return trimmed
 
-    # 3. Fallback seguro se não houver título do modelo ou for genérico
     tag_clean = tag.replace("-", " ").title()
     core = _trim_at_word_boundary(
         primary_keyword.title() if primary_keyword else topic_name.title(), 35
@@ -469,29 +310,29 @@ def build_pinterest_title(
 
     intent_title_templates: dict[str, list[str]] = {
         "how_to": [
-            "How to Improve Your {tag} Step-by-Step",
-            "A Realistic Way to Master {tag} That Works",
-            "How to Build Better {tag} Without Stress",
+            "How to Elevate Your {tag} Step-by-Step",
+            "A Realistic Way to Organize Your {tag}",
+            "How to Master {tag} Without Clutter",
         ],
         "list": [
-            "The Best {tag} Ideas for Everyday Wellness",
-            "Top Science-Backed {tag} Tips to Try",
-            "Key {tag} Swaps That Make a Real Difference",
+            "The Best {tag} Ideas for a Better Home",
+            "Top Inspiring {tag} Ideas to Try Today",
+            "Key {tag} Swaps That Transform Your Space",
         ],
         "checklist": [
-            "The Ultimate Daily {tag} Checklist",
-            "A Simple {tag} Action Plan for Beginners",
-            "Your Daily {tag} Reset: Simple Checklist",
+            "The Ultimate Weekend {tag} Checklist",
+            "A Simple {tag} Action Plan for Any Home",
+            "Your Complete {tag} Organizing Checklist",
         ],
         "tips": [
             "Practical {tag} Tips That Actually Work",
-            "Science-Backed {tag} Tips for Busy Days",
-            "Simple {tag} Habits for Better Health",
+            "Smart Home & {tag} Hacks for Busy Days",
+            "Simple {tag} Habits for a Clutter-Free Home",
         ],
         "mistakes": [
-            "Common {tag} Mistakes and How to Avoid Them",
-            "Stop Making These Common {tag} Mistakes",
-            "Hidden {tag} Mistakes That Hurt Your Health",
+            "Common {tag} Mistakes and How to Fix Them",
+            "Stop Making These Everyday {tag} Mistakes",
+            "Hidden {tag} Organizing Mistakes to Avoid",
         ],
         "guide": [
             "The Complete Beginner's Guide to {tag}",
@@ -499,9 +340,9 @@ def build_pinterest_title(
             "Your Practical Blueprint for Better {tag}",
         ],
         "routine": [
-            "A Simple Daily {tag} Routine That Sticks",
-            "Realistic {tag} Habits for Everyday Life",
-            "The 5-Minute Daily Reset for {tag}",
+            "A Simple {tag} Routine That Keeps Order",
+            "Realistic {tag} Habits for Modern Homes",
+            "The 15-Minute Home Reset for {tag}",
         ],
     }
 
@@ -513,7 +354,7 @@ def build_pinterest_title(
     candidate = _trim_at_word_boundary(candidate, 70)
 
     if len(candidate) < 40:
-        candidate = f"{candidate} ({tag_clean} Guide)"
+        candidate = f"{candidate} ({tag_clean} Ideas)"
         candidate = _trim_at_word_boundary(candidate, 70)
 
     return candidate
@@ -527,46 +368,39 @@ def build_pinterest_description(
     primary_keyword: str,
     html: str = "",
 ) -> str:
-    """
-    Gera uma descrição otimizada para o Pinterest (140 a 260 caracteres)
-    usada como fallback quando a descrição original do Gemini não estiver disponível
-    ou for um template genérico repetitivo.
-    """
     tag_clean = tag.replace("-", " ").strip()
     clean_meta = _normalize_whitespace(meta_description)
 
     intent_ctas: dict[str, str] = {
-        "how_to": "Save this pin to follow these simple steps today!",
-        "list": "Save this pin to keep these ideas handy whenever you need them!",
-        "checklist": "Save this checklist and start your daily reset today!",
-        "tips": "Save this pin for your daily health inspiration!",
-        "mistakes": "Save this pin and stop making these common mistakes!",
-        "guide": "Save this pin and read the complete breakdown!",
-        "routine": "Save this routine and make healthy habits stick!",
+        "how_to": "Save this pin to follow these simple home steps!",
+        "list": "Save this pin to keep these inspiring home ideas handy!",
+        "checklist": "Save this checklist and start your weekend home reset!",
+        "tips": "Save this pin for daily home and organizing inspiration!",
+        "mistakes": "Save this pin and avoid these common decorating mistakes!",
+        "guide": "Save this pin and read the complete home styling guide!",
+        "routine": "Save this routine and keep your space clutter-free!",
     }
-    cta = intent_ctas.get(intent, "Save this pin for practical health tips!")
+    cta = intent_ctas.get(intent, "Save this pin for smart ideas for a better home!")
 
-    # 1. Se meta_description for de bom tamanho (80 a 190 chars), combina com CTA natural
     if 80 <= len(clean_meta) <= 190:
         base = clean_meta.rstrip(".!?")
         combined = f"{base}. {cta}"
         if 140 <= len(combined) <= 260:
             return combined
 
-    # 2. Construção fluida baseada em tag + intent (sem recorte de strings desconexas)
     intent_descriptions: dict[str, str] = {
-        "how_to": f"Looking for simple, realistic ways to improve your {tag_clean}? Discover practical steps designed for real life and busy schedules. {cta}",
-        "list": f"Explore the best science-backed {tag_clean} ideas to help you feel better every day. Simple, manageable tips with zero generic advice. {cta}",
-        "checklist": f"Use this practical {tag_clean} action plan to stay on track without the overwhelm. Designed for real daily schedules. {cta}",
-        "tips": f"Get science-backed {tag_clean} tips that actually fit your daily routine. Realistic steps that make a noticeable difference. {cta}",
-        "mistakes": f"Are you making common {tag_clean} mistakes without realizing it? Discover what to avoid and what actually works for lasting results. {cta}",
-        "guide": f"Your practical, no-nonsense guide to {tag_clean}. Real answers and actionable steps designed for everyday life. {cta}",
-        "routine": f"Build a consistent {tag_clean} routine that fits your actual schedule. Start small, stay consistent, and see lasting progress. {cta}",
+        "how_to": f"Looking for simple, realistic ways to upgrade your {tag_clean}? Discover practical steps designed for everyday living and beautiful homes. {cta}",
+        "list": f"Explore the best aesthetic and practical {tag_clean} ideas to transform your space. Smart tips with zero fluff. {cta}",
+        "checklist": f"Use this practical {tag_clean} checklist to organize your space without the overwhelm. Perfect for busy households. {cta}",
+        "tips": f"Get functional {tag_clean} tips that actually fit your home and routine. Realistic ideas that make a noticeable difference. {cta}",
+        "mistakes": f"Are you making common {tag_clean} mistakes without realizing it? Discover what to avoid and what actually works for lasting order. {cta}",
+        "guide": f"Your practical, inspiring guide to {tag_clean}. Real solutions and styling ideas designed for everyday living. {cta}",
+        "routine": f"Build a consistent {tag_clean} system that keeps your home organized effortlessly. Start small and enjoy a calmer space. {cta}",
     }
 
     desc = intent_descriptions.get(
         intent,
-        f"Discover practical, science-backed {tag_clean} tips designed for everyday life. Simple steps to feel your best without stress. {cta}",
+        f"Discover practical, inspiring {tag_clean} ideas designed for modern living. Simple solutions for a home you love. {cta}",
     )
     desc = _normalize_whitespace(desc)
     if len(desc) > 260:
@@ -575,7 +409,7 @@ def build_pinterest_description(
             desc = desc.rstrip() + "."
 
     if len(desc) < 140:
-        desc = _trim_at_word_boundary(f"{desc} Built for real daily schedules with simple steps.", 260)
+        desc = _trim_at_word_boundary(f"{desc} Smart ideas for a better home and everyday comfort.", 260)
 
     return desc
 
@@ -585,29 +419,14 @@ def generate_pinterest_seo(
     article_data: dict[str, Any],
     performance_tracker: PinterestPerformanceTracker | None = None,
 ) -> dict[str, Any]:
-    """
-    Camada dedicada de Pinterest SEO — separada do SEO de artigo.
-
-    Recebe: topic + article_data (saídos do Gemini/generate_article)
-    Retorna:
-    - intent         : "how_to" | "list" | "checklist" | "tips" | "mistakes" | "guide" | "routine"
-    - primary_keyword: frase focal de 2-3 palavras (long-tail)
-    - secondary_keywords: list[str] de frases de apoio
-    - pin_title      : str 40-70 chars, otimizado Pinterest US
-    - pin_description: str 140-260 chars, linguagem natural e persuasiva US
-    - keywords       : str CSV de 5-8 termos autênticos do Pinterest US
-    - keywords_list  : list[str] das mesmas frases
-    - board          : str pasta recomendada para o Pin (US audience)
-    """
     from .topics import Topic as _Topic
     topic_name = topic.name if isinstance(topic, _Topic) else str(topic)
     topic_tag = topic.tag if isinstance(topic, _Topic) else ""
-    tag = article_data.get("tag") or topic_tag or "health"
+    tag = article_data.get("tag") or topic_tag or "home-organization"
     title = article_data.get("title", "")
     html = article_data.get("html", "")
     meta_desc = article_data.get("meta_description", "")
 
-    # ── 1. Search Intent ──────────────────────────────────────────────────────
     intent = detect_search_intent(
         title=title,
         topic_name=topic_name,
@@ -616,10 +435,8 @@ def generate_pinterest_seo(
         performance_tracker=performance_tracker,
     )
 
-    # ── 2. Primary Keyword ────────────────────────────────────────────────────
     primary_kw = extract_core_topic_phrase(topic_name, title)
 
-    # ── 3. Keywords Autênticas do Pinterest US (5–8 termos) ───────────────────
     keywords_list = generate_search_keywords(
         topic_name=topic_name,
         title=title,
@@ -631,12 +448,9 @@ def generate_pinterest_seo(
     keywords_csv = ", ".join(keywords_list)
     secondary_kws = [kw for kw in keywords_list if kw != primary_kw][:4]
 
-    # ── 4. Pin Title ──────────────────────────────────────────────────────────
-    # Preserva o título do Gemini se válido (ou corta suavemente em 70 chars); fallback seguro
     gemini_pin_title = _normalize_whitespace(article_data.get("pin_title", ""))
     if 40 <= len(gemini_pin_title) <= 70 and not _is_generic_fallback_title(gemini_pin_title):
         pin_title = gemini_pin_title
-        LOG.debug("[PinterestSEO] Usando pin_title do Gemini: '%s'", pin_title)
     else:
         pin_title = build_pinterest_title(
             title=gemini_pin_title or title,
@@ -645,14 +459,10 @@ def generate_pinterest_seo(
             intent=intent,
             primary_keyword=primary_kw,
         )
-        LOG.debug("[PinterestSEO] pin_title gerado/refinado: '%s'", pin_title)
 
-    # ── 5. Pin Description ────────────────────────────────────────────────────
-    # Prioridade máxima: descrição natural gerada pelo Gemini
     gemini_pin_desc = _normalize_whitespace(article_data.get("pin_description", ""))
     if 140 <= len(gemini_pin_desc) <= 260 and not _is_generic_fallback_description(gemini_pin_desc):
         pin_description = gemini_pin_desc
-        LOG.debug("[PinterestSEO] Preservando pin_description natural do Gemini: '%s'", pin_description)
     else:
         pin_description = build_pinterest_description(
             title=title,
@@ -662,10 +472,8 @@ def generate_pinterest_seo(
             primary_keyword=primary_kw,
             html=html,
         )
-        LOG.debug("[PinterestSEO] pin_description gerado/fallback: '%s'", pin_description)
 
-    # ── 6. Board Segmentado para o Nicho (US Audience) ────────────────────────
-    board = US_PINTEREST_BOARDS.get(tag, "Health & Wellness")
+    board = US_PINTEREST_BOARDS.get(tag, "Home Organization & Storage Solutions")
 
     seo_result = {
         "intent": intent,
@@ -678,16 +486,6 @@ def generate_pinterest_seo(
         "board": board,
     }
 
-    LOG.info(
-        "[PinterestSEO] '%s' → Intent=%s | Board='%s' | Title='%s' (%d chars) | %d keywords",
-        title[:35],
-        intent,
-        board,
-        pin_title,
-        len(pin_title),
-        len(keywords_list),
-    )
-
     return seo_result
 
 
@@ -696,28 +494,21 @@ def generate_triple_pins(
     article_data: dict[str, Any],
     performance_tracker: PinterestPerformanceTracker | None = None,
 ) -> list[dict[str, Any]]:
-    """
-    Gera exatamente 3 variações estratégicas de Pins para o mesmo artigo:
-    1. Educacional (pin_educational): foco em ciência, mecanismos e guia passo a passo.
-    2. Problema/Solução (pin_problem_solution): foco em erros comuns a evitar, mitos e soluções práticas.
-    3. Pesquisas e Palavras-chave do Pinterest (pin_seo_search): foco em termos de alto volume do Pinterest US e ideias acionáveis.
-    """
     from .topics import Topic as _Topic
     topic_name = topic.name if isinstance(topic, _Topic) else str(topic)
     topic_tag = topic.tag if isinstance(topic, _Topic) else ""
-    tag = article_data.get("tag") or topic_tag or "health"
+    tag = article_data.get("tag") or topic_tag or "home-organization"
     title = article_data.get("title", "")
     html = article_data.get("html", "")
     meta_desc = article_data.get("meta_description", "")
     primary_kw = extract_core_topic_phrase(topic_name, title)
-    board = US_PINTEREST_BOARDS.get(tag, "Health & Wellness")
+    board = US_PINTEREST_BOARDS.get(tag, "Home Organization & Storage Solutions")
 
-    # Extrai os sub-pins do payload do Gemini caso existam
     gemini_edu = article_data.get("pin_educational") if isinstance(article_data.get("pin_educational"), dict) else {}
     gemini_prob = article_data.get("pin_problem_solution") if isinstance(article_data.get("pin_problem_solution"), dict) else {}
     gemini_seo = article_data.get("pin_seo_search") if isinstance(article_data.get("pin_seo_search"), dict) else {}
 
-    # ── 1. Pin Educacional ───────────────────────────────────────────────────
+    # 1. Educational / Guide
     edu_intent = "guide"
     edu_keywords_list = generate_search_keywords(
         topic_name=topic_name,
@@ -732,7 +523,7 @@ def generate_triple_pins(
         edu_title = raw_edu_title
     else:
         edu_title = build_pinterest_title(
-            title=f"The Science-Backed Guide to {primary_kw.title()}" if primary_kw else title,
+            title=f"The Practical Guide to {primary_kw.title()}" if primary_kw else title,
             topic_name=topic_name,
             tag=tag,
             intent=edu_intent,
@@ -761,11 +552,11 @@ def generate_triple_pins(
         "keywords": ", ".join(edu_keywords_list),
         "keywords_list": edu_keywords_list,
         "board": board,
-        "slot_index": 0,  # 10:00 AM ET
+        "slot_index": 0,
         "utm_content": "pin_educational",
     }
 
-    # ── 2. Pin Problema / Solução ────────────────────────────────────────────
+    # 2. Problem / Solution
     prob_intent = "mistakes"
     prob_keywords_list = generate_search_keywords(
         topic_name=topic_name,
@@ -793,7 +584,7 @@ def generate_triple_pins(
     else:
         prob_desc = build_pinterest_description(
             title=title,
-            meta_description=f"Avoid frustrating setbacks with {primary_kw}. Learn what commonly goes wrong and simple proven solutions.",
+            meta_description=f"Avoid frustrating home mistakes with {primary_kw}. Learn what commonly goes wrong and simple proven solutions.",
             tag=tag,
             intent=prob_intent,
             primary_keyword=primary_kw,
@@ -809,11 +600,11 @@ def generate_triple_pins(
         "keywords": ", ".join(prob_keywords_list),
         "keywords_list": prob_keywords_list,
         "board": board,
-        "slot_index": 2,  # 15:30 PM ET
+        "slot_index": 2,
         "utm_content": "pin_problem_solution",
     }
 
-    # ── 3. Pin SEO / Pesquisas de Alto Volume ────────────────────────────────
+    # 3. SEO / Search
     seo_intent = "list"
     seo_keywords_list = generate_search_keywords(
         topic_name=topic_name,
@@ -828,7 +619,7 @@ def generate_triple_pins(
         seo_title = raw_seo_title
     else:
         seo_title = build_pinterest_title(
-            title=f"Top {tag.replace('-', ' ').title()} Ideas for Everyday Wellness",
+            title=f"Top {tag.replace('-', ' ').title()} Ideas for Everyday Living",
             topic_name=topic_name,
             tag=tag,
             intent=seo_intent,
@@ -857,16 +648,8 @@ def generate_triple_pins(
         "keywords": ", ".join(seo_keywords_list),
         "keywords_list": seo_keywords_list,
         "board": board,
-        "slot_index": 4,  # 20:30 PM ET (horário nobre)
+        "slot_index": 4,
         "utm_content": "pin_seo_search",
     }
-
-    LOG.info(
-        "[PinterestSEO] Gerados 3 pins para '%s': [1] %s | [2] %s | [3] %s",
-        title[:30],
-        pin_1["pin_title"][:25],
-        pin_2["pin_title"][:25],
-        pin_3["pin_title"][:25],
-    )
 
     return [pin_1, pin_2, pin_3]
