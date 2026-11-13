@@ -20,7 +20,12 @@ class DuplicateChecker:
         if self.index_path.exists():
             try:
                 with open(self.index_path, 'r', encoding='utf-8') as f:
-                    return json.load(f)
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        return data
+                    if isinstance(data, dict):
+                        return list(data.values()) if data else []
+                    return []
             except Exception as e:
                 LOG.error(f"Error loading index from {self.index_path}: {e}")
                 return []

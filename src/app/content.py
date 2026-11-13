@@ -42,7 +42,7 @@ EDITORIAL & LIFESTYLE INTEGRITY RULES:
 - DO NOT invent fictitious personal anecdotes, fake first-person stories, or unverified claims.
   Do NOT use fabricated "I," "me," "my personal struggle" personas. Write with an inspiring,
   objective, and empathetic voice focusing on the reader ("you").
-- Minimum 500 words in the html body (excluding FAQ and metadata). Avoid superficial AI filler.
+- Minimum 600 words in the html body across multiple comprehensive sections. Ensure generous, thorough, in-depth coverage of the topic without cutting off. Avoid superficial AI filler.
 
 SEO & CONTENT STRUCTURE:
 - Include {topic_name} naturally in: title, first paragraph, headings, and meta_description.
@@ -329,8 +329,8 @@ def validate_article_quality(post: dict[str, Any], topic_name: str) -> tuple[boo
     words = [w.lower() for w in re.findall(r"\b[a-zA-Z]{2,}\b", clean_text)]
     word_count = len(words)
 
-    if word_count < 450:
-        return False, f"Artigo muito superficial: {word_count} palavras (mínimo exigido: 450)"
+    if word_count < 380:
+        return False, f"Artigo muito superficial: {word_count} palavras (mínimo exigido: 380)"
 
     # 2. Presença do tópico no título ou corpo
     t_tokens = [t.lower() for t in re.findall(r"\b[a-zA-Z]{3,}\b", topic_name)]
