@@ -112,3 +112,22 @@ Traceback (most recent call last):
     self.index.append({
     ^^^^^^^^^^^^^^^^^
 AttributeError: 'dict' object has no attribute 'append'
+2026-11-13 18:31:35,522 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-11-13 18:31:35,770 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-13 18:31:35,846 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-13 18:31:35,955 INFO httpx2 - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+2026-11-13 18:31:35,958 INFO __main__ - Buscando trending topics para USA...
+2026-11-13 18:31:37,078 INFO src.app.trend_research - Gathered 11 unique trending topics.
+2026-11-13 18:31:37,080 INFO __main__ - ═══ INICIANDO RUN DIÁRIO (Meta: 1 posts/dia | Até 6 tentativas) ═══
+2026-11-13 18:31:37,080 INFO __main__ - ─── Tentativa 1 (Post 1/1) ───
+2026-11-13 18:31:37,080 INFO __main__ - [Tentativa 1 (Post 1/1)] Usando trending topic: This Is the One Question Designers Ask Before Buying New Furniture
+2026-11-13 18:31:37,081 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 enviando...
+2026-11-13 18:31:50,718 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 OK finishReason=STOP len_chars=9026
+2026-11-13 18:31:50,825 INFO src.app.duplicate_checker - Indexed post: one-question-designers-ask-before-buying-new-furniture (Total: 1)
+2026-11-13 18:31:51,936 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-13_pins.csv com 8 keywords
+2026-11-13 18:31:51,937 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'What Designers Ask Before Buying New Furniture: Step-by-Step' (intent=guide)
+2026-11-13 18:31:52,268 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-13_pins.csv com 8 keywords
+2026-11-13 18:31:52,268 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Stop Making Furniture Buying Mistakes: The One Rule You Need' (intent=mistakes)
+2026-11-13 18:31:52,603 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-13_pins.csv com 8 keywords
+2026-11-13 18:31:52,603 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'This Is The One Question Designers Ask Before Buying Furniture' (intent=list)
+2026-11-13 18:31:52,603 INFO __main__ - [Tentativa 1 (Post 1/1)] ✓ Publicado com sucesso: 'This Is The One Question Designers Ask Before Buying New Furniture' | 3 Pins gerados
