@@ -131,3 +131,22 @@ AttributeError: 'dict' object has no attribute 'append'
 2026-11-13 18:31:52,603 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-13_pins.csv com 8 keywords
 2026-11-13 18:31:52,603 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'This Is The One Question Designers Ask Before Buying Furniture' (intent=list)
 2026-11-13 18:31:52,603 INFO __main__ - [Tentativa 1 (Post 1/1)] ✓ Publicado com sucesso: 'This Is The One Question Designers Ask Before Buying New Furniture' | 3 Pins gerados
+2026-11-14 14:08:22,588 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-11-14 14:08:22,739 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-14 14:08:22,789 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-14 14:08:22,853 INFO httpx2 - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+2026-11-14 14:08:22,855 INFO __main__ - Buscando trending topics para USA...
+2026-11-14 14:08:24,599 INFO src.app.trend_research - Gathered 11 unique trending topics.
+2026-11-14 14:08:24,600 INFO __main__ - ═══ INICIANDO RUN DIÁRIO (Meta: 1 posts/dia | Até 6 tentativas) ═══
+2026-11-14 14:08:24,600 INFO __main__ - ─── Tentativa 1 (Post 1/1) ───
+2026-11-14 14:08:24,600 INFO __main__ - [Tentativa 1 (Post 1/1)] Usando trending topic: Our Favorite Cyber Monday Rug Sales for Cozy Floors This Winter
+2026-11-14 14:08:24,600 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 enviando...
+2026-11-14 14:08:37,339 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 OK finishReason=STOP len_chars=8192
+2026-11-14 14:08:37,464 INFO src.app.duplicate_checker - Indexed post: our-favorite-cyber-monday-rug-sales-for-cozy-floors-this-winter (Total: 2)
+2026-11-14 14:08:38,980 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-14_pins.csv com 8 keywords
+2026-11-14 14:08:38,981 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'How to Choose the Perfect Cozy Winter Rug for Any Room' (intent=guide)
+2026-11-14 14:08:39,310 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-14_pins.csv com 8 keywords
+2026-11-14 14:08:39,311 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Fix Cold Drafty Floors This Winter with Smart Rug Layering' (intent=mistakes)
+2026-11-14 14:08:39,658 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-14_pins.csv com 8 keywords
+2026-11-14 14:08:39,658 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Our Favorite Cyber Monday Rug Sales For Cozy Floors This Winter' (intent=list)
+2026-11-14 14:08:39,658 INFO __main__ - [Tentativa 1 (Post 1/1)] ✓ Publicado com sucesso: 'Our Favorite Cyber Monday Rug Sales For Cozy Floors This Winter' | 3 Pins gerados
