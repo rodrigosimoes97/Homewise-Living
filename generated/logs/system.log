@@ -150,3 +150,23 @@ AttributeError: 'dict' object has no attribute 'append'
 2026-11-14 14:08:39,658 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-14_pins.csv com 8 keywords
 2026-11-14 14:08:39,658 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Our Favorite Cyber Monday Rug Sales For Cozy Floors This Winter' (intent=list)
 2026-11-14 14:08:39,658 INFO __main__ - [Tentativa 1 (Post 1/1)] ✓ Publicado com sucesso: 'Our Favorite Cyber Monday Rug Sales For Cozy Floors This Winter' | 3 Pins gerados
+2026-11-15 14:45:37,345 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-11-15 14:45:37,398 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-11-15 14:45:37,610 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-15 14:45:37,668 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-15 14:45:37,742 INFO httpx2 - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+2026-11-15 14:45:37,745 INFO __main__ - Buscando trending topics para USA...
+2026-11-15 14:45:39,486 INFO src.app.trend_research - Gathered 13 unique trending topics.
+2026-11-15 14:45:39,488 INFO __main__ - ═══ INICIANDO RUN DIÁRIO (Meta: 1 posts/dia | Até 6 tentativas) ═══
+2026-11-15 14:45:39,488 INFO __main__ - ─── Tentativa 1 (Post 1/1) ───
+2026-11-15 14:45:39,488 INFO __main__ - [Tentativa 1 (Post 1/1)] Usando trending topic: “Victoriana” Holiday Decor Is So Elegant
+2026-11-15 14:45:39,488 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 enviando...
+2026-11-15 14:45:47,551 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 OK finishReason=STOP len_chars=7816
+2026-11-15 14:45:47,682 INFO src.app.duplicate_checker - Indexed post: why-victoriana-holiday-decor-is-so-elegant-and-how-to-style-it (Total: 3)
+2026-11-15 14:45:48,837 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-15_pins.csv com 8 keywords
+2026-11-15 14:45:49,024 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'How to Style Victorian Holiday Decor in Modern Homes' (intent=guide)
+2026-11-15 14:45:49,422 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-15_pins.csv com 8 keywords
+2026-11-15 14:45:49,468 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Fix Cluttered Holiday Decor with Victorian Styling Rules' (intent=mistakes)
+2026-11-15 14:45:49,915 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-15_pins.csv com 8 keywords
+2026-11-15 14:45:49,916 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Elegant “Victoriana” Holiday Decor Ideas for Every Room' (intent=list)
+2026-11-15 14:45:49,916 INFO __main__ - [Tentativa 1 (Post 1/1)] ✓ Publicado com sucesso: 'Why “Victoriana” Holiday Decor Is So Elegant and How to Style It' | 3 Pins gerados
