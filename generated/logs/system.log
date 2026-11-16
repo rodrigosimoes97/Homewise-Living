@@ -170,3 +170,55 @@ AttributeError: 'dict' object has no attribute 'append'
 2026-11-15 14:45:49,915 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-15_pins.csv com 8 keywords
 2026-11-15 14:45:49,916 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Elegant “Victoriana” Holiday Decor Ideas for Every Room' (intent=list)
 2026-11-15 14:45:49,916 INFO __main__ - [Tentativa 1 (Post 1/1)] ✓ Publicado com sucesso: 'Why “Victoriana” Holiday Decor Is So Elegant and How to Style It' | 3 Pins gerados
+2026-11-16 16:59:53,076 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-11-16 16:59:53,125 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-11-16 16:59:53,278 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-16 16:59:53,329 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-16 16:59:53,397 INFO httpx2 - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+2026-11-16 16:59:53,400 INFO __main__ - Buscando trending topics para USA...
+2026-11-16 17:00:00,916 INFO src.app.trend_research - Gathered 7 unique trending topics.
+2026-11-16 17:00:00,917 INFO __main__ - ═══ INICIANDO RUN DIÁRIO (Meta: 1 posts/dia | Até 6 tentativas) ═══
+2026-11-16 17:00:00,917 INFO __main__ - ─── Tentativa 1 (Post 1/1) ───
+2026-11-16 17:00:00,918 INFO __main__ - [Tentativa 1 (Post 1/1)] Usando trending topic: I’m Putting a $5 Shoe Rack in My Fridge to Double the Storage
+2026-11-16 17:00:00,918 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 enviando...
+2026-11-16 17:01:01,050 WARNING src.app.gemini_client - [Gemini] key#1 timeout
+2026-11-16 17:01:01,050 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#2 rodada=1 enviando...
+2026-11-16 17:01:38,363 WARNING src.app.gemini_client - [Gemini] key#2 status=503 (alta demanda no modelo gemini-3.6-flash) — tentando próxima key
+2026-11-16 17:01:43,363 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#3 rodada=1 enviando...
+2026-11-16 17:01:43,863 WARNING src.app.gemini_client - [Gemini] key#3 status=503 (alta demanda no modelo gemini-3.6-flash) — tentando próxima key
+2026-11-16 17:01:48,863 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#4 rodada=1 enviando...
+2026-11-16 17:02:48,999 WARNING src.app.gemini_client - [Gemini] key#4 timeout
+2026-11-16 17:02:48,999 WARNING src.app.gemini_client - [Gemini] Todas as keys falharam no modelo gemini-3.6-flash na rodada 1. Aguardando 5s antes de tentar no modelo gemini-3.8-flash.
+2026-11-16 17:02:53,999 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#1 rodada=2 enviando...
+2026-11-16 17:03:54,096 WARNING src.app.gemini_client - [Gemini] key#1 timeout
+2026-11-16 17:03:54,096 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#2 rodada=2 enviando...
+2026-11-16 17:04:02,342 WARNING src.app.gemini_client - [Gemini] key#2 status=503 (alta demanda no modelo gemini-3.8-flash) — tentando próxima key
+2026-11-16 17:04:12,343 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#3 rodada=2 enviando...
+2026-11-16 17:05:12,473 WARNING src.app.gemini_client - [Gemini] key#3 timeout
+2026-11-16 17:05:12,473 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#4 rodada=2 enviando...
+2026-11-16 17:05:13,742 WARNING src.app.gemini_client - [Gemini] key#4 status=503 (alta demanda no modelo gemini-3.8-flash) — tentando próxima key
+2026-11-16 17:05:23,742 WARNING src.app.gemini_client - [Gemini] Todas as keys falharam no modelo gemini-3.8-flash na rodada 2. Aguardando 10s antes de tentar no modelo gemini-3.8-flash.
+2026-11-16 17:05:33,742 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#1 rodada=3 enviando...
+2026-11-16 17:06:33,821 WARNING src.app.gemini_client - [Gemini] key#1 timeout
+2026-11-16 17:06:33,821 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#2 rodada=3 enviando...
+2026-11-16 17:06:37,346 WARNING src.app.gemini_client - [Gemini] key#2 status=503 (alta demanda no modelo gemini-3.8-flash) — tentando próxima key
+2026-11-16 17:06:52,346 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#3 rodada=3 enviando...
+2026-11-16 17:06:55,750 WARNING src.app.gemini_client - [Gemini] key#3 status=503 (alta demanda no modelo gemini-3.8-flash) — tentando próxima key
+2026-11-16 17:07:10,751 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#4 rodada=3 enviando...
+2026-11-16 17:07:42,869 WARNING src.app.gemini_client - [Gemini] key#4 status=503 (alta demanda no modelo gemini-3.8-flash) — tentando próxima key
+2026-11-16 17:07:57,870 ERROR __main__ - [Tentativa 1 (Post 1/1)] Gemini indisponível após 3 rodadas. Últimos erros: key#1 timeout; key#2 status=503 (alta demanda no modelo gemini-3.8-flash); key#3 status=503 (alta demanda no modelo gemini-3.8-flash); key#4 status=503 (alta demanda no modelo gemini-3.8-flash)
+2026-11-16 17:07:57,870 WARNING __main__ - [Tentativa 1 (Post 1/1)] Tentativa descartada sem publicação.
+2026-11-16 17:07:57,870 INFO __main__ - ─── Tentativa 2 (Post 1/1) ───
+2026-11-16 17:07:57,870 INFO __main__ - [Tentativa 2 (Post 1/1)] Usando trending topic: She Gave Her New-Build Bathroom “Private Boutique Hotel” Energy
+2026-11-16 17:07:57,870 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 enviando...
+2026-11-16 17:08:14,698 WARNING src.app.gemini_client - [Gemini] key#1 status=503 (alta demanda no modelo gemini-3.6-flash) — tentando próxima key
+2026-11-16 17:08:19,698 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#2 rodada=1 enviando...
+2026-11-16 17:08:59,301 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#2 rodada=1 OK finishReason=STOP len_chars=7003
+2026-11-16 17:08:59,445 INFO src.app.duplicate_checker - Indexed post: she-gave-her-new-build-bathroom-private-boutique-hotel-energy (Total: 4)
+2026-11-16 17:09:01,003 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-16_pins.csv com 8 keywords
+2026-11-16 17:09:01,004 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'How She Gave Her New-Build Bathroom Hotel Energy' (intent=guide)
+2026-11-16 17:09:01,199 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-16_pins.csv com 8 keywords
+2026-11-16 17:09:01,200 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Fix Cold Builder-Grade Bathrooms with Spa Energy' (intent=mistakes)
+2026-11-16 17:09:01,437 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-16_pins.csv com 8 keywords
+2026-11-16 17:09:01,437 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Boutique Hotel Bathroom Decor Ideas for New Builds' (intent=list)
+2026-11-16 17:09:01,437 INFO __main__ - [Tentativa 2 (Post 1/1)] ✓ Publicado com sucesso: 'She Gave Her New-Build Bathroom “Private Boutique Hotel” Energy' | 3 Pins gerados

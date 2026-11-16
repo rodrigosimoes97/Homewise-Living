@@ -1,33 +1,37 @@
 {
-  "runs": 4,
+  "runs": 5,
   "offer_runs": 0,
   "recent_topics": [
     "this-is-the-one-question-designers-ask-before-buyi",
     "our-favorite-cyber-monday-rug-sales-for-cozy-floor",
-    "victoriana-holiday-decor-is-so-elegant"
+    "victoriana-holiday-decor-is-so-elegant",
+    "she-gave-her-new-build-bathroom-private-boutique-h"
   ],
   "recent_slugs": [
     "one-question-designers-ask-before-buying-new-furniture",
     "our-favorite-cyber-monday-rug-sales-for-cozy-floors-this-winter",
-    "why-victoriana-holiday-decor-is-so-elegant-and-how-to-style-it"
+    "why-victoriana-holiday-decor-is-so-elegant-and-how-to-style-it",
+    "she-gave-her-new-build-bathroom-private-boutique-hotel-energy"
   ],
-  "last_run": "2026-11-15",
+  "last_run": "2026-11-16",
   "recent_tags": [
     "home-organization",
+    "decor",
     "decor",
     "decor"
   ],
   "recent_titles": [
     "This Is The One Question Designers Ask Before Buying New Furniture",
     "Our Favorite Cyber Monday Rug Sales For Cozy Floors This Winter",
-    "Why \u201cVictoriana\u201d Holiday Decor Is So Elegant and How to Style It"
+    "Why \u201cVictoriana\u201d Holiday Decor Is So Elegant and How to Style It",
+    "She Gave Her New-Build Bathroom \u201cPrivate Boutique Hotel\u201d Energy"
   ],
   "tag_counts": {
     "home-organization": 1,
-    "decor": 2
+    "decor": 3
   },
   "topic_rotation": {
-    "home-organization": 1,
+    "home-organization": 2,
     "decor": 2
   }
 }
