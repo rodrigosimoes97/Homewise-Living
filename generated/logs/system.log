@@ -462,3 +462,53 @@ AttributeError: 'dict' object has no attribute 'append'
 2026-11-19 16:51:35,670 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-19_pins.csv com 8 keywords
 2026-11-19 16:51:35,671 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'The $15 DIY Curtain Hack That Makes Cheap Panels Look Luxe' (intent=list)
 2026-11-19 16:51:35,671 INFO __main__ - [Tentativa 3 (Post 1/1)] ✓ Publicado com sucesso: 'My Cheap Curtains Look Super Luxe Thanks To This $15 DIY Hack' | 3 Pins gerados
+2026-11-20 16:07:49,025 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-11-20 16:07:49,101 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-11-20 16:07:49,323 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-20 16:07:49,405 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-20 16:07:49,517 INFO httpx2 - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+2026-11-20 16:07:49,521 INFO __main__ - Buscando trending topics para USA...
+2026-11-20 16:07:50,388 INFO src.app.trend_research - Gathered 10 unique trending topics.
+2026-11-20 16:07:50,389 INFO __main__ - ═══ INICIANDO RUN DIÁRIO (Meta: 1 posts/dia | Até 6 tentativas) ═══
+2026-11-20 16:07:50,389 INFO __main__ - ─── Tentativa 1 (Post 1/1) ───
+2026-11-20 16:07:50,390 INFO __main__ - [Tentativa 1 (Post 1/1)] Usando trending topic: 5 Times the Color Brown Really, Really Worked in Homes
+2026-11-20 16:07:50,390 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 enviando...
+2026-11-20 16:08:50,497 WARNING src.app.gemini_client - [Gemini] key#1 timeout
+2026-11-20 16:08:50,497 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#2 rodada=1 enviando...
+2026-11-20 16:09:50,586 WARNING src.app.gemini_client - [Gemini] key#2 timeout
+2026-11-20 16:09:50,586 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#3 rodada=1 enviando...
+2026-11-20 16:10:50,664 WARNING src.app.gemini_client - [Gemini] key#3 timeout
+2026-11-20 16:10:50,664 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#4 rodada=1 enviando...
+2026-11-20 16:11:50,714 WARNING src.app.gemini_client - [Gemini] key#4 timeout
+2026-11-20 16:11:50,714 WARNING src.app.gemini_client - [Gemini] Todas as keys falharam no modelo gemini-3.6-flash na rodada 1. Aguardando 5s antes de tentar no modelo gemini-3.8-flash.
+2026-11-20 16:11:55,714 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#1 rodada=2 enviando...
+2026-11-20 16:12:55,807 WARNING src.app.gemini_client - [Gemini] key#1 timeout
+2026-11-20 16:12:55,808 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#2 rodada=2 enviando...
+2026-11-20 16:13:03,311 WARNING src.app.gemini_client - [Gemini] key#2 status=503 (alta demanda no modelo gemini-3.8-flash) — tentando próxima key
+2026-11-20 16:13:13,311 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#3 rodada=2 enviando...
+2026-11-20 16:13:20,358 WARNING src.app.gemini_client - [Gemini] key#3 status=503 (alta demanda no modelo gemini-3.8-flash) — tentando próxima key
+2026-11-20 16:13:30,359 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#4 rodada=2 enviando...
+2026-11-20 16:13:52,421 WARNING src.app.gemini_client - [Gemini] key#4 status=503 (alta demanda no modelo gemini-3.8-flash) — tentando próxima key
+2026-11-20 16:14:02,422 WARNING src.app.gemini_client - [Gemini] Todas as keys falharam no modelo gemini-3.8-flash na rodada 2. Aguardando 10s antes de tentar no modelo gemini-3.8-flash.
+2026-11-20 16:14:12,422 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#1 rodada=3 enviando...
+2026-11-20 16:15:12,508 WARNING src.app.gemini_client - [Gemini] key#1 timeout
+2026-11-20 16:15:12,508 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#2 rodada=3 enviando...
+2026-11-20 16:15:13,989 WARNING src.app.gemini_client - [Gemini] key#2 status=503 (alta demanda no modelo gemini-3.8-flash) — tentando próxima key
+2026-11-20 16:15:28,990 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#3 rodada=3 enviando...
+2026-11-20 16:17:17,881 WARNING src.app.gemini_client - [Gemini] key#3 timeout
+2026-11-20 16:17:17,881 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#4 rodada=3 enviando...
+2026-11-20 16:18:17,990 WARNING src.app.gemini_client - [Gemini] key#4 timeout
+2026-11-20 16:18:17,990 ERROR __main__ - [Tentativa 1 (Post 1/1)] Gemini indisponível após 3 rodadas. Últimos erros: key#1 timeout; key#2 status=503 (alta demanda no modelo gemini-3.8-flash); key#3 timeout; key#4 timeout
+2026-11-20 16:18:17,990 WARNING __main__ - [Tentativa 1 (Post 1/1)] Tentativa descartada sem publicação.
+2026-11-20 16:18:17,990 INFO __main__ - ─── Tentativa 2 (Post 1/1) ───
+2026-11-20 16:18:17,990 INFO __main__ - [Tentativa 2 (Post 1/1)] Usando trending topic: Did Zendaya and Tom Holland Buy a $10.8 Million Home?
+2026-11-20 16:18:17,990 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 enviando...
+2026-11-20 16:19:01,017 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 OK finishReason=STOP len_chars=6929
+2026-11-20 16:19:01,154 INFO src.app.duplicate_checker - Indexed post: did-zendaya-and-tom-holland-buy-a-10-8-million-home (Total: 8)
+2026-11-20 16:19:02,020 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-20_pins.csv com 8 keywords
+2026-11-20 16:19:02,021 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Design Guide: Modern Organic Style Secrets' (intent=guide)
+2026-11-20 16:19:02,232 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-20_pins.csv com 8 keywords
+2026-11-20 16:19:02,233 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Fix Cluttered Rooms with High-End Layout Hacks' (intent=mistakes)
+2026-11-20 16:19:02,443 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-20_pins.csv com 8 keywords
+2026-11-20 16:19:02,444 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Celebrity Home Trends & Modern Decor Ideas' (intent=list)
+2026-11-20 16:19:02,444 INFO __main__ - [Tentativa 2 (Post 1/1)] ✓ Publicado com sucesso: 'Did Zendaya And Tom Holland Buy A $10.8 Million Home?' | 3 Pins gerados

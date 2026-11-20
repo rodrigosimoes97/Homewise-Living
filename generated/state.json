@@ -1,5 +1,5 @@
 {
-  "runs": 8,
+  "runs": 9,
   "offer_runs": 0,
   "recent_topics": [
     "this-is-the-one-question-designers-ask-before-buyi",
@@ -8,7 +8,8 @@
     "she-gave-her-new-build-bathroom-private-boutique-h",
     "she-kept-the-original-purple-toilet-and-sink-in-th",
     "an-otherworldly-renter-friendly-mural-covers-the-w",
-    "my-cheap-curtains-look-super-luxe-thanks-to-this-1"
+    "my-cheap-curtains-look-super-luxe-thanks-to-this-1",
+    "did-zendaya-and-tom-holland-buy-a-10-8-million-hom"
   ],
   "recent_slugs": [
     "one-question-designers-ask-before-buying-new-furniture",
@@ -17,11 +18,13 @@
     "she-gave-her-new-build-bathroom-private-boutique-hotel-energy",
     "7-ways-she-kept-the-original-purple-toilet-and-sink-1962-bathroom-makeover",
     "otherworldly-renter-friendly-mural-bathroom-makeover",
-    "my-cheap-curtains-look-super-luxe-thanks-to-this-15-diy-hack"
+    "my-cheap-curtains-look-super-luxe-thanks-to-this-15-diy-hack",
+    "did-zendaya-and-tom-holland-buy-a-10-8-million-home"
   ],
-  "last_run": "2026-11-19",
+  "last_run": "2026-11-20",
   "recent_tags": [
     "home-organization",
+    "decor",
     "decor",
     "decor",
     "decor",
@@ -36,14 +39,15 @@
     "She Gave Her New-Build Bathroom \u201cPrivate Boutique Hotel\u201d Energy",
     "7 Ways She Kept The Original Purple Toilet And Sink In This 1962 Bathroom Makeover",
     "An \u201cOtherworldly\u201d Renter-Friendly Mural Covers The Walls Of This Plain Bathroom",
-    "My Cheap Curtains Look Super Luxe Thanks To This $15 DIY Hack"
+    "My Cheap Curtains Look Super Luxe Thanks To This $15 DIY Hack",
+    "Did Zendaya And Tom Holland Buy A $10.8 Million Home?"
   ],
   "tag_counts": {
     "home-organization": 1,
-    "decor": 6
+    "decor": 7
   },
   "topic_rotation": {
-    "home-organization": 4,
+    "home-organization": 5,
     "decor": 3
   }
 }
