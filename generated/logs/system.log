@@ -512,3 +512,23 @@ AttributeError: 'dict' object has no attribute 'append'
 2026-11-20 16:19:02,443 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-20_pins.csv com 8 keywords
 2026-11-20 16:19:02,444 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Celebrity Home Trends & Modern Decor Ideas' (intent=list)
 2026-11-20 16:19:02,444 INFO __main__ - [Tentativa 2 (Post 1/1)] ✓ Publicado com sucesso: 'Did Zendaya And Tom Holland Buy A $10.8 Million Home?' | 3 Pins gerados
+2026-11-21 15:21:30,717 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-11-21 15:21:30,733 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-11-21 15:21:30,863 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-21 15:21:30,882 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-21 15:21:30,919 INFO httpx2 - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+2026-11-21 15:21:30,922 INFO __main__ - Buscando trending topics para USA...
+2026-11-21 15:21:31,670 INFO src.app.trend_research - Gathered 11 unique trending topics.
+2026-11-21 15:21:31,672 INFO __main__ - ═══ INICIANDO RUN DIÁRIO (Meta: 1 posts/dia | Até 6 tentativas) ═══
+2026-11-21 15:21:31,672 INFO __main__ - ─── Tentativa 1 (Post 1/1) ───
+2026-11-21 15:21:31,672 INFO __main__ - [Tentativa 1 (Post 1/1)] Usando trending topic: Designers Say These 5 Items Add Polish Into Any Living Room
+2026-11-21 15:21:31,672 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 enviando...
+2026-11-21 15:22:14,124 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 OK finishReason=STOP len_chars=7359
+2026-11-21 15:22:14,202 INFO src.app.duplicate_checker - Indexed post: 5-items-designers-say-add-instant-polish-living-room (Total: 9)
+2026-11-21 15:22:15,213 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-21_pins.csv com 8 keywords
+2026-11-21 15:22:15,214 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'How to Add Designer Polish to Your Living Room Easily' (intent=guide)
+2026-11-21 15:22:15,481 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-21_pins.csv com 8 keywords
+2026-11-21 15:22:15,482 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Fix a Flat Living Room with These 5 Simple Upgrades' (intent=mistakes)
+2026-11-21 15:22:15,724 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-21_pins.csv com 8 keywords
+2026-11-21 15:22:15,724 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: '5 Items Designers Say Add Polish Into Any Living Room' (intent=list)
+2026-11-21 15:22:15,724 INFO __main__ - [Tentativa 1 (Post 1/1)] ✓ Publicado com sucesso: '5 Items Designers Say Add Instant Polish to Any Living Room' | 3 Pins gerados

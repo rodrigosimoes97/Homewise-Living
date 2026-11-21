@@ -1,5 +1,5 @@
 {
-  "runs": 9,
+  "runs": 10,
   "offer_runs": 0,
   "recent_topics": [
     "this-is-the-one-question-designers-ask-before-buyi",
@@ -9,7 +9,8 @@
     "she-kept-the-original-purple-toilet-and-sink-in-th",
     "an-otherworldly-renter-friendly-mural-covers-the-w",
     "my-cheap-curtains-look-super-luxe-thanks-to-this-1",
-    "did-zendaya-and-tom-holland-buy-a-10-8-million-hom"
+    "did-zendaya-and-tom-holland-buy-a-10-8-million-hom",
+    "designers-say-these-5-items-add-polish-into-any-li"
   ],
   "recent_slugs": [
     "one-question-designers-ask-before-buying-new-furniture",
@@ -19,11 +20,13 @@
     "7-ways-she-kept-the-original-purple-toilet-and-sink-1962-bathroom-makeover",
     "otherworldly-renter-friendly-mural-bathroom-makeover",
     "my-cheap-curtains-look-super-luxe-thanks-to-this-15-diy-hack",
-    "did-zendaya-and-tom-holland-buy-a-10-8-million-home"
+    "did-zendaya-and-tom-holland-buy-a-10-8-million-home",
+    "5-items-designers-say-add-instant-polish-living-room"
   ],
-  "last_run": "2026-11-20",
+  "last_run": "2026-11-21",
   "recent_tags": [
     "home-organization",
+    "decor",
     "decor",
     "decor",
     "decor",
@@ -40,14 +43,15 @@
     "7 Ways She Kept The Original Purple Toilet And Sink In This 1962 Bathroom Makeover",
     "An \u201cOtherworldly\u201d Renter-Friendly Mural Covers The Walls Of This Plain Bathroom",
     "My Cheap Curtains Look Super Luxe Thanks To This $15 DIY Hack",
-    "Did Zendaya And Tom Holland Buy A $10.8 Million Home?"
+    "Did Zendaya And Tom Holland Buy A $10.8 Million Home?",
+    "5 Items Designers Say Add Instant Polish to Any Living Room"
   ],
   "tag_counts": {
     "home-organization": 1,
-    "decor": 7
+    "decor": 8
   },
   "topic_rotation": {
     "home-organization": 5,
-    "decor": 3
+    "decor": 4
   }
 }
