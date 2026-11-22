@@ -1,5 +1,5 @@
 {
-  "runs": 10,
+  "runs": 11,
   "offer_runs": 0,
   "recent_topics": [
     "this-is-the-one-question-designers-ask-before-buyi",
@@ -10,7 +10,8 @@
     "an-otherworldly-renter-friendly-mural-covers-the-w",
     "my-cheap-curtains-look-super-luxe-thanks-to-this-1",
     "did-zendaya-and-tom-holland-buy-a-10-8-million-hom",
-    "designers-say-these-5-items-add-polish-into-any-li"
+    "designers-say-these-5-items-add-polish-into-any-li",
+    "she-didn-t-have-room-for-a-nightstand-this-overloo"
   ],
   "recent_slugs": [
     "one-question-designers-ask-before-buying-new-furniture",
@@ -21,9 +22,10 @@
     "otherworldly-renter-friendly-mural-bathroom-makeover",
     "my-cheap-curtains-look-super-luxe-thanks-to-this-15-diy-hack",
     "did-zendaya-and-tom-holland-buy-a-10-8-million-home",
-    "5-items-designers-say-add-instant-polish-living-room"
+    "5-items-designers-say-add-instant-polish-living-room",
+    "she-didnt-have-room-for-a-nightstand-this-overlooked-feature-was-a-great-alt"
   ],
-  "last_run": "2026-11-21",
+  "last_run": "2026-11-22",
   "recent_tags": [
     "home-organization",
     "decor",
@@ -33,7 +35,8 @@
     "decor",
     "decor",
     "decor",
-    "decor"
+    "decor",
+    "home-organization"
   ],
   "recent_titles": [
     "This Is The One Question Designers Ask Before Buying New Furniture",
@@ -44,14 +47,15 @@
     "An \u201cOtherworldly\u201d Renter-Friendly Mural Covers The Walls Of This Plain Bathroom",
     "My Cheap Curtains Look Super Luxe Thanks To This $15 DIY Hack",
     "Did Zendaya And Tom Holland Buy A $10.8 Million Home?",
-    "5 Items Designers Say Add Instant Polish to Any Living Room"
+    "5 Items Designers Say Add Instant Polish to Any Living Room",
+    "She Didn\u2019T Have Room For A Nightstand \u2014 This Overlooked Feature Was A Great Alt"
   ],
   "tag_counts": {
-    "home-organization": 1,
+    "home-organization": 2,
     "decor": 8
   },
   "topic_rotation": {
-    "home-organization": 5,
+    "home-organization": 6,
     "decor": 4
   }
 }

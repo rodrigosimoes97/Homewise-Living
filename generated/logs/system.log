@@ -532,3 +532,23 @@ AttributeError: 'dict' object has no attribute 'append'
 2026-11-21 15:22:15,724 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-21_pins.csv com 8 keywords
 2026-11-21 15:22:15,724 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: '5 Items Designers Say Add Polish Into Any Living Room' (intent=list)
 2026-11-21 15:22:15,724 INFO __main__ - [Tentativa 1 (Post 1/1)] ✓ Publicado com sucesso: '5 Items Designers Say Add Instant Polish to Any Living Room' | 3 Pins gerados
+2026-11-22 15:16:46,333 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-11-22 15:16:46,424 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-11-22 15:16:46,634 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-22 15:16:46,722 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-22 15:16:46,832 INFO httpx2 - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+2026-11-22 15:16:46,835 INFO __main__ - Buscando trending topics para USA...
+2026-11-22 15:16:47,779 INFO src.app.trend_research - Gathered 11 unique trending topics.
+2026-11-22 15:16:47,781 INFO __main__ - ═══ INICIANDO RUN DIÁRIO (Meta: 1 posts/dia | Até 6 tentativas) ═══
+2026-11-22 15:16:47,781 INFO __main__ - ─── Tentativa 1 (Post 1/1) ───
+2026-11-22 15:16:47,781 INFO __main__ - [Tentativa 1 (Post 1/1)] Usando trending topic: She Didn’t Have Room for a Nightstand — This Overlooked Feature Was a Great Alt
+2026-11-22 15:16:47,781 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 enviando...
+2026-11-22 15:17:05,595 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 OK finishReason=STOP len_chars=7247
+2026-11-22 15:17:05,664 INFO src.app.duplicate_checker - Indexed post: she-didnt-have-room-for-a-nightstand-this-overlooked-feature-was-a-great-alt (Total: 10)
+2026-11-22 15:17:06,481 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-22_pins.csv com 8 keywords
+2026-11-22 15:17:06,482 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: '5 Smart Alternatives When You Have No Room for a Nightstand' (intent=guide)
+2026-11-22 15:17:06,610 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-22_pins.csv com 8 keywords
+2026-11-22 15:17:06,611 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'No Space for a Bedside Table? Try This Clever Alternative' (intent=mistakes)
+2026-11-22 15:17:06,741 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-22_pins.csv com 8 keywords
+2026-11-22 15:17:06,742 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: '5 Inspiring Bedside Table Alternatives for Small Bedrooms' (intent=list)
+2026-11-22 15:17:06,742 INFO __main__ - [Tentativa 1 (Post 1/1)] ✓ Publicado com sucesso: 'She Didn’T Have Room For A Nightstand — This Overlooked Feature Was A Great Alt' | 3 Pins gerados
