@@ -827,6 +827,7 @@ def _write_index(
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>{escape(site_title)}: Smart Ideas for a Better Home</title>
+<meta name="google-site-verification" content="4qnBubqd8SUqfnhpX-noH-MRo6GNuDoIJVynWlnvylM" />
 <meta name='description' content='Practical ideas, thoughtful products, and everyday inspiration for a home you love. Guides on organization, kitchen, decor, garden, home office, and pets.'>
 <meta name='robots' content='index,follow'>
 {_google_analytics()}
