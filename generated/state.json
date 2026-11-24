@@ -1,5 +1,5 @@
 {
-  "runs": 12,
+  "runs": 13,
   "offer_runs": 0,
   "recent_topics": [
     "this-is-the-one-question-designers-ask-before-buyi",
@@ -12,7 +12,8 @@
     "did-zendaya-and-tom-holland-buy-a-10-8-million-hom",
     "designers-say-these-5-items-add-polish-into-any-li",
     "she-didn-t-have-room-for-a-nightstand-this-overloo",
-    "the-easy-diy-rinse-aid-i-put-in-every-dishwasher-c"
+    "the-easy-diy-rinse-aid-i-put-in-every-dishwasher-c",
+    "this-couples-lisbon-home-is-part-apartment-part-ce"
   ],
   "recent_slugs": [
     "one-question-designers-ask-before-buying-new-furniture",
@@ -25,9 +26,10 @@
     "did-zendaya-and-tom-holland-buy-a-10-8-million-home",
     "5-items-designers-say-add-instant-polish-living-room",
     "she-didnt-have-room-for-a-nightstand-this-overlooked-feature-was-a-great-alt",
-    "struggling-with-the-easy-diy-rinse-aid-i-put-in-every-dishwasher-cycle"
+    "struggling-with-the-easy-diy-rinse-aid-i-put-in-every-dishwasher-cycle",
+    "this-couples-lisbon-home-is-part-apartment-part-ceramic-art-playground"
   ],
-  "last_run": "2026-11-23",
+  "last_run": "2026-11-24",
   "recent_tags": [
     "home-organization",
     "decor",
@@ -39,6 +41,7 @@
     "decor",
     "decor",
     "home-organization",
+    "kitchen",
     "kitchen"
   ],
   "recent_titles": [
@@ -52,15 +55,16 @@
     "Did Zendaya And Tom Holland Buy A $10.8 Million Home?",
     "5 Items Designers Say Add Instant Polish to Any Living Room",
     "She Didn\u2019T Have Room For A Nightstand \u2014 This Overlooked Feature Was A Great Alt",
-    "Struggling with The Easy Diy Rinse Aid I Put In Every Dishwasher Cycle? Try This Simple Hack"
+    "Struggling with The Easy Diy Rinse Aid I Put In Every Dishwasher Cycle? Try This Simple Hack",
+    "This Couples Lisbon Home Is Part Apartment, Part Ceramic Art Playground"
   ],
   "tag_counts": {
     "home-organization": 2,
     "decor": 8,
-    "kitchen": 1
+    "kitchen": 2
   },
   "topic_rotation": {
-    "home-organization": 7,
+    "home-organization": 8,
     "decor": 4
   }
 }
