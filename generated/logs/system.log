@@ -654,3 +654,25 @@ AttributeError: 'dict' object has no attribute 'append'
 2026-11-24 18:53:30,298 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-24_pins.csv com 8 keywords
 2026-11-24 18:53:30,300 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'This Couples Lisbon Home Is Part Apartment, Part Ceramic Playground' (intent=list)
 2026-11-24 18:53:30,300 INFO __main__ - [Tentativa 1 (Post 1/1)] ✓ Publicado com sucesso: 'This Couples Lisbon Home Is Part Apartment, Part Ceramic Art Playground' | 3 Pins gerados
+2026-11-25 17:58:14,530 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-11-25 17:58:14,548 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-11-25 17:58:14,690 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 17:58:14,710 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 17:58:14,756 INFO httpx2 - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+2026-11-25 17:58:14,759 INFO __main__ - Buscando trending topics para USA...
+2026-11-25 17:58:15,779 INFO src.app.trend_research - Gathered 11 unique trending topics.
+2026-11-25 17:58:15,781 INFO __main__ - ═══ INICIANDO RUN DIÁRIO (Meta: 1 posts/dia | Até 6 tentativas) ═══
+2026-11-25 17:58:15,781 INFO __main__ - ─── Tentativa 1 (Post 1/1) ───
+2026-11-25 17:58:15,781 INFO __main__ - [Tentativa 1 (Post 1/1)] Usando trending topic: I Replaced My Ugly Under-Bed Bins with This Chic Storage Bed — and Even My Roommates Can’t Tell It Has Drawers
+2026-11-25 17:58:15,781 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 enviando...
+2026-11-25 17:59:15,825 WARNING src.app.gemini_client - [Gemini] key#1 timeout
+2026-11-25 17:59:15,825 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#2 rodada=1 enviando...
+2026-11-25 18:00:07,200 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#2 rodada=1 OK finishReason=STOP len_chars=6884
+2026-11-25 18:00:07,303 INFO src.app.duplicate_checker - Indexed post: i-replaced-my-ugly-under-bed-bins-with-this-chic-storage-bed (Total: 13)
+2026-11-25 18:00:08,431 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-25_pins.csv com 8 keywords
+2026-11-25 18:00:08,433 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'How to Swap Plastic Bins for Modern Storage Beds' (intent=guide)
+2026-11-25 18:00:08,800 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-25_pins.csv com 8 keywords
+2026-11-25 18:00:08,801 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Tired of Plastic Bins? Try This Chic Storage Bed' (intent=mistakes)
+2026-11-25 18:00:09,159 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-25_pins.csv com 8 keywords
+2026-11-25 18:00:09,161 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Smart Storage Bed Ideas for Small Bedrooms' (intent=list)
+2026-11-25 18:00:09,161 INFO __main__ - [Tentativa 1 (Post 1/1)] ✓ Publicado com sucesso: 'I Replaced My Ugly Under-Bed Bins With This Chic Storage Bed' | 3 Pins gerados
