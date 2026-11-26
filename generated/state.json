@@ -1,5 +1,5 @@
 {
-  "runs": 14,
+  "runs": 15,
   "offer_runs": 0,
   "recent_topics": [
     "this-is-the-one-question-designers-ask-before-buyi",
@@ -14,7 +14,8 @@
     "she-didn-t-have-room-for-a-nightstand-this-overloo",
     "the-easy-diy-rinse-aid-i-put-in-every-dishwasher-c",
     "this-couples-lisbon-home-is-part-apartment-part-ce",
-    "i-replaced-my-ugly-under-bed-bins-with-this-chic-s"
+    "i-replaced-my-ugly-under-bed-bins-with-this-chic-s",
+    "match-this-one-detail-to-make-open-concept-homes-f"
   ],
   "recent_slugs": [
     "one-question-designers-ask-before-buying-new-furniture",
@@ -29,9 +30,10 @@
     "she-didnt-have-room-for-a-nightstand-this-overlooked-feature-was-a-great-alt",
     "struggling-with-the-easy-diy-rinse-aid-i-put-in-every-dishwasher-cycle",
     "this-couples-lisbon-home-is-part-apartment-part-ceramic-art-playground",
-    "i-replaced-my-ugly-under-bed-bins-with-this-chic-storage-bed"
+    "i-replaced-my-ugly-under-bed-bins-with-this-chic-storage-bed",
+    "match-this-one-detail-to-make-open-concept-homes-flow-better"
   ],
-  "last_run": "2026-11-25",
+  "last_run": "2026-11-26",
   "recent_tags": [
     "home-organization",
     "decor",
@@ -45,6 +47,7 @@
     "home-organization",
     "kitchen",
     "kitchen",
+    "home-organization",
     "home-organization"
   ],
   "recent_titles": [
@@ -60,15 +63,16 @@
     "She Didn\u2019T Have Room For A Nightstand \u2014 This Overlooked Feature Was A Great Alt",
     "Struggling with The Easy Diy Rinse Aid I Put In Every Dishwasher Cycle? Try This Simple Hack",
     "This Couples Lisbon Home Is Part Apartment, Part Ceramic Art Playground",
-    "I Replaced My Ugly Under-Bed Bins With This Chic Storage Bed"
+    "I Replaced My Ugly Under-Bed Bins With This Chic Storage Bed",
+    "Match This One Detail To Make Open-Concept Homes Flow Better"
   ],
   "tag_counts": {
-    "home-organization": 3,
+    "home-organization": 4,
     "decor": 8,
     "kitchen": 2
   },
   "topic_rotation": {
-    "home-organization": 9,
+    "home-organization": 10,
     "decor": 4
   }
 }
