@@ -476,6 +476,7 @@ def _render_post_html(
     return f"""<!doctype html>
 <html lang='en-US' dir='ltr'>
 <head>
+{_google_tag_manager()}
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>{escape(str(post['title']))} | {escape(site_title)}</title>
@@ -627,20 +628,16 @@ def _render_post_card(post: dict[str, str], docs_dir: Path, link_prefix: str = "
         f"</article>"
     )
 
-def _google_analytics() -> str:
-    import os
-    ga_id = os.getenv("GA_MEASUREMENT_ID", "").strip()
-    if not ga_id:
-        return ""
-    return f"""<!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id={ga_id}"></script>
-        <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){{dataLayer.push(arguments);}}
-        gtag('js', new Date());
+def _google_tag_manager() -> str:
+    return """<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NSML2FPZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>"""
 
-        gtag('config', '{ga_id}');
-        </script>"""
+def _google_analytics() -> str:
+    return ""
 
 
 
@@ -824,13 +821,13 @@ def _write_index(
     html = f"""<!doctype html>
 <html lang='en'>
 <head>
+{_google_tag_manager()}
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>{escape(site_title)}: Smart Ideas for a Better Home</title>
 <meta name="google-site-verification" content="4qnBubqd8SUqfnhpX-noH-MRo6GNuDoIJVynWlnvylM" />
 <meta name='description' content='Practical ideas, thoughtful products, and everyday inspiration for a home you love. Guides on organization, kitchen, decor, garden, home office, and pets.'>
 <meta name='robots' content='index,follow'>
-{_google_analytics()}
 <link rel='canonical' href='{public_base}/'>
 <meta property='og:type' content='website'>
 <meta property='og:title' content='{escape(site_title)}'>
@@ -1042,6 +1039,7 @@ def _write_tag_pages(
         content = f"""<!doctype html>
 <html lang='en'>
 <head>
+{_google_tag_manager()}
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>{escape(tag.replace("-"," ").title())} | {escape(site_title)}</title>
@@ -1058,7 +1056,6 @@ def _write_tag_pages(
 <meta name='twitter:description' content='{escape(intro)}'>
 <meta name='theme-color' content='#F7F5F0'>
 {fonts}
-{_google_analytics()}
 <link rel='stylesheet' href='/assets/style.css'>
 </head>
 <body>
@@ -1110,6 +1107,7 @@ def _write_about_page(docs_dir: Path, base_url: str, site_title: str) -> None:
     html = f"""<!doctype html>
 <html lang='en'>
 <head>
+{_google_tag_manager()}
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>About | {escape(site_title)}</title>
@@ -1117,7 +1115,6 @@ def _write_about_page(docs_dir: Path, base_url: str, site_title: str) -> None:
 <meta name='robots' content='index,follow'>
 <link rel='canonical' href='{public_base}/about'>
 {fonts}
-{_google_analytics()}
 <link rel='stylesheet' href='/assets/style.css'>
 </head>
 <body>
