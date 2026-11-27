@@ -700,3 +700,23 @@ AttributeError: 'dict' object has no attribute 'append'
 2026-11-26 17:45:28,952 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-26_pins.csv com 8 keywords
 2026-11-26 17:45:28,954 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Match This One Detail To Make Open-Concept Homes Flow Better' (intent=list)
 2026-11-26 17:45:28,954 INFO __main__ - [Tentativa 1 (Post 1/1)] ✓ Publicado com sucesso: 'Match This One Detail To Make Open-Concept Homes Flow Better' | 3 Pins gerados
+2026-11-27 17:28:18,011 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-11-27 17:28:18,049 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-11-27 17:28:18,189 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-27 17:28:18,212 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-27 17:28:18,257 INFO httpx2 - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+2026-11-27 17:28:18,260 INFO __main__ - Buscando trending topics para USA...
+2026-11-27 17:28:19,172 INFO src.app.trend_research - Gathered 9 unique trending topics.
+2026-11-27 17:28:19,173 INFO __main__ - ═══ INICIANDO RUN DIÁRIO (Meta: 1 posts/dia | Até 6 tentativas) ═══
+2026-11-27 17:28:19,173 INFO __main__ - ─── Tentativa 1 (Post 1/1) ───
+2026-11-27 17:28:19,174 INFO __main__ - [Tentativa 1 (Post 1/1)] Usando trending topic: Anthropologie and Terrain Just Made Christmas Decorating Feel Magical Again
+2026-11-27 17:28:19,174 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 enviando...
+2026-11-27 17:28:34,124 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 OK finishReason=STOP len_chars=8115
+2026-11-27 17:28:34,237 INFO src.app.duplicate_checker - Indexed post: anthropologie-and-terrain-just-made-christmas-decorating-feel-magical-again (Total: 15)
+2026-11-27 17:28:35,167 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-27_pins.csv com 8 keywords
+2026-11-27 17:28:35,169 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Step-by-Step Guide to Organic Christmas Decor' (intent=guide)
+2026-11-27 17:28:35,510 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-27_pins.csv com 8 keywords
+2026-11-27 17:28:35,511 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Fix Cluttered Holiday Decor with Natural Styling' (intent=mistakes)
+2026-11-27 17:28:35,920 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-27_pins.csv com 8 keywords
+2026-11-27 17:28:35,921 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Best Anthropologie & Terrain Christmas Decor Ideas' (intent=list)
+2026-11-27 17:28:35,921 INFO __main__ - [Tentativa 1 (Post 1/1)] ✓ Publicado com sucesso: 'Anthropologie And Terrain Just Made Christmas Decorating Magical Again' | 3 Pins gerados
