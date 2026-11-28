@@ -720,3 +720,53 @@ AttributeError: 'dict' object has no attribute 'append'
 2026-11-27 17:28:35,920 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-27_pins.csv com 8 keywords
 2026-11-27 17:28:35,921 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Best Anthropologie & Terrain Christmas Decor Ideas' (intent=list)
 2026-11-27 17:28:35,921 INFO __main__ - [Tentativa 1 (Post 1/1)] ✓ Publicado com sucesso: 'Anthropologie And Terrain Just Made Christmas Decorating Magical Again' | 3 Pins gerados
+2026-11-28 16:10:08,139 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-11-28 16:10:08,160 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-11-28 16:10:08,300 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-28 16:10:08,323 INFO httpx2 - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-28 16:10:08,365 INFO httpx2 - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+2026-11-28 16:10:08,369 INFO __main__ - Buscando trending topics para USA...
+2026-11-28 16:10:09,935 INFO src.app.trend_research - Gathered 11 unique trending topics.
+2026-11-28 16:10:09,936 INFO __main__ - ═══ INICIANDO RUN DIÁRIO (Meta: 1 posts/dia | Até 6 tentativas) ═══
+2026-11-28 16:10:09,936 INFO __main__ - ─── Tentativa 1 (Post 1/1) ───
+2026-11-28 16:10:09,937 INFO __main__ - [Tentativa 1 (Post 1/1)] Usando trending topic: I’m a Bookworm, and This Unexpected Kitchen Find Is My New Favorite Thing
+2026-11-28 16:10:09,937 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 enviando...
+2026-11-28 16:10:10,262 WARNING src.app.gemini_client - [Gemini] key#1 status=503 (alta demanda no modelo gemini-3.6-flash) — tentando próxima key
+2026-11-28 16:10:15,262 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#2 rodada=1 enviando...
+2026-11-28 16:10:15,535 WARNING src.app.gemini_client - [Gemini] key#2 status=503 (alta demanda no modelo gemini-3.6-flash) — tentando próxima key
+2026-11-28 16:10:20,536 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#3 rodada=1 enviando...
+2026-11-28 16:10:21,062 WARNING src.app.gemini_client - [Gemini] key#3 status=503 (alta demanda no modelo gemini-3.6-flash) — tentando próxima key
+2026-11-28 16:10:26,062 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#4 rodada=1 enviando...
+2026-11-28 16:10:26,606 WARNING src.app.gemini_client - [Gemini] key#4 status=503 (alta demanda no modelo gemini-3.6-flash) — tentando próxima key
+2026-11-28 16:10:31,607 WARNING src.app.gemini_client - [Gemini] Todas as keys falharam no modelo gemini-3.6-flash na rodada 1. Aguardando 5s antes de tentar no modelo gemini-3.8-flash.
+2026-11-28 16:10:36,607 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#1 rodada=2 enviando...
+2026-11-28 16:10:40,305 WARNING src.app.gemini_client - [Gemini] key#1 status=503 (alta demanda no modelo gemini-3.8-flash) — tentando próxima key
+2026-11-28 16:10:50,305 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#2 rodada=2 enviando...
+2026-11-28 16:10:55,685 WARNING src.app.gemini_client - [Gemini] key#2 status=503 (alta demanda no modelo gemini-3.8-flash) — tentando próxima key
+2026-11-28 16:11:05,685 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#3 rodada=2 enviando...
+2026-11-28 16:12:05,718 WARNING src.app.gemini_client - [Gemini] key#3 timeout
+2026-11-28 16:12:05,718 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#4 rodada=2 enviando...
+2026-11-28 16:12:08,792 WARNING src.app.gemini_client - [Gemini] key#4 status=503 (alta demanda no modelo gemini-3.8-flash) — tentando próxima key
+2026-11-28 16:12:18,792 WARNING src.app.gemini_client - [Gemini] Todas as keys falharam no modelo gemini-3.8-flash na rodada 2. Aguardando 10s antes de tentar no modelo gemini-3.8-flash.
+2026-11-28 16:12:28,793 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#1 rodada=3 enviando...
+2026-11-28 16:13:28,881 WARNING src.app.gemini_client - [Gemini] key#1 timeout
+2026-11-28 16:13:28,881 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#2 rodada=3 enviando...
+2026-11-28 16:14:28,967 WARNING src.app.gemini_client - [Gemini] key#2 timeout
+2026-11-28 16:14:28,967 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#3 rodada=3 enviando...
+2026-11-28 16:14:32,765 WARNING src.app.gemini_client - [Gemini] key#3 status=503 (alta demanda no modelo gemini-3.8-flash) — tentando próxima key
+2026-11-28 16:14:47,765 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.8-flash key#4 rodada=3 enviando...
+2026-11-28 16:15:47,817 WARNING src.app.gemini_client - [Gemini] key#4 timeout
+2026-11-28 16:15:47,818 ERROR __main__ - [Tentativa 1 (Post 1/1)] Gemini indisponível após 3 rodadas. Últimos erros: key#1 timeout; key#2 timeout; key#3 status=503 (alta demanda no modelo gemini-3.8-flash); key#4 timeout
+2026-11-28 16:15:47,818 WARNING __main__ - [Tentativa 1 (Post 1/1)] Tentativa descartada sem publicação.
+2026-11-28 16:15:47,818 INFO __main__ - ─── Tentativa 2 (Post 1/1) ───
+2026-11-28 16:15:47,818 INFO __main__ - [Tentativa 2 (Post 1/1)] Usando trending topic: Instead of Replacing My Dark Wood Kitchen Cabinets, I Changed Everything Else
+2026-11-28 16:15:47,818 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 enviando...
+2026-11-28 16:15:57,295 INFO src.app.gemini_client - [Gemini] modelo=gemini-3.6-flash key#1 rodada=1 OK finishReason=STOP len_chars=7856
+2026-11-28 16:15:57,438 INFO src.app.duplicate_checker - Indexed post: instead-of-replacing-my-dark-wood-kitchen-cabinets-i-changed-everything-else (Total: 16)
+2026-11-28 16:15:58,582 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-28_pins.csv com 8 keywords
+2026-11-28 16:15:58,584 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'How to Brighten Dark Wood Kitchen Cabinets Without Paint' (intent=guide)
+2026-11-28 16:15:58,878 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-28_pins.csv com 8 keywords
+2026-11-28 16:15:58,880 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: 'Hate Your Dark Cabinets? Change Everything Else Instead' (intent=mistakes)
+2026-11-28 16:15:59,177 INFO src.app.pinterest_drafts - [PinterestDrafts] Draft salvo: 2026-11-28_pins.csv com 8 keywords
+2026-11-28 16:15:59,178 INFO src.app.pinterest_performance - [PinterestPerformance] Pin registrado/atualizado: '10 Clever Ways to Style Dark Wood Kitchen Cabinets' (intent=list)
+2026-11-28 16:15:59,178 INFO __main__ - [Tentativa 2 (Post 1/1)] ✓ Publicado com sucesso: 'Instead Of Replacing My Dark Wood Kitchen Cabinets, I Changed Everything Else' | 3 Pins gerados

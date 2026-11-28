@@ -1,5 +1,5 @@
 {
-  "runs": 16,
+  "runs": 17,
   "offer_runs": 0,
   "recent_topics": [
     "this-is-the-one-question-designers-ask-before-buyi",
@@ -16,7 +16,8 @@
     "this-couples-lisbon-home-is-part-apartment-part-ce",
     "i-replaced-my-ugly-under-bed-bins-with-this-chic-s",
     "match-this-one-detail-to-make-open-concept-homes-f",
-    "anthropologie-and-terrain-just-made-christmas-deco"
+    "anthropologie-and-terrain-just-made-christmas-deco",
+    "instead-of-replacing-my-dark-wood-kitchen-cabinets"
   ],
   "recent_slugs": [
     "one-question-designers-ask-before-buying-new-furniture",
@@ -33,9 +34,10 @@
     "this-couples-lisbon-home-is-part-apartment-part-ceramic-art-playground",
     "i-replaced-my-ugly-under-bed-bins-with-this-chic-storage-bed",
     "match-this-one-detail-to-make-open-concept-homes-flow-better",
-    "anthropologie-and-terrain-just-made-christmas-decorating-feel-magical-again"
+    "anthropologie-and-terrain-just-made-christmas-decorating-feel-magical-again",
+    "instead-of-replacing-my-dark-wood-kitchen-cabinets-i-changed-everything-else"
   ],
-  "last_run": "2026-11-27",
+  "last_run": "2026-11-28",
   "recent_tags": [
     "home-organization",
     "decor",
@@ -51,7 +53,8 @@
     "kitchen",
     "home-organization",
     "home-organization",
-    "decor"
+    "decor",
+    "kitchen"
   ],
   "recent_titles": [
     "This Is The One Question Designers Ask Before Buying New Furniture",
@@ -68,15 +71,17 @@
     "This Couples Lisbon Home Is Part Apartment, Part Ceramic Art Playground",
     "I Replaced My Ugly Under-Bed Bins With This Chic Storage Bed",
     "Match This One Detail To Make Open-Concept Homes Flow Better",
-    "Anthropologie And Terrain Just Made Christmas Decorating Magical Again"
+    "Anthropologie And Terrain Just Made Christmas Decorating Magical Again",
+    "Instead Of Replacing My Dark Wood Kitchen Cabinets, I Changed Everything Else"
   ],
   "tag_counts": {
     "home-organization": 4,
     "decor": 9,
-    "kitchen": 2
+    "kitchen": 3
   },
   "topic_rotation": {
     "home-organization": 10,
-    "decor": 5
+    "decor": 5,
+    "kitchen": 1
   }
 }
